@@ -1,0 +1,78 @@
+/* === FORM INPUT GROUP === */
+.signup-container {
+    height: 70vh;
+
+
+}
+.signup-container h1 {
+  
+  margin-bottom: 3rem;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+    width: 90%;
+    max-width: 400px;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  
+}
+.input-group label {
+  font-size: 1rem;
+  color: var(--neon-pink);
+
+}
+.input-group input {
+  padding: 0.8rem;
+  border: 2px solid var(--neon-blue);
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--very-light-blue);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+.signup-form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    gap:4rem;
+}
+.login-form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    gap:2rem;
+}
+.login-form button {
+  width: 400px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.form-group1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  height: 100%;
+}
+.form-group2 {
+      display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+    height: 100%;
+}
+.form-group2 button {
+  width: 400px;
+  align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}

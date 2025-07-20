@@ -1,0 +1,195 @@
+.home-container .button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  
+  margin-top: 2rem;
+}
+.home-container h1{
+    font-size: clamp(3rem, 2.5rem + 2.5vw, 6rem);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    text-shadow:
+        2px 2px 0 var(--neon-pink),
+        4px 4px 20px var(--neon-blue),
+        6px 6px 0 var(--neon-blue);
+}
+.home-container button{
+    width: 200px;
+    height: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    justify-content: center;
+}
+.home-container p{
+ 
+    text-align: center;
+    margin: 5rem;
+}
+button.primary-button,
+button.oauth-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  border: 2px solid var(--neon-blue);
+  background-color: transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  color: var(--neon-pink);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+button.primary-button:hover {
+    background-color: var(--neon-blue);
+    color: var(--dark-blue);
+}
+
+button.oauth-button {
+  border-color: #ffffff33;
+  color: #ffffffcc;
+}
+
+button.oauth-button.google {
+  border-color: #ea4335;
+  color: #ea4335;
+}
+
+button.oauth-button.github {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+button.oauth-button.google:hover {
+  background-color: #ea4335;
+  color: #0a0f2f;
+}
+
+button.oauth-button.github:hover {
+  background-color: #ffffff;
+  color: #0a0f2f;
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+  animation: pulse-icon 2s infinite;
+}
+
+@keyframes pulse-icon {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+/* Usa las variables y fuentes de tu root */
+.main-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: var(--padding-wrapper);
+    border-radius: 1rem;
+    font-family: var(--font-body);
+    color: var(--very-light-blue);
+}
+
+.leaderboard-header h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    
+    
+   
+}
+
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--neon-blue);
+    border-radius: 0.75rem;
+    transition: box-shadow 0.3s ease;
+    cursor: default;
+}
+
+.leaderboard-item:hover {
+    /* box-shadow removed */
+}
+
+.rank {
+    font-family: var(--font-headings);
+    font-size: 2.2rem;
+    width: 3rem;
+    text-align: center;
+    user-select: none;
+    text-shadow:
+        0 0 8px var(--neon-pink),
+        0 0 15px var(--neon-blue);
+}
+
+/* Colores especiales para los primeros 3 puestos */
+.rank.gold {
+    color: #ffd700;
+    text-shadow:
+        0 0 10px #ffd700,
+        0 0 25px var(--neon-pink);
+}
+
+.rank.silver {
+    color: #c0c0c0;
+    text-shadow:
+        0 0 10px #c0c0c0,
+        0 0 25px var(--neon-blue);
+}
+
+.rank.bronze {
+    color: #cd7f32;
+    text-shadow:
+        0 0 10px #cd7f32,
+        0 0 25px var(--neon-pink);
+}
+
+.profile-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 1rem;
+    object-fit: cover;
+    border: 2px solid var(--neon-pink);
+    user-select: none;
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.username-text {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--neon-pink);
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px var(--neon-pink);
+    user-select: none;
+}
+
+.stats-text {
+    font-size: 1rem;
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px var(--neon-blue);
+    user-select: none;
+}

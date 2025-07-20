@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Share+Tech+Mono&display=swap");
+
+.neon-navbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+}
+
+.radio-btn-group {
+  position: relative;
+}
+
+input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+input[type="radio"]:checked + label::before {
+  box-shadow: 0 0 12px 3px var(--neon-pink);
+}
+
+input[type="radio"]:checked + label span {
+  color: var(--neon-pink);
+  text-shadow:
+    0 0 5px var(--neon-blue),
+    0 0 10px var(--neon-pink);
+}
+
+label span {
+  position: relative;
+  z-index: 1;
+ 
+}
+
+label svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: 8px;
+ 
+  z-index: 0;
+}
+
+/* Bar Colors */
+.pink rect {
+  fill: var(--neon-pink);
+  shape-rendering: crispEdges;
+}
+
+.blue rect {
+  fill: var(--neon-blue);
+  shape-rendering: crispEdges;
+  mix-blend-mode: screen;
+}
+label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px; /* ← Cambia este valor si quieres más ancho */
+  height: 40px; /* ← Altura fija */
+  padding: 0;
+  font-size: 1.2rem;
+  text-align: center;
+  position: relative;
+  color: var(--neon-blue);
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition:
+    color 0.6s ease,
+    transform 0.4s ease;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+label span {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+label svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+
+label::before {
+  width: 3000px;
+  transition:
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
+}
+
+label:hover::before {
+  transform: scale(1.03);
+}
+
+label:hover span {
+  color: var(--yellow);
+   
+}

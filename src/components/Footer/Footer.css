@@ -1,0 +1,34 @@
+.footer {
+  height: 2vh;
+  border-top: 2px solid var(--neon-pink);
+  margin-top: 3rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  background-color: rgba(10, 15, 47, 0.95);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--very-light-blue);
+  font-size: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.social-icons a {
+  color: var(--neon-blue);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--neon-pink);
+  transform: scale(1.2);
+}
