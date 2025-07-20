@@ -1,29 +1,29 @@
 /* === FORM INPUT GROUP === */
 .signup-container {
-    height: 70vh;
+    height: 80vh;
 
 
 }
 .signup-container h1 {
   
   margin-bottom: 3rem;
-}
-.input-group {
+}.input-group {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-    width: 90%;
-    max-width: 400px;
-  margin: 0 auto;
-  margin-bottom: 1rem;
-  
+  gap: 0.5rem;
+  width: 100%;
 }
+
 .input-group label {
+  display: block;
+  margin-top: 1rem;
   font-size: 1rem;
   color: var(--neon-pink);
-
+  text-align: left;
+  width: 100%;
 }
-.input-group input {
+
+.input-field {
   padding: 0.8rem;
   border: 2px solid var(--neon-blue);
   border-radius: 8px;
@@ -32,7 +32,8 @@
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
-.signup-form {
+
+.signup-form , .login-form{
     margin: 0 auto;
     display: flex;
     flex-direction: row;
@@ -47,7 +48,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 40%;
     gap:2rem;
 }
 .login-form button {
@@ -75,4 +76,40 @@
   align-items: center;
     justify-content: center;
     margin: 0 auto;
+}
+/* Por defecto: Desktop (row) */
+.signup-form{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row; /* Inputs en fila */
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
+  gap: 4rem;
+}
+
+/* Responsive: Mobile (column) */
+@media (max-width: 768px) {
+  .signup-form, .login-form{
+    flex-direction: column; /* Inputs en columna */
+    align-items: center;
+    justify-content: center;
+    width: 90%; /* O el ancho que desees */
+    padding-bottom: 150px; /* Espacio para el footer */
+  }
+
+  .form-group1,
+  .form-group2 {
+    width: 100%;
+  }
+
+  .login-form button,
+  .form-group2 button {
+    width: 100%;
+  
+  }
+  .login-form button,
+  .signup-form button {
+    margin-top: 50px; /* Espacio para el footer */
+  }
 }

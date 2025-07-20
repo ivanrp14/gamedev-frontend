@@ -139,21 +139,17 @@ label {
 }
 
 /* === INPUT FIELD === */
-.input-field {
-  font-family: var(--font-body);
-  background-color: transparent;
+input {
+  padding: 0.8rem;
   border: 2px solid var(--neon-blue);
+  border-radius: 8px;
+  background-color: transparent;
   color: var(--very-light-blue);
-  padding: 0.75rem 1rem;
-  border-radius: 0.4rem;
   font-size: 1rem;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.2s ease;
+  transition: border-color 0.3s ease;
 }
 
-.input-field:focus {
+input:focus {
   outline: none;
   border-color: var(--neon-pink);
   box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-blue);
@@ -161,12 +157,74 @@ label {
 }
 
 /* === OPTIONAL: Disabled / Invalid Styling === */
-.input-field:disabled {
+input:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.input-field:invalid {
+input:invalid {
   border-color: red;
   box-shadow: 0 0 5px red;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid var(--neon-pink);
+  padding: 1rem;
+  background-color: rgba(10, 15, 47, 0.95);
+  color: var(--very-light-blue);
+  width: 100%;
+  height: 120px;
+  margin-top: auto; /* Esto es clave */
+}
+
+
+
+.footer-content {
+  margin: 0 auto;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--very-light-blue);
+  font-size: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.social-icons a { 
+  color: var(--neon-blue);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--neon-pink);
+  transform: scale(1.2);
+}
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+/* Asegura que el contenedor principal estire el alto mínimo y distribuya espacio */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* El contenido principal crece con el espacio disponible */
+.app-wrapper > *:first-child {
+  flex: 1;
 }

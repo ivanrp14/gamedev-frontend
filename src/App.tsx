@@ -1,11 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Home } from "./components/pages/Home/Home";
 import { Footer } from "./components/Footer/Footer";
 import { SignUp } from "./components/pages/Signup/Signup";
@@ -19,6 +13,7 @@ import Leave from "./components/pages/Tutorial/Leave";
 import GoogleCallback from "./hooks/GoogleCallback";
 import GithubCallback from "./hooks/GithubCallback";
 import { AuthProvider } from "./hooks/AuthProvider";
+import MyStats from "./components/pages/MyStats/MyStats";
 
 function MainContent() {
   const location = useLocation();
@@ -43,7 +38,7 @@ function MainContent() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/tutorial" element={<Tutorial />} />
+        <Route path="/marble" element={<Tutorial />} />
 
         {/* Rutas protegidas */}
         <Route
@@ -58,7 +53,7 @@ function MainContent() {
           path="/mystats"
           element={
             <ProtectedRoute>
-              <Home />
+              <MyStats />
             </ProtectedRoute>
           }
         />
@@ -90,12 +85,12 @@ function MainContent() {
     </>
   );
 }
-
 function App() {
   return (
     <AuthProvider>
-      <div className="app">
+      <div className="app-wrapper">
         <MainContent />
+        <Footer />
       </div>
     </AuthProvider>
   );

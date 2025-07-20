@@ -1,23 +1,17 @@
 import { useEffect } from "react";
-import "./NavBar.css";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
+import "./NavBar.css";
 
-type Option = {
-  id: string;
-  label: string;
-};
-
-type NavBarProps = {
-  onChange?: (id: string) => void;
-};
-
-const options: Option[] = [
-  { id: "home", label: "Home" },
-  { id: "signup", label: "Sign Up" },
-  { id: "login", label: "Login" },
+const options = [
+  { id: "main", label: "Main" },
+  { id: "marble", label: "Marble" },
+  { id: "mystats", label: "My Stats" },
 ];
 
-const NavBar: React.FC<NavBarProps> = ({ onChange }) => {
+const NavBar: React.FC = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const groups =
       document.querySelectorAll<HTMLDivElement>(".radio-btn-group");
@@ -28,14 +22,12 @@ const NavBar: React.FC<NavBarProps> = ({ onChange }) => {
     ): [SVGRectElement[], SVGRectElement[]] => {
       const container = radioBtn.closest(".radio-btn-group");
       if (!container) return [[], []];
-
       const blueRects = gsap.utils.shuffle(
         Array.from(container.querySelectorAll<SVGRectElement>(".blue rect"))
       );
       const pinkRects = gsap.utils.shuffle(
         Array.from(container.querySelectorAll<SVGRectElement>(".pink rect"))
       );
-
       return [blueRects, pinkRects];
     };
 
@@ -76,10 +68,10 @@ const NavBar: React.FC<NavBarProps> = ({ onChange }) => {
 
         animateRects(nodes, true);
         previousRadioBtn = radioBtn;
-        onChange?.(radioBtn.id);
+
+        navigate(`/${radioBtn.id}`);
       });
 
-      // Trigger animation on first checked input
       if (radioBtn.checked) {
         const nodes = getNodes(radioBtn);
         animateRects(nodes, true);
@@ -88,7 +80,6 @@ const NavBar: React.FC<NavBarProps> = ({ onChange }) => {
     });
 
     return () => {
-      // Limpieza opcional
       groups.forEach((group) => {
         const radioBtn = group.querySelector<HTMLInputElement>(
           "input[type='radio']"
@@ -98,7 +89,7 @@ const NavBar: React.FC<NavBarProps> = ({ onChange }) => {
         }
       });
     };
-  }, [onChange]);
+  }, [navigate]);
 
   return (
     <nav className="neon-navbar">

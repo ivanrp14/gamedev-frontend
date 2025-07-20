@@ -5,6 +5,7 @@ type ButtonProps = {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   className?: string;
+  disabled?: boolean;
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -12,8 +13,14 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   type = "button",
   className = "",
+  disabled = false,
 }) => (
-  <button type={type} onClick={onClick} className={`button ${className}`}>
+  <button
+    type={type}
+    onClick={onClick}
+    className={`button ${className}`}
+    disabled={disabled}
+  >
     {children}
   </button>
 );

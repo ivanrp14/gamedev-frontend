@@ -1,0 +1,131 @@
+.mystats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: var(--padding-wrapper);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Section spacing */
+.section {
+  border: 2px solid var(--neon-blue);
+  padding: 2rem;
+  border-radius: 1rem;
+  background: rgba(10, 15, 47, 0.8);
+  transition: transform 0.3s ease;
+}
+
+.section:hover {
+  transform: scale(1.04);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.profile-picture {
+  width: 200px;
+  height: 200px;
+    border-radius: 0.75rem;
+  border: 3px solid var(--neon-blue);
+  object-fit: fill;
+}
+
+.username {
+  font-size: 2.5rem;
+  
+}
+.logout-button,
+.edit-button {
+    margin: 0 0.5rem;
+    margin-top: 20px;
+    width: 200px;
+  
+}
+
+.logout-button:hover,
+.edit-button:hover {
+  
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.edit-form input {
+  padding: 0.5rem;
+  border: 1px solid #999;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.edit-actions button {
+  background-color: var(--yellow);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.info-grid,
+.statistics-grid,
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.info-box,
+.stat-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.25rem;
+  border: 2px solid var(--neon-blue);
+  border-radius: 0.75rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-box:hover,
+.stat-card:hover {
+  transform: scale(1.03);
+}
+
+.info-box h3,
+.stat-card h4 {
+  color: var(--neon-blue);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-box p,
+.stat-card p {
+  color: var(--very-light-blue);
+  font-size: 1.1rem;
+  word-wrap: break-word;
+}
+
+/* Animación para entrada suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
