@@ -115,3 +115,78 @@ label:hover span {
   color: var(--yellow);
    
 }
+.neon-navbar-wrapper {
+  position: relative;
+}
+
+ 
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0.5rem;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background: var(--neon-blue);
+  transition: all 0.3s ease;
+}
+
+.hamburger .bar.open:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.hamburger .bar.open:nth-child(2) {
+  opacity: 0;
+}
+.hamburger .bar.open:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+.menu-items {
+  display: flex;
+  gap: 1.5rem;
+  transition: max-height 0.4s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .neon-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .hamburger {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
+  .menu-items {
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .menu-items.show {
+    max-height: 500px;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  .radio-btn-group {
+    width: 100%;
+  }
+
+  label {
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 1rem;
+  }
+}

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import "./NavBar.css";
@@ -11,6 +11,7 @@ const options = [
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const groups =
@@ -60,7 +61,6 @@ const NavBar: React.FC = () => {
 
       radioBtn.addEventListener("change", () => {
         const nodes = getNodes(radioBtn);
-
         if (previousRadioBtn && previousRadioBtn !== radioBtn) {
           const oldNodes = getNodes(previousRadioBtn);
           animateRects(oldNodes, false);
@@ -70,6 +70,7 @@ const NavBar: React.FC = () => {
         previousRadioBtn = radioBtn;
 
         navigate(`/${radioBtn.id}`);
+        setIsOpen(false); // Cierra el menú en móviles
       });
 
       if (radioBtn.checked) {
@@ -93,43 +94,55 @@ const NavBar: React.FC = () => {
 
   return (
     <nav className="neon-navbar">
-      {options.map((opt, idx) => (
-        <div className="radio-btn-group" key={opt.id}>
-          <input
-            type="radio"
-            name="neon-nav"
-            id={opt.id}
-            defaultChecked={idx === 0}
-          />
-          <label htmlFor={opt.id}>
-            <span>{opt.label}</span>
-            <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
-              <g className="pink">
-                {[...Array(10)].map((_, i) => (
-                  <rect
-                    key={`p-${i}`}
-                    x="-101%"
-                    y={i * 5}
-                    width="100%"
-                    height="5"
-                  />
-                ))}
-              </g>
-              <g className="blue">
-                {[...Array(10)].map((_, i) => (
-                  <rect
-                    key={`b-${i}`}
-                    x="101%"
-                    y={i * 5}
-                    width="100%"
-                    height="5"
-                  />
-                ))}
-              </g>
-            </svg>
-          </label>
-        </div>
-      ))}
+      <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+        <div className={`bar ${isOpen ? "open" : ""}`} />
+        <div className={`bar ${isOpen ? "open" : ""}`} />
+        <div className={`bar ${isOpen ? "open" : ""}`} />
+      </div>
+
+      <div className={`menu-items ${isOpen ? "show" : ""}`}>
+        {options.map((opt, idx) => (
+          <div className="radio-btn-group" key={opt.id}>
+            <input
+              type="radio"
+              name="neon-nav"
+              id={opt.id}
+              defaultChecked={idx === 0}
+            />
+            <label htmlFor={opt.id}>
+              <span>{opt.label}</span>
+              <svg
+                height="100%"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g className="pink">
+                  {[...Array(10)].map((_, i) => (
+                    <rect
+                      key={`p-${i}`}
+                      x="-101%"
+                      y={i * 5}
+                      width="100%"
+                      height="5"
+                    />
+                  ))}
+                </g>
+                <g className="blue">
+                  {[...Array(10)].map((_, i) => (
+                    <rect
+                      key={`b-${i}`}
+                      x="101%"
+                      y={i * 5}
+                      width="100%"
+                      height="5"
+                    />
+                  ))}
+                </g>
+              </svg>
+            </label>
+          </div>
+        ))}
+      </div>
     </nav>
   );
 };

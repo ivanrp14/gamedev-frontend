@@ -129,3 +129,76 @@
     transform: translateY(0);
   }
 }
+@media (max-width: 768px) {
+  .mystats-container {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .profile-picture {
+    width: 140px;
+    height: 140px;
+  }
+
+  .username {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .logout-button,
+  .edit-button {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .info-grid,
+  .statistics-grid,
+  .games-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .info-box,
+  .stat-card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+  }
+
+  .username {
+    font-size: 1.6rem;
+  }
+
+  .info-box h3,
+  .stat-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .info-box p,
+  .stat-card p {
+    font-size: 1rem;
+  }
+
+  .edit-form input {
+    font-size: 0.95rem;
+  }
+
+  .edit-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .edit-actions button {
+    width: 100%;
+  }
+}

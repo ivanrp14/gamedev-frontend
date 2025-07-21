@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Section } from "../../ui/Section.tsx";
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../ui/Button.tsx";
 
 class UserLeaderboard {
   username: string;
@@ -18,7 +20,7 @@ export function Main() {
   useEffect(() => {
     const fetchRanking = async () => {
       try {
-        const response = await fetch("https://api.gamedev.study/game/ranking", {
+        const response = await fetch("/api/game/ranking", {
           headers: {
             Accept: "application/json",
           },
@@ -31,6 +33,7 @@ export function Main() {
         );
 
         setUsers(userList);
+        console.log("Ranking cargado:", userList);
       } catch (error) {
         console.error("Error al cargar ranking:", error);
       }
@@ -81,6 +84,11 @@ interface LeaderboardItemProps {
 }
 
 function LeaderboardItem({ rank, username, score }: LeaderboardItemProps) {
+  const navigate = useNavigate();
+
+  const handleClick = (username: string) => {
+    navigate(`/user/${username}`);
+  };
   let rankClass = "";
   if (rank === 1) rankClass = "gold";
   else if (rank === 2) rankClass = "silver";
@@ -91,14 +99,14 @@ function LeaderboardItem({ rank, username, score }: LeaderboardItemProps) {
   )}?fontSize=100&fontColor=purple&unique=${Date.now() + Math.random()}`;
 
   return (
-    <Section className="leaderboard-item">
+    <Button className="leaderboard-item" onClick={() => handleClick(username)}>
       <h2 className={`rank ${rankClass}`}>#{rank}</h2>
       <img src={catImageUrl} alt="Avatar" className="profile-pic" />
       <div className="stats-container">
         <div className="username-text">{username.toUpperCase()}</div>
         <div className="stats-text">{score}</div>
       </div>
-    </Section>
+    </Button>
   );
 }
 

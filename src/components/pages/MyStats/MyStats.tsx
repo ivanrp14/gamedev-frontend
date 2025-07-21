@@ -131,7 +131,7 @@ function StatisticsSection({
 }) {
   return (
     <Section className="section">
-      <h1>Statistics</h1>
+      <h1 className="section-title">Statistics</h1>
       <div className="statistics-grid">
         <StatCard label="Total Play Time" value={`${totalPlayTime} mins`} />
         <StatCard label="Total Score" value={totalScore} />
@@ -147,7 +147,7 @@ function StatisticsSection({
 function GamesSection({ games }: { games: VideoGame[] }) {
   return (
     <Section className="section">
-      <h1>Games Played</h1>
+      <h1 className="section-title">Games Played</h1>
       <div className="games-grid">
         {games.map((game, i) => (
           <InfoBox

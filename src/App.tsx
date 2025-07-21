@@ -14,6 +14,7 @@ import GoogleCallback from "./hooks/GoogleCallback";
 import GithubCallback from "./hooks/GithubCallback";
 import { AuthProvider } from "./hooks/AuthProvider";
 import MyStats from "./components/pages/MyStats/MyStats";
+import { UserProfile } from "./components/pages/UserProfile/UserProfile";
 
 function MainContent() {
   const location = useLocation();
@@ -22,13 +23,17 @@ function MainContent() {
     "/main",
     "/mystats",
     "/about",
-    "/tutorial",
+    "/marble",
     "/leave",
+    "/user",
   ];
+  const showNavbar = showNavbarPaths.some((path) =>
+    location.pathname.startsWith(path)
+  );
 
   return (
     <>
-      {showNavbarPaths.includes(location.pathname) && <NavBar />}
+      {showNavbar && <NavBar />}
 
       <Routes location={location} key={location.pathname}>
         {/* Ruta raíz redirige según estado auth */}
@@ -38,7 +43,6 @@ function MainContent() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/marble" element={<Tutorial />} />
 
         {/* Rutas protegidas */}
         <Route
@@ -70,6 +74,22 @@ function MainContent() {
           element={
             <ProtectedRoute>
               <Leave />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/marble"
+          element={
+            <ProtectedRoute>
+              <Tutorial />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/:username"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
             </ProtectedRoute>
           }
         />
