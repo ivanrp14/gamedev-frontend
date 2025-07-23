@@ -12,7 +12,7 @@ const ChooseAvatar: React.FC = () => {
   const [images, setImages] = useState<CatImage[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {

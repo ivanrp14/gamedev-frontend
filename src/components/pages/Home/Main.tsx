@@ -37,18 +37,16 @@ export function Main() {
         const catData = await catRes.json();
 
         // Paso 2: asignar imágenes aleatorias a los usuarios sin imagen
-        const userList: UserLeaderboard[] = data.map(
-          (item: any, index: number) => {
-            const fallbackCat = !item.profile_image
-              ? catData.pop()?.url
-              : undefined;
-            return new UserLeaderboard(
-              item.username,
-              item.high_score,
-              item.profile_image || fallbackCat
-            );
-          }
-        );
+        const userList: UserLeaderboard[] = data.map((item: any) => {
+          const fallbackCat = !item.profile_image
+            ? catData.pop()?.url
+            : undefined;
+          return new UserLeaderboard(
+            item.username,
+            item.high_score,
+            item.profile_image || fallbackCat
+          );
+        });
 
         setUsers(userList);
       } catch (error) {
