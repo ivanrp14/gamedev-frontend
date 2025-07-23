@@ -6,10 +6,12 @@ import { Button } from "../../ui/Button.tsx";
 class UserLeaderboard {
   username: string;
   high_score: number;
+  profilePicture?: string;
 
-  constructor(username: string, high_score: number) {
+  constructor(username: string, high_score: number, profilePicture?: string) {
     this.username = username;
     this.high_score = high_score;
+    this.profilePicture = profilePicture;
   }
 }
 
@@ -27,12 +29,28 @@ export function Main() {
         if (!response.ok) throw new Error("Error al obtener ranking");
         const data = await response.json();
 
+        // Paso 1: detectar cuántos usuarios necesitan imagen
+        const usersWithoutImage = data.filter((u: any) => !u.profile_image);
+        const catRes = await fetch(
+          `https://api.thecatapi.com/v1/images/search?limit=${usersWithoutImage.length}`
+        );
+        const catData = await catRes.json();
+
+        // Paso 2: asignar imágenes aleatorias a los usuarios sin imagen
         const userList: UserLeaderboard[] = data.map(
-          (item: any) => new UserLeaderboard(item.username, item.high_score)
+          (item: any, index: number) => {
+            const fallbackCat = !item.profile_image
+              ? catData.pop()?.url
+              : undefined;
+            return new UserLeaderboard(
+              item.username,
+              item.high_score,
+              item.profile_image || fallbackCat
+            );
+          }
         );
 
         setUsers(userList);
-        console.log("Ranking cargado:", userList);
       } catch (error) {
         console.error("Error al cargar ranking:", error);
       }
@@ -69,6 +87,7 @@ function Leaderboard({ users }: LeaderboardProps) {
             rank={index + 1}
             username={user.username}
             score={user.high_score}
+            image={user.profilePicture}
           />
         ))}
       </div>
@@ -80,27 +99,34 @@ interface LeaderboardItemProps {
   rank: number;
   username: string;
   score: number;
+  image?: string;
 }
 
-function LeaderboardItem({ rank, username, score }: LeaderboardItemProps) {
+function LeaderboardItem({
+  rank,
+  username,
+  score,
+  image,
+}: LeaderboardItemProps) {
   const navigate = useNavigate();
 
   const handleClick = (username: string) => {
     navigate(`/user/${username}`);
   };
+
   let rankClass = "";
   if (rank === 1) rankClass = "gold";
   else if (rank === 2) rankClass = "silver";
   else if (rank === 3) rankClass = "bronze";
 
-  const catImageUrl = `https://cataas.com/cat/says/${encodeURIComponent(
-    username
-  )}?fontSize=100&fontColor=purple&unique=${Date.now() + Math.random()}`;
-
   return (
     <Button className="leaderboard-item" onClick={() => handleClick(username)}>
       <h2 className={`rank ${rankClass}`}>#{rank}</h2>
-      <img src={catImageUrl} alt="Avatar" className="profile-pic" />
+      <img
+        src={image || "/default-avatar.png"}
+        alt="Avatar"
+        className="profile-pic"
+      />
       <div className="stats-container">
         <div className="username-text">{username.toUpperCase()}</div>
         <div className="stats-text">{score}</div>

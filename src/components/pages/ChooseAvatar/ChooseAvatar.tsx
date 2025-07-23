@@ -36,7 +36,7 @@ const ChooseAvatar: React.FC = () => {
   const handleSelect = async (url: string) => {
     try {
       const token = localStorage.getItem("access_token");
-      const response = await fetch("https://api.gamedev.study/users/me", {
+      const response = await fetch("https://api.gamedev.study/users/avatar", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -49,9 +49,8 @@ const ChooseAvatar: React.FC = () => {
         throw new Error("No se pudo guardar la imagen.");
       }
 
-      // Vuelve a autenticar para actualizar el user con imagen
-      const data = await response.json();
-      login(token!); // refresca el contexto con fetchUser
+      // Refrescar usuario en contexto
+      await login(token!); // o await fetchUser() si login no lo hace
 
       navigate("/main");
     } catch (error) {
