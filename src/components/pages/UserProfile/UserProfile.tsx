@@ -13,7 +13,7 @@ export const UserProfile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`/api/users/${username}`);
+        const res = await fetch(`https://api.gamedev.study/users/${username}`);
         const data = await res.json();
         const loadedUser = User.fromApiResponse(data);
         setUser(loadedUser);

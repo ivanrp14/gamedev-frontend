@@ -40,7 +40,7 @@ export const Login: React.FC = () => {
       formData.append("username", values.username);
       formData.append("password", values.password);
 
-      const res = await fetch("/api/auth/login", {
+      const res = await fetch("https://api.gamedev.study/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

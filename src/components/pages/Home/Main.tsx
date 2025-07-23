@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Section } from "../../ui/Section.tsx";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../ui/Button.tsx";
@@ -20,7 +19,7 @@ export function Main() {
   useEffect(() => {
     const fetchRanking = async () => {
       try {
-        const response = await fetch("/api/game/ranking", {
+        const response = await fetch("https://api.gamedev.study/game/ranking", {
           headers: {
             Accept: "application/json",
           },

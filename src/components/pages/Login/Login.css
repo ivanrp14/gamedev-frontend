@@ -113,3 +113,9 @@
     margin-top: 50px; /* Espacio para el footer */
   }
 }
+.signup-form .error-message{
+    color: var(--neon-pink);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}

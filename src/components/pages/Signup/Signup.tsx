@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Input } from "../../ui/Input";
 import { Button } from "../../ui/Button";
 import "../Login/Login.css";
+import { useAuth } from "../../../hooks/AuthProvider";
 
 export const SignUp: React.FC = () => {
+  const { login } = useAuth();
+
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -12,19 +15,69 @@ export const SignUp: React.FC = () => {
     confirmPassword: "",
   });
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", form);
+    setErrorMessage(null);
+
+    if (!validateEmail(form.email)) {
+      setErrorMessage("El correo electrónico no es válido.");
+      return;
+    }
+
+    if (form.password.length < 8) {
+      setErrorMessage("La contraseña debe tener al menos 8 caracteres.");
+      return;
+    }
+
+    if (form.password !== form.confirmPassword) {
+      setErrorMessage("Las contraseñas no coinciden.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("https://api.gamedev.study/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: form.username,
+          fullname: form.fullName,
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Error al registrarse.");
+      }
+
+      const data = await response.json();
+      login(data.user);
+    } catch (error: any) {
+      setErrorMessage(error.message || "Registro fallido. Inténtalo de nuevo.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="signup-container">
       <h1>Crear Cuenta</h1>
-      <form onSubmit={handleSubmit} className="signup-form">
+      <form onSubmit={handleRegister} className="signup-form">
         <div className="form-group1">
           <Input
             label="Nombre Completo"
@@ -67,8 +120,12 @@ export const SignUp: React.FC = () => {
             required
           />
 
-          <Button type="submit">Registrarse</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Registrando..." : "Registrarse"}
+          </Button>
         </div>
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
     </div>
   );
