@@ -6,7 +6,6 @@ import { useAuth } from "../../../hooks/AuthProvider";
 
 export const SignUp: React.FC = () => {
   const { login } = useAuth();
-
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -66,7 +65,7 @@ export const SignUp: React.FC = () => {
       }
 
       const data = await response.json();
-      login(data.user);
+      login(data.access_token);
     } catch (error: any) {
       setErrorMessage(error.message || "Registro fallido. Inténtalo de nuevo.");
     } finally {

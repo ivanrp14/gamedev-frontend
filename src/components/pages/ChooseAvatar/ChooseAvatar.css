@@ -1,0 +1,30 @@
+.choose-avatar-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.avatar-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 3px solid transparent;
+}
+
+.avatar-image:hover {
+  transform: scale(1.05);
+  border-color: #ffcc00;
+}
+
+.error-message {
+  color: red;
+  margin-top: 1rem;
+}

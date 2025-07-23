@@ -15,6 +15,8 @@ import GithubCallback from "./hooks/GithubCallback";
 import { AuthProvider } from "./hooks/AuthProvider";
 import MyStats from "./components/pages/MyStats/MyStats";
 import { UserProfile } from "./components/pages/UserProfile/UserProfile";
+import { AuthRedirector } from "./hooks/AuthRedirector";
+import ChooseAvatar from "./components/pages/ChooseAvatar/ChooseAvatar";
 
 function MainContent() {
   const location = useLocation();
@@ -34,7 +36,7 @@ function MainContent() {
   return (
     <>
       {showNavbar && <NavBar />}
-
+      <AuthRedirector />
       <Routes location={location} key={location.pathname}>
         {/* Ruta raíz redirige según estado auth */}
         <Route path="/" element={<RedirectToProperPage />} />
@@ -77,6 +79,15 @@ function MainContent() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/choose-avatar"
+          element={
+            <ProtectedRoute>
+              <ChooseAvatar />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/marble"
           element={
