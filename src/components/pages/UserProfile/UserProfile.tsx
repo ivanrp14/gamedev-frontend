@@ -15,7 +15,7 @@ export const UserProfile = () => {
     const fetchUserAndCat = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8000/users/user-profile/${username}`
+          `https://api.gamedev.study/users/user-profile/${username}`
         );
         const data = await res.json();
         const loadedUser = User.fromApiResponse(data);
@@ -24,7 +24,7 @@ export const UserProfile = () => {
         // Solo pedimos imagen de gato si no hay imagen de perfil
         if (!data.profilePicture) {
           const catRes = await fetch(
-            "https://api.thecatapi.com/v1/images/search?limit=1"
+            "https://api.gamedev.study/v1/images/search?limit=1"
           );
           const catData = await catRes.json();
           setCatImageUrl(catData[0]?.url);

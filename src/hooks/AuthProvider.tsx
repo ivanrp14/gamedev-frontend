@@ -25,7 +25,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchUserProfile = async (username: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/users/user-profile/${username}`
+        `https://api.gamedev.study/users/user-profile/${username}`
       );
 
       if (!response.ok) {
