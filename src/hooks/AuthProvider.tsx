@@ -22,6 +22,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchUserProfile = async (username: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/users/user-profile/${username}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Invalid username or user not found");
+      }
+
+      const data = await response.json();
+      const fetchedUser = User.fromApiResponse(data);
+      console.log("Fetched user:", fetchedUser);
+      setUser(fetchedUser);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      logout();
+    } finally {
+      setLoading(false);
+    }
+  };
   // Función para obtener user desde /auth/me
   const fetchUser = async (token: string) => {
     try {
@@ -36,9 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const data = await response.json();
-      const fetchedUser = User.fromApiResponse(data);
-      setUser(fetchedUser);
-      setIsAuthenticated(true);
+      fetchUserProfile(data.username);
     } catch (error) {
       console.error("Error fetching user:", error);
       logout();

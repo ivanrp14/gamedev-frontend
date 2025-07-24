@@ -61,7 +61,7 @@ const ChooseAvatar: React.FC = () => {
 
   return (
     <div className="choose-avatar-container">
-      <h2>Elige tu avatar de gato 😺</h2>
+      <h2>Selecciona tu avatar</h2>
 
       {loading && <p>Cargando imágenes...</p>}
       {error && <p className="error-message">{error}</p>}

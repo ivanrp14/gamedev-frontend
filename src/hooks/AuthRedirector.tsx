@@ -9,7 +9,7 @@ export const AuthRedirector = () => {
   useEffect(() => {
     if (!loading && user) {
       // Si el usuario no tiene imagen, redirige a elegir avatar
-      if (!user.profilePicture) {
+      if (!user.profile_image) {
         navigate("/choose-avatar");
       }
       // Si ya tiene imagen y está en rutas públicas, redirige a /main

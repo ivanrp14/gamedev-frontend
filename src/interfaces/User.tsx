@@ -2,26 +2,25 @@ import { VideoGame } from "./Videogame";
 
 export class User {
   username: string;
-  firstName: string;
-  lastName: string;
+
+  fullname: string; // Para compatibilidad con API
   email: string;
-  profilePicture: string;
+  profile_image: string;
   gamesPlayed: VideoGame[];
   total_score: number;
 
   constructor(
     username: string,
-    firstName: string,
-    lastName: string,
+
+    fullname: string,
     email: string,
-    profilePicture: string,
+    profile_image: string,
     gamesPlayed: VideoGame[] = []
   ) {
     this.username = username;
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.fullname = fullname;
     this.email = email;
-    this.profilePicture = profilePicture;
+    this.profile_image = profile_image;
     this.gamesPlayed = gamesPlayed;
     this.total_score = this.calculateTotalScore();
   }
@@ -32,28 +31,32 @@ export class User {
 
   highestScoringGame(): VideoGame {
     return this.gamesPlayed.reduce(
-      (max, game) => (game.maxScore > max.maxScore ? game : max),
+      (max, game) => (game.high_score > max.high_score ? game : max),
       new VideoGame("N/A", 0, 0)
     );
   }
 
   calculateTotalScore(): number {
-    return this.gamesPlayed.reduce((total, game) => total + game.maxScore, 0);
+    return this.gamesPlayed.reduce((total, game) => total + game.high_score, 0);
   }
 
-  // 🔥 método para crear User desde API
   static fromApiResponse(apiData: any): User {
-    const fullnameParts = (apiData.fullname || "").split(" ");
-    const firstName = fullnameParts[0] || "";
-    const lastName = fullnameParts.slice(1).join(" ") || "";
+    const gamesPlayed: VideoGame[] = (apiData.gamesPlayed || []).map(
+      (game: any) => {
+        return new VideoGame(
+          game.gameName || game.name, // por compatibilidad
+          game.maxScore || game.high_score,
+          game.timePlayed || 0
+        );
+      }
+    );
 
     return new User(
       apiData.username,
-      firstName,
-      lastName,
+      apiData.fullname,
       apiData.email,
-      apiData.profile_image || "",
-      [] // suponemos que no devuelve los juegos aquí
+      apiData.profilePicture || apiData.profile_image || "",
+      gamesPlayed
     );
   }
 }

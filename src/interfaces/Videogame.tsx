@@ -1,11 +1,11 @@
 export class VideoGame {
-    gameName: string;
-    maxScore: number;
-    timePlayed: number;
+  name: string;
+  high_score: number;
+  timePlayed: number;
 
-    constructor(gameName: string, maxScore: number, timePlayed: number) {
-        this.gameName = gameName;
-        this.maxScore = maxScore;
-        this.timePlayed = timePlayed;
-    }
+  constructor(name: string, high_score: number, timePlayed: number) {
+    this.name = name;
+    this.high_score = high_score;
+    this.timePlayed = timePlayed;
+  }
 }

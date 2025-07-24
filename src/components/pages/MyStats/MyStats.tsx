@@ -29,10 +29,9 @@ function ProfileSection({ user }: { user: User }) {
   const { logout } = useAuth();
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: user.firstName,
-    lastName: user.lastName,
     email: user.email,
     password: "",
+    fullname: user.fullname,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +58,7 @@ function ProfileSection({ user }: { user: User }) {
     <Section className="section">
       <div className="profile-header">
         <img
-          src={user.profilePicture || src}
+          src={user.profile_image || src}
           alt={`Profile of ${user.username}`}
           className="profile-picture"
         />
@@ -74,17 +73,11 @@ function ProfileSection({ user }: { user: User }) {
           <input
             type="text"
             name="firstName"
-            value={formData.firstName}
+            value={formData.fullname}
             onChange={handleChange}
             placeholder="First Name"
           />
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            placeholder="Last Name"
-          />
+
           <input
             type="email"
             name="email"
@@ -107,8 +100,7 @@ function ProfileSection({ user }: { user: User }) {
       ) : (
         <>
           <div className="info-grid">
-            <InfoBox label="First Name" value={user.firstName} />
-            <InfoBox label="Last Name" value={user.lastName} />
+            <InfoBox label="Full Name" value={user.fullname} />
             <InfoBox label="Email" value={user.email} />
           </div>
           <button onClick={() => setEditing(true)} className="edit-button">
@@ -127,7 +119,7 @@ function StatisticsSection({
 }: {
   totalPlayTime: number;
   totalScore: number;
-  highestScoringGame: { gameName: string; maxScore: number };
+  highestScoringGame: VideoGame;
 }) {
   return (
     <Section className="section">
@@ -137,7 +129,7 @@ function StatisticsSection({
         <StatCard label="Total Score" value={totalScore} />
         <StatCard
           label="Top Game"
-          value={`${highestScoringGame.gameName} (${highestScoringGame.maxScore} pts)`}
+          value={`${highestScoringGame.name} (${highestScoringGame.high_score} pts)`}
         />
       </div>
     </Section>
@@ -152,10 +144,10 @@ function GamesSection({ games }: { games: VideoGame[] }) {
         {games.map((game, i) => (
           <InfoBox
             key={i}
-            label={game.gameName}
+            label={game.name}
             value={
               <>
-                Max Score: {game.maxScore}
+                Max Score: {game.high_score} pts
                 <br />
                 Time: {game.timePlayed} mins
               </>
