@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useAuth } from "../../../hooks/AuthProvider";
 import { JSX } from "react";
 import { Section } from "../../ui/Section";
+import DefaultProfile from "../../../images/default-profile.png";
 
 function MyStats() {
   const { user } = useAuth();
@@ -50,15 +51,11 @@ function ProfileSection({ user }: { user: User }) {
     }
   };
 
-  const src = `https://cataas.com/cat/says/${encodeURIComponent(
-    user.username
-  )}?fontSize=100&fontColor=white&unique=${Date.now()}`;
-
   return (
     <Section className="section">
       <div className="profile-header">
         <img
-          src={user.profile_image || src}
+          src={user.profile_image || DefaultProfile}
           alt={`Profile of ${user.username}`}
           className="profile-picture"
         />

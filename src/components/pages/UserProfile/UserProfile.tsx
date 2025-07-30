@@ -4,11 +4,11 @@ import { User } from "../../../interfaces/User";
 import { Title } from "../../ui/Title";
 import "./UserProfile.css";
 import { useAuth } from "../../../hooks/AuthProvider";
-
+import DefaultProfile from "../../../images/default-profile.png";
 export const UserProfile = () => {
   const { username } = useParams();
   const [user, setUser] = useState<User | null>(null);
-  const [catImageUrl, setCatImageUrl] = useState<string | null>(null);
+
   const { user: currentUser } = useAuth();
 
   useEffect(() => {
@@ -23,11 +23,6 @@ export const UserProfile = () => {
         console.log("User loaded:", loadedUser);
         // Solo pedimos imagen de gato si no hay imagen de perfil
         if (!data.profilePicture) {
-          const catRes = await fetch(
-            "https://api.gamedev.study/v1/images/search?limit=1"
-          );
-          const catData = await catRes.json();
-          setCatImageUrl(catData[0]?.url);
         }
       } catch (err) {
         console.error("Error loading user or cat image:", err);
@@ -53,7 +48,7 @@ export const UserProfile = () => {
   return (
     <div className="user-profile neon-card">
       <img
-        src={user.profile_image || catImageUrl || "/default-avatar.png"}
+        src={user.profile_image || DefaultProfile}
         alt="Profile"
         className="profile-pic"
       />

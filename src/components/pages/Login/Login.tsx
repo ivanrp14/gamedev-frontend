@@ -4,11 +4,11 @@ import { Button } from "../../ui/Button";
 import "../Login/Login.css";
 import useFormHandler from "../../../hooks/useFormHandler";
 import { useAuth } from "../../../hooks/AuthProvider";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Login: React.FC = () => {
-  const { isAuthenticated, login, loading } = useAuth();
-
+  const { login, loading } = useAuth();
+  const navigate = useNavigate();
   const {
     values,
     errorMessage,
@@ -22,7 +22,6 @@ export const Login: React.FC = () => {
   });
 
   if (loading) return <p>Cargando sesión...</p>;
-  if (isAuthenticated) return <Navigate to="/main" replace />;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,8 +53,9 @@ export const Login: React.FC = () => {
       }
 
       const data = await res.json();
-      login(data.access_token);
+      await login(data.access_token);
       localStorage.setItem("access_token", data.access_token);
+      // ✅ redirige inmediatamente
     } catch (err: any) {
       setErrorMessage(err.message || "Algo salió mal.");
     } finally {

@@ -125,25 +125,59 @@ button.oauth-button.github:hover {
 }
 
 .leaderboard {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+ 
+  padding: 0.5rem 0;
+}
+
+/* Opcional: scrollbar personalizado para que combine con tu diseño */
+.leaderboard::-webkit-scrollbar {
+  width: 8px;
+}
+
+.leaderboard::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.leaderboard::-webkit-scrollbar-thumb {
+  background-color: var(--neon-pink);
+  border-radius: 8px;
+}
+
 
 .leaderboard-item {
+  
   width: 100%;
     display: flex;
-    align-items: center;
-    gap: 3rem;
+    align-items:  center;
+    gap: 2rem;
     padding: 1rem 1.5rem;
     border-radius: 0.75rem;
     cursor: pointer;
-    margin: 0 auto;
+    margin: 1rem 2rem 1rem 2rem;
   }
+.leaderboard-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px var(--neon-blue);
+    transform: scale(1.01);
+    transition: all 0.5s ease;
+}
+.leaderboard-item:active {
+    transform: scale(0.98);
+}
+.leaderboard-item h2 {
+    font-size: 1.5rem;
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+    user-select: none;
+}
 
 
 .rank {
+  margin: auto;
     font-family: var(--font-headings);
     font-size: 2.2rem;
     width: 3rem;
@@ -154,35 +188,14 @@ button.oauth-button.github:hover {
         0 0 15px var(--neon-blue);
 }
 
-/* Colores especiales para los primeros 3 puestos */
-.rank.gold {
-    color: #ffd700;
-    text-shadow:
-        0 0 10px #ffd700,
-        0 0 25px var(--neon-pink);
-}
-
-.rank.silver {
-    color: #c0c0c0;
-    text-shadow:
-        0 0 10px #c0c0c0,
-        0 0 25px var(--neon-blue);
-}
-
-.rank.bronze {
-    color: #cd7f32;
-    text-shadow:
-        0 0 10px #cd7f32,
-        0 0 25px var(--neon-pink);
-}
-
-.profile-pic {
+.profile-pic.fade-in {
+    animation: fadeIn 0.4s ease-in-out forwards;
+    margin: 0 auto;
     width: 70px;
     height: 70px;
     border-radius: 1rem;
     object-fit: cover;
     border: 2px solid var(--neon-pink);
-    user-select: none;
 }
 
 .stats-container {
@@ -268,4 +281,116 @@ button.oauth-button.github:hover {
   .stats-text {
     font-size: 0.9rem;
   }
+}
+/* Skeleton item estilo general */
+.skeleton {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  background: #1c1c2f;
+  animation: pulse 1.5s infinite ease-in-out;
+  margin: 0 auto;
+  box-sizing: border-box;
+  height: 96px; /* igual al botón con imagen y texto */
+}
+
+
+/* Placeholder del rank y stats */
+.skeleton-box {
+  background: #333;
+  height: 20px;
+  width: 100px;
+  border-radius: 6px;
+}
+
+/* Placeholder de la imagen de perfil */
+.skeleton-circle {
+  background: #333;
+  border-radius: 1rem;
+  width: 70px;
+  height: 70px;
+}
+
+/* Animación de pulso */
+@keyframes pulse {
+  0% {
+    background-color: #2c2c3e;
+  }
+  50% {
+    background-color: #3a3a50;
+  }
+  100% {
+    background-color: #2c2c3e;
+  }
+}
+
+/* Imagen oculta hasta que cargue */
+.profile-pic.hidden {
+  display: none;
+}
+
+/* Imagen con fade-in */
+.profile-pic.fade-in {
+  animation: fadeIn 0.4s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 2px solid var(--neon-blue);
+  border-radius: 1rem;
+  background: rgba(0, 229, 255, 0.05);
+  box-shadow: 0 0 10px var(--neon-blue);
+}
+
+/* Estilo para los select dropdowns */
+.filters select {
+  background-color: transparent;
+  color: var(--very-light-blue);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--neon-pink);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Hover/Focus styling */
+.filters select:hover,
+.filters select:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-pink);
+  outline: none;
+}
+
+/* Option styling (optional for some browsers) */
+.filters option {
+  background-color: var(--dark-blue);
+  color: var(--very-light-blue);
+}
+.no-results {
+  font-size: 1.2rem;
+  color: #ccc;
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
 }

@@ -33,15 +33,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const data = await response.json();
+      console.log("User profile fetched:", data);
       const fetchedUser = User.fromApiResponse(data);
-      console.log("Fetched user:", fetchedUser);
       setUser(fetchedUser);
-      setIsAuthenticated(true);
     } catch (error) {
       console.error("Error fetching user:", error);
       logout();
-    } finally {
-      setLoading(false);
     }
   };
   // Función para obtener user desde /auth/me
@@ -59,6 +56,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const data = await response.json();
       fetchUserProfile(data.username);
+
+      setIsAuthenticated(true);
     } catch (error) {
       console.error("Error fetching user:", error);
       logout();
@@ -77,9 +76,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const login = (token: string) => {
+  // En AuthProvider
+  const login = async (token: string) => {
     localStorage.setItem("access_token", token);
-    fetchUser(token);
+    await fetchUser(token); // 👈
   };
 
   const logout = () => {
