@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../ui/Button.tsx";
 import DefaultProfile from "../../../images/default-profile.png";
 
 // Función para mostrar tiempo relativo (ejemplo: hace 2 horas)

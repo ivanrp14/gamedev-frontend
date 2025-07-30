@@ -4,11 +4,9 @@ import { Button } from "../../ui/Button";
 import "../Login/Login.css";
 import useFormHandler from "../../../hooks/useFormHandler";
 import { useAuth } from "../../../hooks/AuthProvider";
-import { useNavigate } from "react-router-dom";
 
 export const Login: React.FC = () => {
   const { login, loading } = useAuth();
-  const navigate = useNavigate();
   const {
     values,
     errorMessage,
