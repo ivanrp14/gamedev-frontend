@@ -6,13 +6,13 @@ import {
   ReactNode,
 } from "react";
 import { User } from "../interfaces/User";
-
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
   login: (token: string) => void;
   logout: () => void;
   loading: boolean;
+  refreshUser: () => Promise<void>; // ⬅️ nuevo
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -21,6 +21,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const refreshUser = async () => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      await fetchUser(token);
+    }
+  };
 
   const fetchUserProfile = async (username: string) => {
     try {
@@ -90,7 +96,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, login, logout, loading }}
+      value={{ isAuthenticated, user, login, logout, loading, refreshUser }}
     >
       {children}
     </AuthContext.Provider>

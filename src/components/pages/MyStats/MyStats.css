@@ -1,4 +1,6 @@
+
 .mystats-container {
+  margin: 1rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -10,7 +12,7 @@
 .section {
   border: 2px solid var(--neon-blue);
   padding: 2rem;
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
   background: rgba(10, 15, 47, 0.8);
   transition: transform 0.3s ease;
 }
@@ -30,26 +32,26 @@
 .profile-picture {
   width: 200px;
   height: 200px;
-    border-radius: 0.75rem;
+  border-radius: var(--border-radius);
   border: 3px solid var(--neon-blue);
   object-fit: fill;
 }
 
 .username {
   font-size: 2.5rem;
-  
 }
+
 .logout-button,
 .edit-button {
-    margin: 0 0.5rem;
-    margin-top: 20px;
-    width: 200px;
-  
+  margin: 0 0.5rem;
+  margin-top: 20px;
+  width: 200px;
+  border-radius: var(--border-radius);
 }
 
 .logout-button:hover,
 .edit-button:hover {
-  
+  /* puedes añadir efectos aquí */
 }
 
 .edit-form {
@@ -62,7 +64,7 @@
 .edit-form input {
   padding: 0.5rem;
   border: 1px solid #999;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   font-size: 1rem;
 }
 
@@ -76,7 +78,7 @@
   background-color: var(--yellow);
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   cursor: pointer;
 }
 
@@ -94,7 +96,7 @@
   background-color: rgba(255, 255, 255, 0.05);
   padding: 1.25rem;
   border: 2px solid var(--neon-blue);
-  border-radius: 0.75rem;
+  border-radius: var(--border-radius);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -129,6 +131,8 @@
     transform: translateY(0);
   }
 }
+
+/* Responsive: Tablets */
 @media (max-width: 768px) {
   .mystats-container {
     padding: 1rem;
@@ -153,7 +157,6 @@
   .logout-button,
   .edit-button {
     width: 100%;
-    max-width: 250px;
   }
 
   .info-grid,
@@ -169,6 +172,7 @@
   }
 }
 
+/* Responsive: Mobile */
 @media (max-width: 480px) {
   .profile-picture {
     width: 100px;

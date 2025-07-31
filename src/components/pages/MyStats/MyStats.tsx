@@ -7,6 +7,7 @@ import { useAuth } from "../../../hooks/AuthProvider";
 import { JSX } from "react";
 import { Section } from "../../ui/Section";
 import DefaultProfile from "../../../images/default-profile.png";
+import { Button } from "../../ui/Button";
 
 function MyStats() {
   const { user } = useAuth();
@@ -60,9 +61,9 @@ function ProfileSection({ user }: { user: User }) {
           className="profile-picture"
         />
         <h1 className="username">{user.username}</h1>
-        <button onClick={logout} className="logout-button">
+        <Button onClick={logout} className="logout-button">
           Logout
-        </button>
+        </Button>
       </div>
 
       {editing ? (
@@ -90,8 +91,8 @@ function ProfileSection({ user }: { user: User }) {
             placeholder="New Password"
           />
           <div className="edit-actions">
-            <button onClick={handleSave}>Save</button>
-            <button onClick={() => setEditing(false)}>Cancel</button>
+            <Button onClick={handleSave}>Save</Button>
+            <Button onClick={() => setEditing(false)}>Cancel</Button>
           </div>
         </div>
       ) : (
@@ -100,9 +101,9 @@ function ProfileSection({ user }: { user: User }) {
             <InfoBox label="Full Name" value={user.fullname} />
             <InfoBox label="Email" value={user.email} />
           </div>
-          <button onClick={() => setEditing(true)} className="edit-button">
+          <Button onClick={() => setEditing(true)} className="edit-button">
             Edit Profile
-          </button>
+          </Button>
         </>
       )}
     </Section>

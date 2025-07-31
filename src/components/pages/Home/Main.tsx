@@ -253,14 +253,9 @@ function LeaderboardItem({
     navigate(`/user/${username}`);
   };
 
-  let rankClass = "";
-  if (rank === 1) rankClass = "gold";
-  else if (rank === 2) rankClass = "silver";
-  else if (rank === 3) rankClass = "bronze";
-
   return (
     <button className="leaderboard-item" onClick={handleClick}>
-      <h2 className={`rank ${rankClass}`}>#{rank}</h2>
+      <h2 className={`rank`}>#{rank}</h2>
       <div className="profile-pic-container">
         {!imgLoaded && <div className="skeleton-circle" />}
         <img
@@ -275,7 +270,7 @@ function LeaderboardItem({
         <div className="stats-text">{score}</div>
         {rankingType === "recent_sessions" && playedAt && (
           <div className="time-info">
-            {timeSince(playedAt)} {isHighscore ? "🔥 Highscore!" : ""}
+            {timeSince(playedAt)} {isHighscore ? "🔥" : ""}
           </div>
         )}
       </div>

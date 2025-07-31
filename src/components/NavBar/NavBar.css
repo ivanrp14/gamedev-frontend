@@ -5,9 +5,13 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
   background: transparent;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .radio-btn-group {
@@ -155,13 +159,17 @@ label:hover span {
 @media (max-width: 768px) {
   .neon-navbar {
     flex-direction: column;
-    align-items: flex-start;
     position: relative;
+    padding: 1rem;
+    gap: 0rem;
+    margin: 0;
+    align-items: end;
+    justify-content: center;
+    margin-bottom: 0rem;
   }
 
   .hamburger {
     display: flex;
-    margin-bottom: 1rem;
   }
 
   .menu-items {

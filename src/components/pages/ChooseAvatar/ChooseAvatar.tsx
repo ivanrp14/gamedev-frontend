@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import "./ChooseAvatar.css"; // crea este archivo para estilos
+import "./ChooseAvatar.css";
 
 interface CatImage {
   id: string;
@@ -12,7 +12,7 @@ const ChooseAvatar: React.FC = () => {
   const [images, setImages] = useState<CatImage[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const { login } = useAuth();
+  const { refreshUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,9 +49,7 @@ const ChooseAvatar: React.FC = () => {
         throw new Error("No se pudo guardar la imagen.");
       }
 
-      // Refrescar usuario en contexto
-      await login(token!); // o await fetchUser() si login no lo hace
-
+      await refreshUser();
       navigate("/main");
     } catch (error) {
       console.error(error);
@@ -61,20 +59,25 @@ const ChooseAvatar: React.FC = () => {
 
   return (
     <div className="choose-avatar-container">
-      <h2>Selecciona tu avatar</h2>
+      <h1>¡Bienvenido!</h1>
+      <p className="choose-avatar-subtitle">
+        Aún no has elegido una foto de perfil. Selecciona una imagen para
+        continuar:
+      </p>
 
-      {loading && <p>Cargando imágenes...</p>}
+      {loading && <p className="choose-avatar-status">Cargando imágenes...</p>}
       {error && <p className="error-message">{error}</p>}
 
       <div className="avatar-grid">
         {images.map((img) => (
-          <img
+          <button
             key={img.id}
-            src={img.url}
-            alt="Cat avatar"
             onClick={() => handleSelect(img.url)}
-            className="avatar-image"
-          />
+            className="avatar-button"
+            aria-label="Seleccionar avatar"
+          >
+            <img src={img.url} alt="Avatar de gato" className="avatar-image" />
+          </button>
         ))}
       </div>
     </div>

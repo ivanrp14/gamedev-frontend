@@ -1,27 +1,46 @@
 .choose-avatar-container {
   text-align: center;
   padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.choose-avatar-subtitle {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  color: #ccc;
+}
+
+.choose-avatar-status {
+  margin-top: 1.5rem;
+  color: #aaa;
 }
 
 .avatar-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 2rem;
+}
+
+.avatar-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .avatar-image {
   width: 100%;
   height: auto;
   border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, border 0.2s ease;
   border: 3px solid transparent;
 }
 
 .avatar-image:hover {
   transform: scale(1.05);
-  border-color: #ffcc00;
+  border-color: var(--yellow, #ffcc00);
 }
 
 .error-message {

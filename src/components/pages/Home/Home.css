@@ -107,19 +107,17 @@ button.oauth-button.github:hover {
 .main-container {
     width: 100%;
     max-width: 1200px;
-    margin: 1rem auto;
     padding: var(--padding-wrapper);
     border-radius: 1rem;
     font-family: var(--font-body);
     color: var(--very-light-blue);
-    ;
+    margin: auto  ;
 }
 
 .leaderboard-header h1 {
     font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 3.5rem;
-    
+    margin-bottom: 1rem;
     
    
 }
@@ -128,9 +126,8 @@ button.oauth-button.github:hover {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 1rem; 
   width: 100%;
- 
-  padding: 0.5rem 0;
 }
 
 /* Opcional: scrollbar personalizado para que combine con tu diseño */
@@ -157,7 +154,6 @@ button.oauth-button.github:hover {
     padding: 1rem 1.5rem;
     border-radius: 0.75rem;
     cursor: pointer;
-    margin: 1rem 2rem 1rem 2rem;
   }
 .leaderboard-item:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -168,31 +164,24 @@ button.oauth-button.github:hover {
 .leaderboard-item:active {
     transform: scale(0.98);
 }
-.leaderboard-item h2 {
-    font-size: 1.5rem;
-    color: var(--neon-pink);
-    text-shadow: 0 0 10px var(--neon-pink);
-    user-select: none;
-}
 
 
 .rank {
+    color: var(--neon-pink);
+    font-size: 2rem;
   margin: auto;
     font-family: var(--font-headings);
-    font-size: 2.2rem;
     width: 3rem;
     text-align: center;
     user-select: none;
-    text-shadow:
-        0 0 8px var(--neon-pink),
-        0 0 15px var(--neon-blue);
+    
 }
 
 .profile-pic.fade-in {
     animation: fadeIn 0.4s ease-in-out forwards;
     margin: 0 auto;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 1rem;
     object-fit: cover;
     border: 2px solid var(--neon-pink);
@@ -211,14 +200,12 @@ button.oauth-button.github:hover {
     font-size: 1.25rem;
     color: var(--neon-pink);
     letter-spacing: 0.1em;
-    text-shadow: 0 0 10px var(--neon-pink);
     user-select: none;
 }
 
 .stats-text {
     font-size: 1rem;
     color: var(--neon-blue);
-    text-shadow: 0 0 8px var(--neon-blue);
     user-select: none;
 }
 .section-title{
@@ -228,23 +215,28 @@ button.oauth-button.github:hover {
 }
 @media (max-width: 768px) {
   .main-container {
-    padding: 1rem;
+    padding: 1rem 0rem;
+    margin: auto  0;
   }
-
+  .leaderboard{
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+  }
   .leaderboard-item {
     align-items: center;
     gap: 1rem;
     text-align: center;
+    padding: 0.5rem 1rem;
+    width: 100%;
   }
 
-  .rank {
-    font-size: 2rem;
-    width: auto;
-  }
+  
 
   .profile-pic {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
   }
 
   .stats-container {
@@ -266,20 +258,23 @@ button.oauth-button.github:hover {
   }
 
   .rank {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .profile-pic {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
 
   .username-text {
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
 
   .stats-text {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
+  }
+  .time-info {
+    font-size: 0.7rem;
   }
 }
 /* Skeleton item estilo general */
@@ -350,12 +345,8 @@ button.oauth-button.github:hover {
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  margin: 2rem 0;
+  margin: 1rem 0;
   padding: 1rem;
-  border: 2px solid var(--neon-blue);
-  border-radius: 1rem;
-  background: rgba(0, 229, 255, 0.05);
-  box-shadow: 0 0 10px var(--neon-blue);
 }
 
 /* Estilo para los select dropdowns */

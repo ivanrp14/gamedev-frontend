@@ -4,6 +4,7 @@ import { Button } from "../../ui/Button";
 import "../Login/Login.css";
 import useFormHandler from "../../../hooks/useFormHandler";
 import { useAuth } from "../../../hooks/AuthProvider";
+import { Title } from "../../ui/Title";
 
 export const Login: React.FC = () => {
   const { login, loading } = useAuth();
@@ -63,7 +64,7 @@ export const Login: React.FC = () => {
 
   return (
     <div className="signup-container">
-      <h1>Iniciar Sesión</h1>
+      <Title>Iniciar Sesión</Title>
       <form onSubmit={handleSubmit} className="login-form">
         <Input
           label="Nombre de Usuario"
