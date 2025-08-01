@@ -11,7 +11,7 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  
 }
 
 .radio-btn-group {
@@ -166,6 +166,7 @@ label:hover span {
     align-items: end;
     justify-content: center;
     margin-bottom: 0rem;
+    z-index: -1;
   }
 
   .hamburger {
