@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
-import "./Home.css";
+import "./home.css";
 import { useNavigate } from "react-router-dom";
 import DefaultProfile from "../../../images/default-profile.png";
+import { useTranslation } from "react-i18next";
 
 // Función para mostrar tiempo relativo (ejemplo: hace 2 horas)
-function timeSince(date: Date) {
+function timeSince(date: Date, t: any) {
   const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
 
   let interval = Math.floor(seconds / 31536000);
-  if (interval > 1) return `hace ${interval} años`;
+  if (interval >= 1) return t("main.years_ago", { count: interval });
 
   interval = Math.floor(seconds / 2592000);
-  if (interval > 1) return `hace ${interval} meses`;
+  if (interval >= 1) return t("main.months_ago", { count: interval });
 
   interval = Math.floor(seconds / 86400);
-  if (interval > 1) return `hace ${interval} días`;
+  if (interval >= 1) return t("main.days_ago", { count: interval });
 
   interval = Math.floor(seconds / 3600);
-  if (interval > 1) return `hace ${interval} horas`;
+  if (interval >= 1) return t("main.hours_ago", { count: interval });
 
   interval = Math.floor(seconds / 60);
-  if (interval > 1) return `hace ${interval} minutos`;
+  if (interval >= 1) return t("main.minutes_ago", { count: interval });
 
-  return "hace unos segundos";
+  return t("main.just_now");
 }
 
 // Clase para tipar los datos del usuario, incluyendo fecha y highscore
@@ -55,7 +56,7 @@ export function Main() {
   const [gameId, setGameId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [games, setGames] = useState<{ id: number; name: string }[]>([]);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const fetchGames = async () => {
       try {
@@ -146,20 +147,23 @@ export function Main() {
           value={rankingType}
           onChange={(e) => setRankingType(e.target.value)}
         >
-          <option value="high_score">High Score</option>
-          <option value="total_score">Total Score</option>
-          <option value="recent_sessions">Recent Sessions</option>
+          <option value="high_score">{t("main.filters.high_score")}</option>
+          <option value="total_score">{t("main.filters.total_score")}</option>
+          <option value="recent_sessions">
+            {t("main.filters.recent_sessions")}
+          </option>
         </select>
 
         {rankingType === "total_score" && (
           <select value={period} onChange={(e) => setPeriod(e.target.value)}>
-            <option value="day">Day</option>
-            <option value="week">Week</option>
-            <option value="month">Month</option>
-            <option value="total">Total</option>
+            <option value="day">{t("main.filters.day")}</option>
+            <option value="week">{t("main.filters.week")}</option>
+            <option value="month">{t("main.filters.month")}</option>
+            <option value="total">{t("main.filters.total")}</option>
           </select>
         )}
-        {rankingType === "recent_sessions" || (
+
+        {rankingType !== "recent_sessions" && (
           <select
             value={gameId ?? ""}
             onChange={(e) =>
@@ -167,7 +171,7 @@ export function Main() {
             }
           >
             {rankingType === "total_score" && (
-              <option value="">All Games</option>
+              <option value="">{t("main.filters.all_games")}</option>
             )}
             {games.map((game) => (
               <option key={game.id} value={game.id}>
@@ -190,7 +194,7 @@ interface LeaderboardProps {
 }
 
 function Leaderboard({ users, loading, rankingType }: LeaderboardProps) {
-  // Para recent_sessions no ordenamos por score sino ya están ordenados por fecha en fetch
+  const { t } = useTranslation();
   const sortedUsers =
     rankingType === "recent_sessions"
       ? users
@@ -201,13 +205,13 @@ function Leaderboard({ users, loading, rankingType }: LeaderboardProps) {
   return (
     <div className="leaderboard-container">
       <div className="leaderboard-header">
-        <h1>Leaderboard</h1>
+        <h1>{t("main.leaderboard")}</h1>{" "}
       </div>
       <div className="leaderboard">
         {loading ? (
           Array.from({ length: 5 }).map((_, i) => <SkeletonItem key={i} />)
         ) : users.length === 0 ? (
-          <p className="no-results">No hay jugadores en este ranking aún.</p>
+          <p className="no-results">{t("main.no_players")}</p>
         ) : (
           sortedUsers.map((user, index) => (
             <LeaderboardItem
@@ -252,7 +256,7 @@ function LeaderboardItem({
   const handleClick = () => {
     navigate(`/user/${username}`);
   };
-
+  const { t } = useTranslation();
   return (
     <button className="leaderboard-item" onClick={handleClick}>
       <h2 className={`rank`}>#{rank}</h2>
@@ -260,7 +264,7 @@ function LeaderboardItem({
         {!imgLoaded && <div className="skeleton-circle" />}
         <img
           src={image || "/default-avatar.png"}
-          alt="Avatar"
+          alt={t("main.avatar_alt")}
           className={`profile-pic ${imgLoaded ? "fade-in" : "hidden"}`}
           onLoad={() => setImgLoaded(true)}
         />
@@ -270,7 +274,7 @@ function LeaderboardItem({
         <div className="stats-text">{score}</div>
         {rankingType === "recent_sessions" && playedAt && (
           <div className="time-info">
-            {timeSince(playedAt)} {isHighscore ? "🔥" : ""}
+            {timeSince(playedAt, t)} {isHighscore ? "🔥" : ""}
           </div>
         )}
       </div>

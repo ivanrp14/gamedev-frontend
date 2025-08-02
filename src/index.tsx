@@ -4,13 +4,13 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import App from "./App.tsx";
-import  theme  from "./theme";
+import theme from "./theme";
 import { store } from "./redux";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-
+import "./i18n.ts";
 ReactDOM.createRoot(document.querySelector("#root")!).render(
   <BrowserRouter>
     <Provider store={store}>
@@ -18,5 +18,5 @@ ReactDOM.createRoot(document.querySelector("#root")!).render(
         <App />
       </ThemeProvider>
     </Provider>
-  </BrowserRouter>,
+  </BrowserRouter>
 );

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next"; // Importamos hook i18n
 import { Input } from "../../ui/Input";
 import { Button } from "../../ui/Button";
 import "../Login/Login.css";
@@ -7,6 +8,8 @@ import { useAuth } from "../../../hooks/AuthProvider";
 import { Title } from "../../ui/Title";
 
 export const Login: React.FC = () => {
+  const { t } = useTranslation();
+
   const { login, loading } = useAuth();
   const {
     values,
@@ -20,7 +23,7 @@ export const Login: React.FC = () => {
     password: "",
   });
 
-  if (loading) return <p>Cargando sesión...</p>;
+  if (loading) return <p>{t("login.loadingSession")}</p>;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +31,7 @@ export const Login: React.FC = () => {
     setIsLoading(true);
 
     if (!values.username || !values.password) {
-      setErrorMessage("Usuario y contraseña requeridos.");
+      setErrorMessage(t("login.usernamePasswordRequired"));
       setIsLoading(false);
       return;
     }
@@ -48,7 +51,7 @@ export const Login: React.FC = () => {
 
       if (!res.ok) {
         const error = await res.json();
-        throw new Error(error.detail || "Login fallido");
+        throw new Error(error.detail || t("login.loginFailed"));
       }
 
       const data = await res.json();
@@ -56,7 +59,7 @@ export const Login: React.FC = () => {
       localStorage.setItem("access_token", data.access_token);
       // ✅ redirige inmediatamente
     } catch (err: any) {
-      setErrorMessage(err.message || "Algo salió mal.");
+      setErrorMessage(err.message || t("login.somethingWentWrong"));
     } finally {
       setIsLoading(false);
     }
@@ -64,17 +67,17 @@ export const Login: React.FC = () => {
 
   return (
     <div className="signup-container">
-      <Title>Iniciar Sesión</Title>
+      <Title>{t("login.loginTitle")}</Title>
       <form onSubmit={handleSubmit} className="login-form">
         <Input
-          label="Nombre de Usuario"
+          label={t("login.usernameLabel")}
           name="username"
           value={values.username}
           onChange={(e) => handleChange("username", e.target.value)}
           required
         />
         <Input
-          label="Contraseña"
+          label={t("login.passwordLabel")}
           name="password"
           type="password"
           value={values.password}
@@ -83,7 +86,7 @@ export const Login: React.FC = () => {
         />
 
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Cargando..." : "Iniciar Sesión"}
+          {isLoading ? t("login.loading") : t("login.loginButton")}
         </Button>
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}

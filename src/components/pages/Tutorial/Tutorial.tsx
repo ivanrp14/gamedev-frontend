@@ -1,23 +1,26 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./Tutorial.css";
-import { useAuth } from "../../../hooks/AuthProvider"; // Importa el hook useAuth
+import { useAuth } from "../../../hooks/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../ui/Button";
 
 const Tutorial: React.FC = () => {
-  const { user } = useAuth(); // Obtén el usuario logueado desde el contexto
+  const { t } = useTranslation();
+  const { user } = useAuth();
   const [color, setColor] = useState("#ff0000");
   const navigate = useNavigate();
+
   const handleJoin = async () => {
     if (!user) {
-      console.error("No user is logged in.");
+      console.error(t("marble.noUserLoggedIn"));
       return;
     }
 
-    const username = user.username; // Usa el nombre de usuario del usuario logueado
+    const username = user.username;
 
-    console.log("Username:", username);
-    console.log("Color:", color);
+    console.log(t("marble.username"), username);
+    console.log(t("marble.color"), color);
 
     try {
       const response = await fetch("https://api.gamedev.study/marbles/join", {
@@ -33,23 +36,23 @@ const Tutorial: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Respuesta del servidor:", data);
-        navigate("/leave"); // Redirige a la página de Leave
+        console.log(t("marble.serverResponse"), data);
+        navigate("/leave");
       } else {
-        console.error("Error en la petición:", response.statusText);
+        console.error(t("marble.requestError"), response.statusText);
         navigate("/leave");
       }
     } catch (error) {
-      console.error("Error al conectar con la API:", error);
+      console.error(t("marble.apiConnectionError"), error);
     }
   };
 
   return (
     <div className="tutorial-container">
-      <h2>Try It!</h2>
+      <h2>{t("marble.tryIt")}</h2>
       <div className="input-container">
         <div className="color-picker">
-          <h2>Choose your color:</h2>
+          <h2>{t("marble.chooseColor")}</h2>
           <input
             type="color"
             value={color}
@@ -58,7 +61,7 @@ const Tutorial: React.FC = () => {
         </div>
       </div>
 
-      <Button onClick={handleJoin}>Join</Button>
+      <Button onClick={handleJoin}>{t("marble.join")}</Button>
     </div>
   );
 };

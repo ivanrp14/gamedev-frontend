@@ -131,6 +131,10 @@ label:hover span {
   cursor: pointer;
   z-index: 10;
   padding: 0.5rem;
+  z-index: 1000;
+  position: absolute;
+  top: 1rem;
+  cursor: pointer;
 }
 
 .hamburger .bar {
@@ -165,8 +169,7 @@ label:hover span {
     margin: 0;
     align-items: end;
     justify-content: center;
-    margin-bottom: 0rem;
-    z-index: -1;
+    margin-bottom: 1rem;
   }
 
   .hamburger {

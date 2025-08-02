@@ -5,16 +5,18 @@ import {
   FaInstagram,
   FaLinkedin,
 } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import "./Footer.css";
 
 export const Footer: React.FC = () => {
+  const { t } = useTranslation();
+
+  const year = new Date().getFullYear();
+
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>
-          &copy; {new Date().getFullYear()} GameDev UPC · Todos los derechos
-          reservados
-        </p>
+        <p>{t("footer.copyright", { year })}</p>
         <div className="social-icons">
           <a
             href="https://facebook.com"

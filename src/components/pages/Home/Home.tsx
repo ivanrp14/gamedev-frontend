@@ -5,13 +5,19 @@ import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/AuthProvider";
 import { Button } from "../../ui/Button";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "../../LanguageSelector/LanguageSelector";
+
 export const Home: React.FC = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { t } = useTranslation();
+
   if (isAuthenticated) {
     navigate("/main");
     return null; // Evita renderizar el resto del componente
   }
+
   const handleLogin = () => {
     if (isAuthenticated) {
       navigate("/main");
@@ -43,23 +49,29 @@ export const Home: React.FC = () => {
   return (
     <main>
       <div className="home-container">
-        <Title level={1}>GameDev</Title>
-        <p className="home-subtitle">Asociación de estudiantes de la EPSEVG.</p>
+        <Title level={1}>{t("home.title")}</Title>
+        <p className="home-subtitle">{t("home.subtitle")}</p>
 
         <div className="button-group">
           <Button className="primary-button" onClick={handleLogin}>
             <FaSignInAlt className="btn-icon" />
-            {isAuthenticated ? "Go to Dashboard" : "Login"}
+            <p>
+              {isAuthenticated ? t("home.go_to_dashboard") : t("home.login")}
+            </p>
           </Button>
           <Button className="primary-button" onClick={handleSignup}>
-            <FaUserPlus className="btn-icon" /> Sign Up
+            <FaUserPlus className="btn-icon" />
+            <p>{t("home.signup")}</p>
           </Button>
           <Button className="oauth-button google" onClick={handleGoogleOAuth}>
-            <FaGoogle className="btn-icon" /> Google
+            <FaGoogle className="btn-icon" />
+            <p>{t("home.google")}</p>
           </Button>
           <Button className="oauth-button github" onClick={handleGithubOAuth}>
-            <FaGithub className="btn-icon" /> GitHub
+            <FaGithub className="btn-icon" />
+            <p>{t("home.github")}</p>
           </Button>
+          <LanguageSelector />
         </div>
       </div>
     </main>

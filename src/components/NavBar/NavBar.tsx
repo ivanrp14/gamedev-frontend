@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import gsap from "gsap";
 import "./NavBar.css";
-
-const options = [
-  { id: "main", label: "Main" },
-  { id: "marble", label: "Marble" },
-  { id: "mystats", label: "My Stats" },
-];
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const options = [
+    { id: "main", label: t("navbar.main") },
+    { id: "marble", label: t("navbar.marble") },
+    { id: "mystats", label: t("navbar.mystats") },
+  ];
 
   useEffect(() => {
     const groups =

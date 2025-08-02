@@ -1,0 +1,32 @@
+.language-selector {
+  margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.lang-button {
+  border: 2px solid var(--neon-blue);
+  background-color: transparent;
+  color: var(--neon-pink);
+  font-family: var(--font-body);
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  padding: 0rem 1rem;
+}
+
+.lang-button:hover,
+.lang-button.active {
+  background-color: var(--neon-blue);
+  color: var(--dark-blue);
+  scale: 1.05;
+}

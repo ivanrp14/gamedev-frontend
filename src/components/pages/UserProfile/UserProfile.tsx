@@ -5,7 +5,10 @@ import { Title } from "../../ui/Title";
 import "./UserProfile.css";
 import { useAuth } from "../../../hooks/AuthProvider";
 import DefaultProfile from "../../../images/default-profile.png";
+import { useTranslation } from "react-i18next";
+
 export const UserProfile = () => {
+  const { t } = useTranslation();
   const { username } = useParams();
   const [user, setUser] = useState<User | null>(null);
 
@@ -20,41 +23,47 @@ export const UserProfile = () => {
         const data = await res.json();
         const loadedUser = User.fromApiResponse(data);
         setUser(loadedUser);
-        console.log("User loaded:", loadedUser);
-        // Solo pedimos imagen de gato si no hay imagen de perfil
-        if (!data.profilePicture) {
-        }
+        console.log(t("userProfile.userLoaded"), loadedUser);
       } catch (err) {
-        console.error("Error loading user or cat image:", err);
+        console.error(t("userProfile.errorLoadingUserOrCat"), err);
       }
     };
 
     fetchUserAndCat();
-  }, [username]);
+  }, [username, t]);
 
   if (!user || !currentUser)
-    return <p className="loading">Cargando usuario...</p>;
+    return <p className="loading">{t("userProfile.loadingUser")}</p>;
 
   const isSameUser = currentUser.username === user.username;
   let comparisonMessage = "";
 
   if (user.total_score > currentUser.total_score) {
-    comparisonMessage = `🔥 Este usuario tiene ${user.total_score - currentUser.total_score} puntos más que tú.`;
+    const diff = user.total_score - currentUser.total_score;
+    comparisonMessage = t("userProfile.userHasMorePoints", { diff });
   } else if (user.total_score < currentUser.total_score) {
-    comparisonMessage = `😎 Tienes ${currentUser.total_score - user.total_score} puntos más que él.`;
+    const diff = currentUser.total_score - user.total_score;
+    comparisonMessage = t("userProfile.youHaveMorePoints", { diff });
   } else {
-    comparisonMessage = `🤝 Ambos tienen exactamente ${user.total_score} puntos. ¡Empate!`;
+    comparisonMessage = t("userProfile.pointsTie", {
+      points: user.total_score,
+    });
   }
+
   return (
     <div className="user-profile neon-card">
       <img
         src={user.profile_image || DefaultProfile}
-        alt="Profile"
+        alt={t("userProfile.profilePictureAlt", { username: user.username })}
         className="profile-pic"
       />
       <Title level={2}>{user.username}</Title>
-      <p>🎮 Juegos jugados: {user.gamesPlayed.length}</p>
-      <p>🏆 Total Score: {user.total_score}</p>
+      <p>
+        🎮 {t("userProfile.gamesPlayed")}: {user.gamesPlayed.length}
+      </p>
+      <p>
+        🏆 {t("userProfile.totalScore")}: {user.total_score}
+      </p>
 
       {!isSameUser && (
         <div className="comparison">
@@ -63,7 +72,7 @@ export const UserProfile = () => {
       )}
 
       <div className="game-list">
-        <h3>Juegos jugados:</h3>
+        <h3>{t("userProfile.gamesPlayedList")}:</h3>
         <ul>
           {user.gamesPlayed.map((game) => {
             const currentUserGame = currentUser.gamesPlayed.find(
@@ -80,22 +89,23 @@ export const UserProfile = () => {
 
             if (diff > 0) {
               scoreClass = "win";
-              diffLabel = ` (+${diff} puntos)`;
+              diffLabel = ` (+${diff} ${t("userProfile.points")})`;
             } else if (diff < 0) {
               scoreClass = "lose";
-              diffLabel = ` (${diff} puntos)`;
+              diffLabel = ` (${diff} ${t("userProfile.points")})`;
             }
 
             return (
               <li key={game.name} className={`game-item ${scoreClass}`}>
-                <strong>{game.name}</strong>: {userScore} puntos
+                <strong>{game.name}</strong>: {userScore}{" "}
+                {t("userProfile.points")}
                 {!isSameUser && currentUserGame && (
                   <span className="comparison-tag">
                     {diff > 0
-                      ? `✔️ Le ganas${diffLabel}`
+                      ? `✔️ ${t("userProfile.youBeatThem")}${diffLabel}`
                       : diff < 0
-                        ? `❌ Te gana${diffLabel}`
-                        : "🤝 Empate"}
+                        ? `❌ ${t("userProfile.theyBeatYou")}${diffLabel}`
+                        : "🤝 " + t("userProfile.tie")}
                   </span>
                 )}
               </li>

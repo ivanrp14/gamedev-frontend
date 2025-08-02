@@ -1,0 +1,140 @@
+
+{
+    "home": {
+      "title": "GameDev",
+      "subtitle": "Asociación de Estudiantes de la EPSEVG",
+      "login": "Iniciar sesión",
+      "signup": "Registrarse",
+      "google": "Google",
+      "github": "GitHub",
+      "go_to_dashboard": "Ir al Panel"
+    },
+    "about": {
+      "title": "Sobre Nuestra Asociación",
+      "description": "Somos un grupo de estudiantes apasionados de la EPSEVG, dedicados a crear videojuegos innovadores y desarrollar un motor gráfico de última generación.",
+      "button_engine": "Motor",
+      "button_videogames": "Videojuegos",
+      "engine_title": "Equipo del Motor",
+      "engine_text": "Nuestro equipo de Motor se dedica al desarrollo de un motor gráfico de vanguardia usando C++. Se enfocan en optimizar el rendimiento y crear efectos visuales realistas.",
+      "videogames_title": "Equipo de Videojuegos",
+      "videogames_text": "Nuestro equipo de Videojuegos se especializa en crear juegos atractivos e innovadores usando Unity. Combinan narrativa, mecánicas de juego y creatividad para ofrecer experiencias inolvidables.",
+      "engine_members": ["Alice", "Bob", "Charlie"],
+      "videogames_members": ["Dave", "Eve", "Frank"]
+    },
+    "chooseAvatar": {
+      "title": "¡Bienvenido!",
+      "subtitle": "Aún no has elegido una foto de perfil. Selecciona una para continuar:",
+      "loading": "Cargando imágenes...",
+      "error_fetch": "No se pudieron cargar las imágenes.",
+      "error_save": "Error al guardar la imagen.",
+      "select_aria": "Seleccionar avatar",
+      "alt": "Avatar de gato"
+    },
+    "main": {
+      "leaderboard": "Clasificación",
+      "filters": {
+        "high_score": "Puntuación más alta",
+        "total_score": "Puntuación total",
+        "recent_sessions": "Sesiones recientes",
+        "day": "Día",
+        "week": "Semana",
+        "month": "Mes",
+        "total": "Total",
+        "all_games": "Todos los juegos"
+      },
+      "no_players": "No hay jugadores en este ranking aún.",
+      "avatar_alt": "Avatar",
+      "just_now": "hace unos segundos",
+      "minutes_ago": "hace {{count}} minutos",
+      "hours_ago": "hace {{count}} horas",
+      "days_ago": "hace {{count}} días",
+      "months_ago": "hace {{count}} meses",
+      "years_ago": "hace {{count}} años"
+    },
+    "mystats": {
+      "statistics": "Estadísticas",
+      "totalPlayTime": "Tiempo Total de Juego",
+      "totalScore": "Puntuación Total",
+      "topGame": "Juego Destacado",
+      "gamesPlayed": "Juegos Jugados",
+      "logout": "Cerrar sesión",
+      "editProfile": "Editar Perfil",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "newPassword": "Nueva contraseña",
+      "maxScore": "Puntuación Máxima",
+      "timePlayed": "Tiempo Jugado"
+    },
+    "login": {
+      "loginError": "Error al iniciar sesión",
+      "loadingSession": "Cargando sesión...",
+      "usernamePasswordRequired": "Se requieren nombre de usuario y contraseña.",
+      "loginFailed": "Error al iniciar sesión",
+      "somethingWentWrong": "Algo salió mal.",
+      "loginTitle": "Iniciar sesión",
+      "usernameLabel": "Nombre de usuario",
+      "passwordLabel": "Contraseña",
+      "loading": "Cargando...",
+      "loginButton": "Entrar"
+    },
+    "signup": {
+      "createAccount": "Crear Cuenta",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "username": "Nombre de usuario",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "invalidEmail": "El correo no es válido.",
+      "passwordMinLength": "La contraseña debe tener al menos 8 caracteres.",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden.",
+      "registerError": "Error al registrarse.",
+      "registerFailed": "El registro falló. Inténtalo de nuevo.",
+      "registering": "Registrando...",
+      "register": "Registrarse"
+    },
+    "leave": {
+      "thanksForPlaying": "Gracias por jugar",
+      "leave": "Salir",
+      "noUserLoggedIn": "Ningún usuario ha iniciado sesión.",
+      "requestError": "Error en la solicitud:",
+      "apiConnectionError": "Error al conectar con la API:"
+    },
+    "marble": {
+      "tryIt": "¡Pruébalo!",
+      "chooseColor": "Elige tu color:",
+      "join": "Unirse",
+      "noUserLoggedIn": "Ningún usuario ha iniciado sesión.",
+      "username": "Nombre de usuario:",
+      "color": "Color:",
+      "serverResponse": "Respuesta del servidor:",
+      "requestError": "Error en la solicitud:",
+      "apiConnectionError": "Error al conectar con la API:"
+    },
+    "userProfile": {
+      "userLoaded": "Usuario cargado:",
+      "errorLoadingUserOrCat": "Error al cargar el usuario o la imagen del gato:",
+      "loadingUser": "Cargando usuario...",
+      "userHasMorePoints": "🔥 Este usuario tiene {{diff}} puntos más que tú.",
+      "youHaveMorePoints": "😎 Tienes {{diff}} puntos más que él.",
+      "pointsTie": "🤝 Ambos tenéis exactamente {{points}} puntos. ¡Empate!",
+      "profilePictureAlt": "Foto de perfil de {{username}}",
+      "gamesPlayed": "Juegos jugados",
+      "totalScore": "Puntuación total",
+      "gamesPlayedList": "Juegos jugados",
+      "points": "puntos",
+      "youBeatThem": "Le ganaste",
+      "theyBeatYou": "Te ganó",
+      "tie": "Empate"
+    },
+    "navbar": {
+      "main": "Inicio",
+      "about": "Sobre nosotros",
+      "mystats": "Mis Estadísticas",
+      "marble": "Canicas"
+    },
+    "footer": {
+      "copyright": "© {{year}} GameDev UPC · Todos los derechos reservados"
+    }
+    }

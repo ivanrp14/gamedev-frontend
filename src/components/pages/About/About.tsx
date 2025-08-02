@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./About.css";
 
 function About() {
@@ -6,47 +7,47 @@ function About() {
     "engine"
   );
 
+  const { t } = useTranslation();
+
   const toggleSection = () => {
     setActiveSection((prev) => (prev === "engine" ? "videogames" : "engine"));
   };
 
+  const members = t(`about.${activeSection}_members`, {
+    returnObjects: true,
+  }) as string[];
+
   return (
     <div className="container">
-      {/* Descripción global */}
-      <h2>About Our Association</h2>
+      <h2>{t("about.title")}</h2>
+
       <section className="description">
-        <p>
-          We are a group of passionate students from the EPSEVG, dedicated to
-          creating innovative video games and developing a state-of-the-art
-          graphics engine.
-        </p>
+        <p>{t("about.description")}</p>
       </section>
 
-      {/* Sección dinámica con animación de fade */}
       <section className={`members-section ${activeSection}`}>
-        {/* Botón único para alternar */}
         <div className="switch-container">
           <button
             onClick={toggleSection}
             className="switch-button"
-            data-alt-text={activeSection === "engine" ? "VideoGames" : "Engine"}
+            data-alt-text={
+              activeSection === "engine"
+                ? t("about.button_videogames")
+                : t("about.button_engine")
+            }
           >
-            {activeSection === "engine" ? "Engine" : "VideoGames"}
+            {activeSection === "engine"
+              ? t("about.button_engine")
+              : t("about.button_videogames")}
           </button>
         </div>
-        <h1>
-          {activeSection === "engine" ? "Engine Team" : "Video Games Team"}
-        </h1>
-        <p className="description">
-          {activeSection === "engine"
-            ? "Our Engine team is dedicated to developing a cutting-edge graphics engine using C++. They focus on optimizing performance and creating realistic visual effects."
-            : "Our Video Games team specializes in crafting engaging and innovative games using Unity. They combine storytelling, gameplay mechanics, and creativity to deliver unforgettable experiences."}
-        </p>
+
+        <h1>{t(`about.${activeSection}_title`)}</h1>
+
+        <p className="description">{t(`about.${activeSection}_text`)}</p>
+
         <div className="members-grid">
-          {(activeSection === "engine"
-            ? ["Alice", "Bob", "Charlie"]
-            : ["Dave", "Eve", "Frank"]
-          ).map((member, idx) => (
+          {members.map((member, idx) => (
             <div className="member-card" key={idx}>
               <img
                 src={`https://via.placeholder.com/150?text=${member}`}

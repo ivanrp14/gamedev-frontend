@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./ChooseAvatar.css";
 
 interface CatImage {
@@ -14,6 +15,7 @@ const ChooseAvatar: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const { refreshUser } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchCats = async () => {
@@ -24,14 +26,14 @@ const ChooseAvatar: React.FC = () => {
         const data = await res.json();
         setImages(data);
       } catch (err) {
-        setError("No se pudieron cargar las imágenes.");
+        setError(t("chooseAvatar.error_fetch"));
       } finally {
         setLoading(false);
       }
     };
 
     fetchCats();
-  }, []);
+  }, [t]);
 
   const handleSelect = async (url: string) => {
     try {
@@ -46,26 +48,25 @@ const ChooseAvatar: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error("No se pudo guardar la imagen.");
+        throw new Error();
       }
 
       await refreshUser();
       navigate("/main");
     } catch (error) {
       console.error(error);
-      setError("Error al guardar la imagen.");
+      setError(t("chooseAvatar.error_save"));
     }
   };
 
   return (
     <div className="choose-avatar-container">
-      <h1>¡Bienvenido!</h1>
-      <p className="choose-avatar-subtitle">
-        Aún no has elegido una foto de perfil. Selecciona una imagen para
-        continuar:
-      </p>
+      <h1>{t("chooseAvatar.title")}</h1>
+      <p className="choose-avatar-subtitle">{t("chooseAvatar.subtitle")}</p>
 
-      {loading && <p className="choose-avatar-status">Cargando imágenes...</p>}
+      {loading && (
+        <p className="choose-avatar-status">{t("chooseAvatar.loading")}</p>
+      )}
       {error && <p className="error-message">{error}</p>}
 
       <div className="avatar-grid">
@@ -74,9 +75,13 @@ const ChooseAvatar: React.FC = () => {
             key={img.id}
             onClick={() => handleSelect(img.url)}
             className="avatar-button"
-            aria-label="Seleccionar avatar"
+            aria-label={t("chooseAvatar.select_aria")}
           >
-            <img src={img.url} alt="Avatar de gato" className="avatar-image" />
+            <img
+              src={img.url}
+              alt={t("chooseAvatar.alt")}
+              className="avatar-image"
+            />
           </button>
         ))}
       </div>

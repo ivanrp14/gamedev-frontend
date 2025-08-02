@@ -33,15 +33,20 @@ export const Button: React.FC<ButtonProps> = ({
     let frame = 0;
 
     const intervalId = setInterval(() => {
-      const scrambled = textArray.map((char, idx) =>
-        frame < frames ? chars[Math.floor(Math.random() * chars.length)] : char
+      const scrambled = textArray.map(() =>
+        frame < frames ? chars[Math.floor(Math.random() * chars.length)] : ""
       );
-      setAnimatedText(scrambled.join(""));
+
+      const finalText = scrambled.map((char, idx) =>
+        frame < frames ? char : originalText![idx]
+      );
+
+      setAnimatedText(finalText.join(""));
 
       if (++frame > frames) {
         clearInterval(intervalId);
         setIsAnimating(false);
-        setAnimatedText(text);
+        setAnimatedText(originalText);
       }
     }, interval);
   };
@@ -52,12 +57,16 @@ export const Button: React.FC<ButtonProps> = ({
     }
   };
 
-  // This will ensure text is updated when children change (like "Login" to "Go to Dashboard")
+  // Busca el texto dentro del <p> y lo anima
   useEffect(() => {
     React.Children.forEach(children, (child) => {
-      if (typeof child === "string") {
-        setAnimatedText(child);
-        setOriginalText(child);
+      if (
+        React.isValidElement(child) &&
+        child.type === "p" &&
+        typeof child.props.children === "string"
+      ) {
+        setOriginalText(child.props.children);
+        setAnimatedText(child.props.children);
       }
     });
   }, [children]);
@@ -71,10 +80,16 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
     >
       {React.Children.map(children, (child) => {
-        if (typeof child === "string" && animatedText !== null) {
-          return <span className="animated-text">{animatedText}</span>;
+        if (
+          React.isValidElement(child) &&
+          child.type === "p" &&
+          typeof child.props.children === "string" &&
+          animatedText !== null
+        ) {
+          // Reemplaza solo el <p> por uno animado
+          return <p className="animated-text">{animatedText}</p>;
         }
-        return child;
+        return child; // Deja íconos y otros elementos como están
       })}
     </button>
   );

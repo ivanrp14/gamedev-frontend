@@ -1,19 +1,22 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./Tutorial.css";
 import { useAuth } from "../../../hooks/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../ui/Button";
+
 const Leave: React.FC = () => {
-  const { user } = useAuth(); // Obtén el usuario logueado desde el contexto
+  const { t } = useTranslation();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleLeave = async () => {
     if (!user) {
-      console.error("No user is logged in.");
+      console.error(t("leave.noUserLoggedIn"));
       return;
     }
 
-    const username = user.username; // Usa el nombre de usuario del usuario logueado
+    const username = user.username;
     console.log("Username:", username);
     try {
       const response = await fetch("https://api.gamedev.study/marbles/leave", {
@@ -21,29 +24,26 @@ const Leave: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          username: username,
-        }),
+        body: JSON.stringify({ username }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Respuesta del servidor:", data);
-        navigate("/main"); // Redirige a la página de Home
+        console.log("Server response:", data);
+        navigate("/main");
       } else {
-        console.error("Error en la petición:", response.statusText);
+        console.error(t("leave.requestError"), response.statusText);
       }
     } catch (error) {
-      console.error("Error al conectar con la API:", error);
+      console.error(t("leave.apiConnectionError"), error);
     }
   };
 
   return (
     <div className="container">
-      <h2>Thanks For Playing</h2>
+      <h2>{t("leave.thanksForPlaying")}</h2>
       <div className="input-container"></div>
-
-      <Button onClick={handleLeave}>Leave</Button>
+      <Button onClick={handleLeave}>{t("leave.leave")}</Button>
     </div>
   );
 };

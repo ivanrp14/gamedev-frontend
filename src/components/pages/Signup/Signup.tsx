@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Input } from "../../ui/Input";
 import { Button } from "../../ui/Button";
 import "../Login/Login.css";
 import { useAuth } from "../../../hooks/AuthProvider";
 
 export const SignUp: React.FC = () => {
+  const { t } = useTranslation();
   const { login } = useAuth();
   const [form, setForm] = useState({
     fullName: "",
@@ -31,17 +33,17 @@ export const SignUp: React.FC = () => {
     setErrorMessage(null);
 
     if (!validateEmail(form.email)) {
-      setErrorMessage("El correo electrónico no es válido.");
+      setErrorMessage(t("signup.invalidEmail"));
       return;
     }
 
     if (form.password.length < 8) {
-      setErrorMessage("La contraseña debe tener al menos 8 caracteres.");
+      setErrorMessage(t("signup.passwordMinLength"));
       return;
     }
 
     if (form.password !== form.confirmPassword) {
-      setErrorMessage("Las contraseñas no coinciden.");
+      setErrorMessage(t("signup.passwordsDoNotMatch"));
       return;
     }
 
@@ -61,13 +63,13 @@ export const SignUp: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || "Error al registrarse.");
+        throw new Error(errorData.detail || t("signup.registerError"));
       }
 
       const data = await response.json();
       login(data.access_token);
     } catch (error: any) {
-      setErrorMessage(error.message || "Registro fallido. Inténtalo de nuevo.");
+      setErrorMessage(error.message || t("signup.registerFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -75,18 +77,18 @@ export const SignUp: React.FC = () => {
 
   return (
     <div className="signup-container">
-      <h1>Crear Cuenta</h1>
+      <h1>{t("signup.createAccount")}</h1>
       <form onSubmit={handleRegister} className="signup-form">
         <div className="form-group1">
           <Input
-            label="Nombre Completo"
+            label={t("signup.fullName")}
             name="fullName"
             value={form.fullName}
             onChange={handleChange}
             required
           />
           <Input
-            label="Correo Electrónico"
+            label={t("signup.email")}
             name="email"
             type="email"
             value={form.email}
@@ -94,7 +96,7 @@ export const SignUp: React.FC = () => {
             required
           />
           <Input
-            label="Nombre de Usuario"
+            label={t("signup.username")}
             name="username"
             value={form.username}
             onChange={handleChange}
@@ -103,7 +105,7 @@ export const SignUp: React.FC = () => {
         </div>
         <div className="form-group2">
           <Input
-            label="Contraseña"
+            label={t("signup.password")}
             name="password"
             type="password"
             value={form.password}
@@ -111,7 +113,7 @@ export const SignUp: React.FC = () => {
             required
           />
           <Input
-            label="Confirmar Contraseña"
+            label={t("signup.confirmPassword")}
             name="confirmPassword"
             type="password"
             value={form.confirmPassword}
@@ -120,7 +122,7 @@ export const SignUp: React.FC = () => {
           />
 
           <Button type="submit" disabled={isLoading}>
-            {isLoading ? "Registrando..." : "Registrarse"}
+            {isLoading ? t("signup.registering") : t("signup.register")}
           </Button>
         </div>
 

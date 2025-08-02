@@ -1,0 +1,140 @@
+{
+  "home": {
+    "title": "GameDev",
+    "subtitle": "EPSEVG Student Association",
+    "login": "Login",
+    "signup": "Sign Up",
+    "google": "Google",
+    "github": "GitHub",
+    "go_to_dashboard": "Go to Dashboard"
+  },
+  "about": {
+    "title": "About Our Association",
+    "description": "We are a group of passionate students from the EPSEVG, dedicated to creating innovative video games and developing a state-of-the-art graphics engine.",
+    "button_engine": "Engine",
+    "button_videogames": "VideoGames",
+    "engine_title": "Engine Team",
+    "engine_text": "Our Engine team is dedicated to developing a cutting-edge graphics engine using C++. They focus on optimizing performance and creating realistic visual effects.",
+    "videogames_title": "Video Games Team",
+    "videogames_text": "Our Video Games team specializes in crafting engaging and innovative games using Unity. They combine storytelling, gameplay mechanics, and creativity to deliver unforgettable experiences.",
+    "engine_members": ["Alice", "Bob", "Charlie"],
+    "videogames_members": ["Dave", "Eve", "Frank"]
+  },
+  "chooseAvatar": {
+    "title": "Welcome!",
+    "subtitle": "You haven't chosen a profile picture yet. Select one to continue:",
+    "loading": "Loading images...",
+    "error_fetch": "Could not load images.",
+    "error_save": "Error saving the image.",
+    "select_aria": "Select avatar",
+    "alt": "Cat avatar"
+  },
+  "main": {
+    "leaderboard": "Clasificación",
+    "filters": {
+      "high_score": "Máxima puntuación",
+      "total_score": "Puntuación total",
+      "recent_sessions": "Sesiones recientes",
+      "day": "Día",
+      "week": "Semana",
+      "month": "Mes",
+      "total": "Total",
+      "all_games": "Todos los juegos"
+    },
+    "no_players": "No hay jugadores en este ranking aún.",
+    "avatar_alt": "Avatar",
+    "just_now": "hace unos segundos",
+    "minutes_ago": "hace {{count}} minutos",
+    "hours_ago": "hace {{count}} horas",
+    "days_ago": "hace {{count}} días",
+    "months_ago": "hace {{count}} meses",
+    "years_ago": "hace {{count}} años"
+  },
+  "mystats":{
+    "statistics": "Statistics",
+  "totalPlayTime": "Total Play Time",
+  "totalScore": "Total Score",
+  "topGame": "Top Game",
+  "gamesPlayed": "Games Played",
+  "logout": "Logout",
+  "editProfile": "Edit Profile",
+  "save": "Save",
+  "cancel": "Cancel",
+  "fullName": "Full Name",
+  "email": "Email",
+  "newPassword": "New Password",
+  "maxScore": "Max Score",
+  "timePlayed": "Time Played"
+  },
+  "login":{
+    "loginError": "Login error",
+    "loadingSession": "Loading session...",
+    "usernamePasswordRequired": "Username and password are required.",
+    "loginFailed": "Login failed",
+    "somethingWentWrong": "Something went wrong.",
+    "loginTitle": "Login",
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "loading": "Loading...",
+    "loginButton": "Log In"
+  },
+  "signup":{
+    "createAccount": "Create Account",
+  "fullName": "Full Name",
+  "email": "Email",
+  "username": "Username",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "invalidEmail": "Email is not valid.",
+  "passwordMinLength": "Password must be at least 8 characters.",
+  "passwordsDoNotMatch": "Passwords do not match.",
+  "registerError": "Error registering.",
+  "registerFailed": "Registration failed. Please try again.",
+  "registering": "Registering...",
+  "register": "Register"
+  },
+  "leave":{
+     "thanksForPlaying": "Thanks For Playing",
+  "leave": "Leave",
+  "noUserLoggedIn": "No user is logged in.",
+  "requestError": "Request error:",
+  "apiConnectionError": "Error connecting to API:"
+  },
+  "marble":{
+    "tryIt": "Try It!",
+  "chooseColor": "Choose your color:",
+  "join": "Join",
+  "noUserLoggedIn": "No user is logged in.",
+  "username": "Username:",
+  "color": "Color:",
+  "serverResponse": "Server response:",
+  "requestError": "Request error:",
+  "apiConnectionError": "Error connecting to API:"
+},
+  "userProfile": {
+     "userLoaded": "User loaded:",
+  "errorLoadingUserOrCat": "Error loading user or cat image:",
+  "loadingUser": "Loading user...",
+  "userHasMorePoints": "🔥 This user has {{diff}} points more than you.",
+  "youHaveMorePoints": "😎 You have {{diff}} points more than them.",
+  "pointsTie": "🤝 You both have exactly {{points}} points. Tie!",
+  "profilePictureAlt": "{{username}}'s profile picture",
+  "gamesPlayed": "Games played",
+  "totalScore": "Total score",
+  "gamesPlayedList": "Games played",
+  "points": "points",
+  "youBeatThem": "You beat them",
+  "theyBeatYou": "They beat you",
+  "tie": "Tie"
+  },
+  "navbar": {
+    "main": "Home",
+    "about": "About",
+    "mystats": "My Stats",
+    "marble": "Marbles"
+  },
+  "footer": {
+    "copyright": "© {{year}} GameDev UPC · All rights reserved"
+  }
+
+}

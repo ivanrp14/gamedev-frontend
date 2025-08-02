@@ -2,12 +2,12 @@ import "./MyStats.css";
 import { User } from "../../../interfaces/User";
 import { VideoGame } from "../../../interfaces/Videogame";
 import { useState } from "react";
-
 import { useAuth } from "../../../hooks/AuthProvider";
 import { JSX } from "react";
 import { Section } from "../../ui/Section";
 import DefaultProfile from "../../../images/default-profile.png";
 import { Button } from "../../ui/Button";
+import { useTranslation } from "react-i18next";
 
 function MyStats() {
   const { user } = useAuth();
@@ -29,6 +29,7 @@ function MyStats() {
 
 function ProfileSection({ user }: { user: User }) {
   const { logout } = useAuth();
+  const { t } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     email: user.email,
@@ -43,7 +44,6 @@ function ProfileSection({ user }: { user: User }) {
 
   const handleSave = async () => {
     try {
-      // Aquí deberías llamar a tu API
       console.log("Updating user with:", formData);
       // await updateUser(formData);
       setEditing(false);
@@ -62,7 +62,7 @@ function ProfileSection({ user }: { user: User }) {
         />
         <h1 className="username">{user.username}</h1>
         <Button onClick={logout} className="logout-button">
-          Logout
+          {t("mystats.logout")}
         </Button>
       </div>
 
@@ -70,39 +70,40 @@ function ProfileSection({ user }: { user: User }) {
         <div className="edit-form">
           <input
             type="text"
-            name="firstName"
+            name="fullname"
             value={formData.fullname}
             onChange={handleChange}
-            placeholder="First Name"
+            placeholder={t("mystats.fullName")}
           />
-
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Email"
+            placeholder={t("mystats.email")}
           />
           <input
             type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="New Password"
+            placeholder={t("mystats.newPassword")}
           />
           <div className="edit-actions">
-            <Button onClick={handleSave}>Save</Button>
-            <Button onClick={() => setEditing(false)}>Cancel</Button>
+            <Button onClick={handleSave}>{t("mystats.save")}</Button>
+            <Button onClick={() => setEditing(false)}>
+              {t("mystats.cancel")}
+            </Button>
           </div>
         </div>
       ) : (
         <>
           <div className="info-grid">
-            <InfoBox label="Full Name" value={user.fullname} />
-            <InfoBox label="Email" value={user.email} />
+            <InfoBox label={t("mystats.fullName")} value={user.fullname} />
+            <InfoBox label={t("mystats.email")} value={user.email} />
           </div>
           <Button onClick={() => setEditing(true)} className="edit-button">
-            Edit Profile
+            {t("mystats.editProfile")}
           </Button>
         </>
       )}
@@ -119,14 +120,19 @@ function StatisticsSection({
   totalScore: number;
   highestScoringGame: VideoGame;
 }) {
+  const { t } = useTranslation();
+
   return (
     <Section className="section">
-      <h1 className="section-title">Statistics</h1>
+      <h1 className="section-title">{t("mystats.statistics")}</h1>
       <div className="statistics-grid">
-        <StatCard label="Total Play Time" value={`${totalPlayTime} mins`} />
-        <StatCard label="Total Score" value={totalScore} />
         <StatCard
-          label="Top Game"
+          label={t("mystats.totalPlayTime")}
+          value={`${totalPlayTime} mins`}
+        />
+        <StatCard label={t("mystats.totalScore")} value={totalScore} />
+        <StatCard
+          label={t("mystats.topGame")}
           value={`${highestScoringGame.name} (${highestScoringGame.high_score} pts)`}
         />
       </div>
@@ -135,9 +141,11 @@ function StatisticsSection({
 }
 
 function GamesSection({ games }: { games: VideoGame[] }) {
+  const { t } = useTranslation();
+
   return (
     <Section className="section">
-      <h1 className="section-title">Games Played</h1>
+      <h1 className="section-title">{t("mystats.gamesPlayed")}</h1>
       <div className="games-grid">
         {games.map((game, i) => (
           <InfoBox
@@ -145,9 +153,9 @@ function GamesSection({ games }: { games: VideoGame[] }) {
             label={game.name}
             value={
               <>
-                Max Score: {game.high_score} pts
+                {t("mystats.maxScore")}: {game.high_score} pts
                 <br />
-                Time: {game.timePlayed} mins
+                {t("mystats.timePlayed")}: {game.timePlayed} mins
               </>
             }
           />
