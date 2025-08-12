@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./home.css";
+import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import DefaultProfile from "../../../images/default-profile.png";
 import { useTranslation } from "react-i18next";
