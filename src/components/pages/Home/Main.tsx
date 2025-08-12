@@ -61,7 +61,7 @@ export function Main() {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await fetch("http://localhost:8000/game");
+        const response = await fetch("https://api.gamedev.study/game");
         if (!response.ok) throw new Error("Error al obtener juegos");
         const data = await response.json();
         setGames(data);
@@ -91,7 +91,7 @@ export function Main() {
           endpoint = `/game/sessions/recent`;
         }
 
-        const response = await fetch(`http://localhost:8000${endpoint}`, {
+        const response = await fetch(`https://api.gamedev.study${endpoint}`, {
           headers: {
             Accept: "application/json",
           },
@@ -120,7 +120,6 @@ export function Main() {
             );
 
           setUsers(userList);
-          console.log("User list:", userList);
         } else {
           const userList: UserLeaderboard[] = data.map((item: any) => {
             return new UserLeaderboard(
