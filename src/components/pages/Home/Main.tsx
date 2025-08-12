@@ -3,6 +3,8 @@ import "./home.css";
 import { useNavigate } from "react-router-dom";
 import DefaultProfile from "../../../images/default-profile.png";
 import { useTranslation } from "react-i18next";
+import PodiumChart from "../../Charts/ScoreChart";
+import { getProfilePic } from "../../../hooks/GetProfilePic";
 
 // Función para mostrar tiempo relativo (ejemplo: hace 2 horas)
 function timeSince(date: Date, t: any) {
@@ -60,7 +62,7 @@ export function Main() {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await fetch("https://api.gamedev.study/game");
+        const response = await fetch("http://localhost:8000/game");
         if (!response.ok) throw new Error("Error al obtener juegos");
         const data = await response.json();
         setGames(data);
@@ -90,7 +92,7 @@ export function Main() {
           endpoint = `/game/sessions/recent`;
         }
 
-        const response = await fetch(`https://api.gamedev.study${endpoint}`, {
+        const response = await fetch(`http://localhost:8000${endpoint}`, {
           headers: {
             Accept: "application/json",
           },
@@ -119,6 +121,7 @@ export function Main() {
             );
 
           setUsers(userList);
+          console.log("User list:", userList);
         } else {
           const userList: UserLeaderboard[] = data.map((item: any) => {
             return new UserLeaderboard(
@@ -181,7 +184,9 @@ export function Main() {
           </select>
         )}
       </div>
-
+      {!loading && users.length > 0 && (
+        <PodiumChart users={users.slice(0, 5)} /> // Top 5 jugadores
+      )}
       <Leaderboard users={users} loading={loading} rankingType={rankingType} />
     </div>
   );

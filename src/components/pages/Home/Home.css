@@ -406,3 +406,142 @@ button.oauth-button.github:hover {
   cursor: pointer;
   transition: background-color 0.4s ease, color 0.4s ease, transform 0.3s ease;
 }
+/* Podium styles (usa tus variables) */
+.podium-container{
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  gap:1rem;
+  padding:1rem 0 2rem;
+  width:100%;
+  max-width:1100px;
+  margin: 10rem auto 1.5rem;
+}
+
+.podium-slot{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:120px;
+  position:relative;
+  font-family:var(--font-body);
+  color:var(--very-light-blue);
+}
+
+/* Pilar donde se apoya el avatar */
+.podium-pillar{
+  width:100%;
+  border-radius: 12px 12px 6px 6px;
+  border: 2px solid var(--neon-blue);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  position:relative;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 0 12px rgba(0,229,255,0.06);
+  overflow:visible;
+  transition: transform 0.25s ease;
+}
+
+.podium-pillar.empty{
+  border-style:dashed;
+  opacity:0.45;
+}
+
+/* Avatar */
+.avatar-wrapper{
+  position:absolute;
+  top:-42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:6;
+  transform:translateY(0);
+  transition: transform .18s ease;
+}
+
+.podium-avatar{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid var(--neon-pink);
+  background:var(--dark-blue);
+  box-shadow: 0 0 10px rgba(0,0,0,0.6), 0 0 8px var(--neon-blue);
+}
+
+/* Champion special */
+.champion .podium-pillar{
+  border-color: var(--neon-yellow);
+  box-shadow: 0 10px 30px rgba(248,222,126,0.08), 0 0 28px var(--neon-pink);
+}
+
+.champion .podium-avatar{
+  width:98px;
+  height:98px;
+  border-width:4px;
+  border-color:var(--neon-yellow);
+  box-shadow: 0 0 14px var(--neon-yellow), 0 0 28px var(--neon-pink);
+  top:-48px;
+}
+
+/* badge (estrella encima del avatar) */
+.champion .champion-badge{
+  position:absolute;
+  top:-78px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:22px;
+  background: linear-gradient(90deg, var(--neon-yellow), var(--neon-pink));
+  color:var(--dark-blue);
+  padding:.2rem .5rem;
+  border-radius:12px;
+  text-shadow:none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* Score bubble dentro del pilar (en la parte baja del pilar) */
+.score-bubble{
+  margin-bottom:10px;
+  font-weight:700;
+  font-family:var(--font-body);
+  font-size:1.05rem;
+  color:var(--very-light-blue);
+  text-shadow: 0 0 6px var(--neon-pink);
+}
+
+/* Nombre y rank */
+.name-label{
+  margin-top: 0.9rem;
+  font-family:var(--font-headings);
+  text-transform:uppercase;
+  font-size:0.95rem;
+  color:var(--very-light-blue);
+  text-align:center;
+  letter-spacing:0.06em;
+  text-shadow: 0 0 6px rgba(255,64,129,0.12);
+}
+
+.rank-label{
+  margin-top:0.25rem;
+  color:var(--neon-blue);
+  font-size:0.85rem;
+  font-weight:700;
+}
+
+/* Hover effect */
+.podium-slot:hover .podium-pillar{
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45), 0 0 20px rgba(0,229,255,0.05);
+}
+
+/* Small screens */
+@media (max-width: 720px){
+  .podium-container{ gap:.6rem; }
+  .podium-slot{ width:72px; }
+  .podium-avatar{ width:52px; height:52px; }
+  .champion .podium-avatar{ width:72px; height:72px; top:-36px; }
+  .score-bubble{ font-size:.9rem; }
+  .name-label{ font-size:.55rem; }
+  .podium-pillar{ border-radius:10px; }
+}
