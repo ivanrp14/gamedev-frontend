@@ -1,8 +1,7 @@
 .user-profile {
-  max-width: 700px;
-  margin: 3rem auto;
+  max-width: 1000px;
+  margin: 5rem auto;
   padding: 2rem;
-  border: 3px solid transparent;
   border-image-slice: 1;
   text-align: center;
   
@@ -14,7 +13,7 @@
   border: 4px solid var(--neon-pink);
   object-fit: cover;
   margin-bottom: 1rem;
-  
+  border-radius: var(--border-radius);
 }
 
 .user-profile p {
@@ -23,46 +22,150 @@
   margin: 0.75rem 0;
 }
 
-
 .loading {
   text-align: center;
   font-size: 1.5rem;
   color: var(--neon-blue);
   padding-top: 4rem;
+  margin: auto;
 }
+
+.game-list {
+  margin: 4rem auto;
+  text-align: left;
+}
+
 .game-item {
-  margin: 0.5rem 0;
-  padding: 0.8rem 1.2rem;
+  text-align: center;
+  margin: 2rem 0;
+  padding: 2rem 1.5rem;
   border: 2px solid var(--neon-blue);
   border-radius: 12px;
   background-color: rgba(10, 15, 47, 0.5);
   transition: background 0.3s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1rem;
 }
 
-.game-item.win {
-  background-color: rgba(0, 229, 255, 0.15);
-  border-color: var(--neon-blue);
-  color: var(--neon-blue);
-}
-
-.game-item.lose {
-  background-color: rgba(255, 64, 129, 0.1);
-  border-color: var(--neon-pink);
+.game-item strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.8rem;
   color: var(--neon-pink);
 }
 
-.game-item.equal {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: var(--yellow);
-  color: var(--yellow);
+.game-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.comparison-tag {
-  font-weight: bold;
-  margin-left: 1rem;
-  font-size: 0.9rem;
+.stat-item {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--very-light-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-item label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+
+/* Estados de comparación */
+.stat-item.win {
+  background-color: rgba(0, 229, 255, 0.15);
+  border: 1px solid var(--neon-blue);
+  color: var(--neon-blue);
+}
+
+.stat-item.lose {
+  background-color: rgba(255, 64, 129, 0.1);
+  border: 1px solid var(--neon-pink);
+  color: var(--neon-pink);
+}
+
+.stat-item.equal {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--yellow);
+  color: var(--yellow);
+}
+.comparison-msg {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--neon-blue);
+  font-weight: 600;
+}
+.comparison-banner {
+  position: absolute;
+  bottom: -28px;
+  left: 0;
+  background-color: var(--neon-blue);
+  color: #000;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 0 8px var(--neon-blue);
+  z-index: 10;
+  user-select: none;
+  pointer-events: none;
+}
+/* Estados de comparación */
+.stat-item.win {
+  background-color: rgba(0, 150, 255, 0.15); /* azul más suave */
+  border: 1px solid #0096ff; /* azul */
+  color: #0096ff;
+}
+
+.stat-item.lose {
+  background-color: rgba(255, 50, 50, 0.15); /* rojo suave */
+  border: 1px solid #ff3232; /* rojo */
+  color: #ff3232;
+}
+
+.stat-item.equal {
+  background-color: rgba(255, 255, 0, 0.15); /* amarillo suave */
+  border: 1px solid #ffff00; /* amarillo */
+  color: #ffff00;
+}
+
+@media (max-width: 600px) {
+  .game-stats {
+    flex-direction: column;
+  }
+  .stat-item {
+    margin-bottom: 0.8rem;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #222;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  opacity: 0.95;
+  z-index: 10;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #222 transparent transparent transparent;
 }

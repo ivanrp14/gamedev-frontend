@@ -31,10 +31,10 @@
 
 .profile-picture {
   width: 200px;
-  height: 200px;
+  height: auto;
   border-radius: var(--border-radius);
   border: 3px solid var(--neon-blue);
-  object-fit: fill;
+  object-fit: cover;
 }
 
 .username {
@@ -49,10 +49,6 @@
   border-radius: var(--border-radius);
 }
 
-.logout-button:hover,
-.edit-button:hover {
-  /* puedes añadir efectos aquí */
-}
 
 .edit-form {
   display: flex;
@@ -91,35 +87,6 @@
   margin-top: 2rem;
 }
 
-.info-box,
-.stat-card {
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 1.25rem;
-  border: 2px solid var(--neon-blue);
-  border-radius: var(--border-radius);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.info-box:hover,
-.stat-card:hover {
-  transform: scale(1.03);
-}
-
-.info-box h3,
-.stat-card h4 {
-  color: var(--neon-blue);
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.info-box p,
-.stat-card p {
-  color: var(--very-light-blue);
-  font-size: 1.1rem;
-  word-wrap: break-word;
-}
-
 /* Animación para entrada suave */
 @keyframes fadeIn {
   from {
@@ -134,6 +101,9 @@
 
 /* Responsive: Tablets */
 @media (max-width: 768px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
   .mystats-container {
     padding: 1rem;
     gap: 1.5rem;
@@ -145,8 +115,9 @@
   }
 
   .profile-picture {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
+
   }
 
   .username {
@@ -177,6 +148,7 @@
   .profile-picture {
     width: 100px;
     height: 100px;
+    object-fit: cover;
   }
 
   .username {

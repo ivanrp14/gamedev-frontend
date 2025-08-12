@@ -9,6 +9,14 @@
   padding: 1rem;
   margin: auto;  
 }
+.home-subtitle {
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  text-shadow:
+    1px 1px 0 var(--neon-pink),
+    2px 2px 2px var(--neon-blue),
+    1px 1px 0 var(--neon-blue);
+}
 .home-container {
   height: 80vh;
   display: flex;
@@ -24,20 +32,6 @@
         2px 2px 0 var(--neon-pink),
         4px 4px 20px var(--neon-blue),
         6px 6px 0 var(--neon-blue);
-}
-.home-container button{
-    width: 200px;
-    height: 50px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-.home-container p{
- 
-    text-align: center;
-    margin: 1rem auto;
-    font-size: 1.2rem;
 }
 button.primary-button,
 button.oauth-button {
@@ -352,8 +346,8 @@ button.oauth-button.github:hover {
 
 /* Estilo para los select dropdowns */
 .filters select {
-  background-color: transparent;
-  color: var(--very-light-blue);
+  background-color: var(--very-light-blue);
+  color: var(--dark-blue);
   font-family: var(--font-body);
   font-size: 1rem;
   padding: 0.6rem 1rem;
@@ -365,19 +359,31 @@ button.oauth-button.github:hover {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+.filters
 
 /* Hover/Focus styling */
 .filters select:hover,
 .filters select:focus {
   border-color: var(--neon-blue);
-  box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-pink);
   outline: none;
+
 }
 
 /* Option styling (optional for some browsers) */
 .filters option {
-  background-color: var(--dark-blue);
-  color: var(--very-light-blue);
+  color: black;
+}
+.filters option:hover{
+   background-color: var(--very-light-blue);
+  color: var(--dark-blue);
+}
+.filters option:focus{
+  background-color: var(--very-light-blue);
+  color: var(--dark-blue);
+}
+.filters option:checked {
+  background-color: var(--very-light-blue);
+  color: var(--dark-blue); /* Texto visible sobre el fondo azul */
 }
 .no-results {
   font-size: 1.2rem;
@@ -385,4 +391,18 @@ button.oauth-button.github:hover {
   text-align: center;
   margin-top: 2rem;
   font-style: italic;
+}
+.button{
+  width: 100%;
+  max-width: 300px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background-color: var(--neon-blue);
+  color: var(--dark-blue);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color 0.4s ease, color 0.4s ease, transform 0.3s ease;
 }

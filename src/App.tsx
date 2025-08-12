@@ -17,6 +17,7 @@ import MyStats from "./components/pages/MyStats/MyStats";
 import { UserProfile } from "./components/pages/UserProfile/UserProfile";
 import { AuthRedirector } from "./hooks/AuthRedirector";
 import ChooseAvatar from "./components/pages/ChooseAvatar/ChooseAvatar";
+import About from "./components/pages/About/About";
 
 function MainContent() {
   const location = useLocation();
@@ -67,7 +68,7 @@ function MainContent() {
           path="/about"
           element={
             <ProtectedRoute>
-              <Home />
+              <About />
             </ProtectedRoute>
           }
         />

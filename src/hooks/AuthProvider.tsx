@@ -61,7 +61,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const data = await response.json();
-      fetchUserProfile(data.username);
+
+      // ✅ Esperar a que el perfil se cargue
+      await fetchUserProfile(data.username);
 
       setIsAuthenticated(true);
     } catch (error) {

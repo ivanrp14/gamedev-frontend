@@ -1,139 +1,141 @@
-  {
-    "home": {
-      "title": "GameDev",
-      "subtitle": "Associació d'Estudiants de l'EPSEVG",
-      "login": "Inicia sessió",
-      "signup": "Registra't",
-      "google": "Google",
-      "github": "GitHub",
-      "go_to_dashboard": "Anar al Tauler"
+{
+  "home": {
+    "title": "GameDev",
+    "subtitle": "Associació d'Estudiants de l'EPSEVG",
+    "login": "Inicia sessió",
+    "signup": "Registra't",
+    "google": "Google",
+    "github": "GitHub",
+    "go_to_dashboard": "Vés al Tauler"
+  },
+  "about": {
+    "title": "Sobre la nostra associació",
+    "description": "Som un grup d'estudiants apassionats de l'EPSEVG, dedicats a crear videojocs innovadors i desenvolupar un motor gràfic d'última generació.",
+    "button_engine": "Motor",
+    "button_videogames": "Videojocs",
+    "engine_title": "Equip de Motor",
+    "engine_text": "El nostre equip de Motor es dedica al desenvolupament d'un motor gràfic capdavanter amb C++. Es concentren a optimitzar el rendiment i crear efectes visuals realistes.",
+    "videogames_title": "Equip de Videojocs",
+    "videogames_text": "El nostre equip de Videojocs està especialitzat en crear jocs atractius i innovadors amb Unity. Combinen narrativa, mecàniques de joc i creativitat per oferir experiències inoblidables.",
+    "engine_members": ["Alice", "Bob", "Charlie"],
+    "videogames_members": ["Dave", "Eve", "Frank"]
+  },
+  "chooseAvatar": {
+    "title": "Benvingut!",
+    "subtitle": "Encara no has triat una foto de perfil. Selecciona'n una per continuar:",
+    "loading": "Carregant imatges...",
+    "error_fetch": "No s'han pogut carregar les imatges.",
+    "error_save": "Error en desar la imatge.",
+    "select_aria": "Selecciona avatar",
+    "alt": "Avatar de gat"
+  },
+  "main": {
+    "leaderboard": "Classificació",
+    "filters": {
+      "high_score": "Puntuació més alta",
+      "total_score": "Puntuació total",
+      "recent_sessions": "Sessions recents",
+      "day": "Dia",
+      "week": "Setmana",
+      "month": "Mes",
+      "total": "Total",
+      "all_games": "Tots els jocs"
     },
-    "about": {
-      "title": "Sobre la nostra associació",
-      "description": "Som un grup d’estudiants apassionats de l’EPSEVG, dedicats a crear videojocs innovadors i desenvolupar un motor gràfic d’última generació.",
-      "button_engine": "Motor",
-      "button_videogames": "Videojocs",
-      "engine_title": "Equip del Motor",
-      "engine_text": "El nostre equip de Motor es dedica al desenvolupament d’un motor gràfic d’última tecnologia amb C++. Es concentren en optimitzar el rendiment i crear efectes visuals realistes.",
-      "videogames_title": "Equip de Videojocs",
-      "videogames_text": "El nostre equip de Videojocs es dedica a crear jocs atractius i innovadors amb Unity. Combinen narrativa, mecàniques de joc i creativitat per oferir experiències inoblidables.",
-      "engine_members": ["Alice", "Bob", "Charlie"],
-      "videogames_members": ["Dave", "Eve", "Frank"]
-    },
-    "chooseAvatar": {
-      "title": "Benvingut!",
-      "subtitle": "Encara no has escollit una imatge de perfil. Selecciona'n una per continuar:",
-      "loading": "Carregant imatges...",
-      "error_fetch": "No s'han pogut carregar les imatges.",
-      "error_save": "Error en desar la imatge.",
-      "select_aria": "Selecciona avatar",
-      "alt": "Avatar de gat"
-    },
-    "main": {
-      "leaderboard": "Classificació",
-      "filters": {
-        "high_score": "Puntuació màxima",
-        "total_score": "Puntuació total",
-        "recent_sessions": "Sessions recents",
-        "day": "Dia",
-        "week": "Setmana",
-        "month": "Mes",
-        "total": "Total",
-        "all_games": "Tots els jocs"
-      },
-      "no_players": "Encara no hi ha jugadors en aquest rànquing.",
-      "avatar_alt": "Avatar",
-      "just_now": "fa uns segons",
-      "minutes_ago": "fa {{count}} minuts",
-      "hours_ago": "fa {{count}} hores",
-      "days_ago": "fa {{count}} dies",
-      "months_ago": "fa {{count}} mesos",
-      "years_ago": "fa {{count}} anys"
-    },
-    "mystats": {
-      "statistics": "Estadístiques",
-      "totalPlayTime": "Temps Total de Joc",
-      "totalScore": "Puntuació Total",
-      "topGame": "Joc Principal",
-      "gamesPlayed": "Jocs Jugats",
-      "logout": "Tanca sessió",
-      "editProfile": "Edita el Perfil",
-      "save": "Desar",
-      "cancel": "Cancel·lar",
-      "fullName": "Nom complet",
-      "email": "Correu electrònic",
-      "newPassword": "Nova contrasenya",
-      "maxScore": "Puntuació Màxima",
-      "timePlayed": "Temps Jugat"
-    },
-    "login": {
-      "loginError": "Error d'inici de sessió",
-      "loadingSession": "Carregant sessió...",
-      "usernamePasswordRequired": "Es requereixen nom d'usuari i contrasenya.",
-      "loginFailed": "Inici de sessió fallit",
-      "somethingWentWrong": "Alguna cosa ha fallat.",
-      "loginTitle": "Inicia sessió",
-      "usernameLabel": "Nom d'usuari",
-      "passwordLabel": "Contrasenya",
-      "loading": "Carregant...",
-      "loginButton": "Entrar"
-    },
-    "signup": {
-      "createAccount": "Crear Compte",
-      "fullName": "Nom complet",
-      "email": "Correu electrònic",
-      "username": "Nom d'usuari",
-      "password": "Contrasenya",
-      "confirmPassword": "Confirma la contrasenya",
-      "invalidEmail": "El correu electrònic no és vàlid.",
-      "passwordMinLength": "La contrasenya ha de tenir almenys 8 caràcters.",
-      "passwordsDoNotMatch": "Les contrasenyes no coincideixen.",
-      "registerError": "Error al registrar-se.",
-      "registerFailed": "El registre ha fallat. Torna-ho a intentar.",
-      "registering": "Registrant...",
-      "register": "Registrar-se"
-    },
-    "leave": {
-      "thanksForPlaying": "Gràcies per jugar",
-      "leave": "Sortir",
-      "noUserLoggedIn": "Cap usuari ha iniciat sessió.",
-      "requestError": "Error en la sol·licitud:",
-      "apiConnectionError": "Error en connectar amb l'API:"
-    },
-    "marble": {
-      "tryIt": "Prova-ho!",
-      "chooseColor": "Tria el teu color:",
-      "join": "Unir-se",
-      "noUserLoggedIn": "Cap usuari ha iniciat sessió.",
-      "username": "Nom d'usuari:",
-      "color": "Color:",
-      "serverResponse": "Resposta del servidor:",
-      "requestError": "Error en la sol·licitud:",
-      "apiConnectionError": "Error en connectar amb l'API:"
-    },
-    "userProfile": {
-      "userLoaded": "Usuari carregat:",
-      "errorLoadingUserOrCat": "Error en carregar l'usuari o la imatge del gat:",
-      "loadingUser": "Carregant usuari...",
-      "userHasMorePoints": "🔥 Aquest usuari té {{diff}} punts més que tu.",
-      "youHaveMorePoints": "😎 Tens {{diff}} punts més que ell.",
-      "pointsTie": "🤝 Teniu exactament {{points}} punts. Empat!",
-      "profilePictureAlt": "Foto de perfil de {{username}}",
-      "gamesPlayed": "Jocs jugats",
-      "totalScore": "Puntuació total",
-      "gamesPlayedList": "Jocs jugats",
-      "points": "punts",
-      "youBeatThem": "L'has guanyat",
-      "theyBeatYou": "T'ha guanyat",
-      "tie": "Empat"
-    },
-    "navbar": {
-      "main": "Inici",
-      "about": "Sobre nosaltres",
-      "mystats": "Les meves Estadístiques",
-      "marble": "Boles"
-    },
-    "footer": {
-      "copyright": "© {{year}} GameDev UPC · Tots els drets reservats"
-    }
+    "no_players": "Encara no hi ha jugadors en aquest rànquing.",
+    "avatar_alt": "Avatar",
+    "just_now": "fa uns segons",
+    "minutes_ago": "fa {{count}} minuts",
+    "hours_ago": "fa {{count}} hores",
+    "days_ago": "fa {{count}} dies",
+    "months_ago": "fa {{count}} mesos",
+    "years_ago": "fa {{count}} anys"
+  },
+  "mystats": {
+    "username": "Nom d'usuari",
+    "statistics": "Estadístiques",
+    "totalPlayTime": "Temps total de joc",
+    "totalScore": "Puntuació total",
+    "topGame": "Joc destacat",
+    "gamesPlayed": "Jocs jugats",
+    "logout": "Tanca sessió",
+    "editProfile": "Edita el perfil",
+    "save": "Desa",
+    "cancel": "Cancel·la",
+    "fullName": "Nom complet",
+    "email": "Correu electrònic",
+    "newPassword": "Contrasenya nova",
+    "maxScore": "Puntuació màxima",
+    "timePlayed": "Temps jugat",
+    "deleteProfilePicture": "Elimina la foto de perfil"
+  },
+  "login": {
+    "loginError": "Error en iniciar sessió",
+    "loadingSession": "Carregant sessió...",
+    "usernamePasswordRequired": "Calen nom d'usuari i contrasenya.",
+    "loginFailed": "Error en iniciar sessió",
+    "somethingWentWrong": "Alguna cosa ha anat malament.",
+    "loginTitle": "Inicia sessió",
+    "usernameLabel": "Nom d'usuari",
+    "passwordLabel": "Contrasenya",
+    "loading": "Carregant...",
+    "loginButton": "Entra"
+  },
+  "signup": {
+    "createAccount": "Crear compte",
+    "fullName": "Nom complet",
+    "email": "Correu electrònic",
+    "username": "Nom d'usuari",
+    "password": "Contrasenya",
+    "confirmPassword": "Confirma la contrasenya",
+    "invalidEmail": "El correu no és vàlid.",
+    "passwordMinLength": "La contrasenya ha de tenir almenys 8 caràcters.",
+    "passwordsDoNotMatch": "Les contrasenyes no coincideixen.",
+    "registerError": "Error en registrar-se.",
+    "registerFailed": "El registre ha fallat. Torna-ho a provar.",
+    "registering": "Registrant...",
+    "register": "Registra't"
+  },
+  "leave": {
+    "thanksForPlaying": "Gràcies per jugar",
+    "leave": "Surt",
+    "noUserLoggedIn": "Cap usuari ha iniciat sessió.",
+    "requestError": "Error en la sol·licitud:",
+    "apiConnectionError": "Error en connectar amb l'API:"
+  },
+  "marble": {
+    "tryIt": "Prova-ho!",
+    "chooseColor": "Tria el teu color:",
+    "join": "Uneix-te",
+    "noUserLoggedIn": "Cap usuari ha iniciat sessió.",
+    "username": "Nom d'usuari:",
+    "color": "Color:",
+    "serverResponse": "Resposta del servidor:",
+    "requestError": "Error en la sol·licitud:",
+    "apiConnectionError": "Error en connectar amb l'API:"
+  },
+  "userProfile": {
+    "errorLoadingUserOrCat": "Error en carregar l'usuari o la imatge del gat:",
+    "loadingUser": "Carregant usuari...",
+    "profilePictureAlt": "Foto de perfil de {{username}}",
+    "gamesPlayed": "Jocs jugats",
+    "totalScore": "Puntuació total",
+    "gamesPlayedList": "Jocs jugats",
+    "highScoreLabel": "🏆 Puntuació màxima",
+    "totalScoreLabel": "📊 Puntuació total",
+    "timePlayedLabel": "⏱ Temps jugat",
+    "userHasMorePoints": "🔥 {{userName}} té {{diff}} punts més que tu a {{statName}}.",
+    "youHaveMorePoints": "😎 Tens {{diff}} punts més que {{userName}} a {{statName}}.",
+    "pointsTie": "🤝 Tots dos teniu exactament la mateixa puntuació: {{points}}.",
+    "userHasMoreTime": "🔥 {{userName}} té {{time}} més que tu a {{statName}}.",
+    "youHaveMoreTime": "😎 Tens {{time}} més que {{userName}} a {{statName}}."
+  },
+  "navbar": {
+    "main": "Inici",
+    "about": "Sobre nosaltres",
+    "mystats": "Estadístiques",
+    "marble": "Boles"
+  },
+  "footer": {
+    "copyright": "© {{year}} GameDev UPC · Tots els drets reservats"
   }
+}

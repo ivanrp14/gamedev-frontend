@@ -1,5 +1,4 @@
 import { VideoGame } from "./Videogame";
-
 export class User {
   username: string;
 
@@ -11,18 +10,18 @@ export class User {
 
   constructor(
     username: string,
-
     fullname: string,
     email: string,
     profile_image: string,
-    gamesPlayed: VideoGame[] = []
+    gamesPlayed: VideoGame[] = [],
+    total_score: number = 0
   ) {
     this.username = username;
     this.fullname = fullname;
     this.email = email;
     this.profile_image = profile_image;
     this.gamesPlayed = gamesPlayed;
-    this.total_score = this.calculateTotalScore();
+    this.total_score = total_score;
   }
 
   totalPlayTime(): number {
@@ -32,12 +31,8 @@ export class User {
   highestScoringGame(): VideoGame {
     return this.gamesPlayed.reduce(
       (max, game) => (game.high_score > max.high_score ? game : max),
-      new VideoGame("N/A", 0, 0)
+      new VideoGame("N/A", 0, 0, 0)
     );
-  }
-
-  calculateTotalScore(): number {
-    return this.gamesPlayed.reduce((total, game) => total + game.high_score, 0);
   }
 
   static fromApiResponse(apiData: any): User {
@@ -45,19 +40,21 @@ export class User {
     const gamesPlayed: VideoGame[] = (apiData.gamesPlayed || []).map(
       (game: any) => {
         return new VideoGame(
-          game.gameName || game.name, // por compatibilidad
-          game.maxScore || game.high_score,
-          game.timePlayed || 0
+          game.gameName || game.name, // para compatibilidad
+          game.maxScore || game.high_score || 0,
+          game.totalScore || 0,
+          game.totalTimePlayed || game.timePlayed || 0
         );
       }
     );
 
     return new User(
       apiData.username,
-      apiData.fullname,
+      apiData.firstName + " " + apiData.lastName || "",
       apiData.email,
       apiData.profilePicture || apiData.profile_image || "",
-      gamesPlayed
+      gamesPlayed,
+      apiData.total_score || 0
     );
   }
 }

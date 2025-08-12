@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/AuthProvider";
 import { Button } from "../../ui/Button";
 import { useTranslation } from "react-i18next";
-import LanguageSelector from "../../LanguageSelector/LanguageSelector";
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ export const Home: React.FC = () => {
     <main>
       <div className="home-container">
         <Title level={1}>{t("home.title")}</Title>
-        <p className="home-subtitle">{t("home.subtitle")}</p>
+        <h3 className="home-subtitle">{t("home.subtitle")}</h3>
 
         <div className="button-group">
           <Button className="primary-button" onClick={handleLogin}>
@@ -71,7 +70,6 @@ export const Home: React.FC = () => {
             <FaGithub className="btn-icon" />
             <p>{t("home.github")}</p>
           </Button>
-          <LanguageSelector />
         </div>
       </div>
     </main>

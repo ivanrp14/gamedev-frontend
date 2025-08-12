@@ -51,7 +51,10 @@ const ChooseAvatar: React.FC = () => {
         throw new Error();
       }
 
+      // ✅ Primero refrescas y esperas
       await refreshUser();
+
+      // ✅ Luego navegas
       navigate("/main");
     } catch (error) {
       console.error(error);

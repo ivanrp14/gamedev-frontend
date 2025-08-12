@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import "./Footer.css";
+import LanguageSelector from "../LanguageSelector/LanguageSelector";
 
 export const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -16,6 +17,8 @@ export const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
+        <LanguageSelector />
+
         <p>{t("footer.copyright", { year })}</p>
         <div className="social-icons">
           <a

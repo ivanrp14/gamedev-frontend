@@ -52,6 +52,7 @@
       "years_ago": "hace {{count}} años"
     },
     "mystats": {
+      "username": "Nombre de usuario",
       "statistics": "Estadísticas",
       "totalPlayTime": "Tiempo Total de Juego",
       "totalScore": "Puntuación Total",
@@ -65,7 +66,8 @@
       "email": "Correo electrónico",
       "newPassword": "Nueva contraseña",
       "maxScore": "Puntuación Máxima",
-      "timePlayed": "Tiempo Jugado"
+      "timePlayed": "Tiempo Jugado",
+      "deleteProfilePicture": "Eliminar Foto de Perfil"
     },
     "login": {
       "loginError": "Error al iniciar sesión",
@@ -112,26 +114,31 @@
       "requestError": "Error en la solicitud:",
       "apiConnectionError": "Error al conectar con la API:"
     },
-    "userProfile": {
-      "userLoaded": "Usuario cargado:",
-      "errorLoadingUserOrCat": "Error al cargar el usuario o la imagen del gato:",
-      "loadingUser": "Cargando usuario...",
-      "userHasMorePoints": "🔥 Este usuario tiene {{diff}} puntos más que tú.",
-      "youHaveMorePoints": "😎 Tienes {{diff}} puntos más que él.",
-      "pointsTie": "🤝 Ambos tenéis exactamente {{points}} puntos. ¡Empate!",
-      "profilePictureAlt": "Foto de perfil de {{username}}",
-      "gamesPlayed": "Juegos jugados",
-      "totalScore": "Puntuación total",
-      "gamesPlayedList": "Juegos jugados",
-      "points": "puntos",
-      "youBeatThem": "Le ganaste",
-      "theyBeatYou": "Te ganó",
-      "tie": "Empate"
-    },
+
+  
+  "userProfile": {
+  "errorLoadingUserOrCat": "Error al cargar el usuario o la imagen del gato:",
+  "loadingUser": "Cargando usuario...",
+  "profilePictureAlt": "Foto de perfil de {{username}}",
+  "gamesPlayed": "Juegos jugados",
+  "totalScore": "Puntuación total",
+  "gamesPlayedList": "Juegos jugados",
+  "highScoreLabel": "🏆 Puntuación Máxima",
+  "totalScoreLabel": "📊 Puntuación Total",
+  "timePlayedLabel": "⏱ Tiempo Jugado",
+  "userHasMorePoints": "🔥 {{userName}} tiene {{diff}} puntos más que tú en {{statName}}.",
+  "youHaveMorePoints": "😎 Tienes {{diff}} puntos más que {{userName}} en {{statName}}.",
+  "pointsTie": "🤝 Ambos tenéis exactamente la misma puntuación en {{points}}.",
+  "userHasMoreTime": "🔥 {{userName}} tiene {{time}} más que tú en {{statName}}.",
+  "youHaveMoreTime": "😎 Tienes {{time}} más que {{userName}} en {{statName}}."
+}
+,
+
+
     "navbar": {
       "main": "Inicio",
       "about": "Sobre nosotros",
-      "mystats": "Mis Estadísticas",
+      "mystats": "Estadísticas",
       "marble": "Canicas"
     },
     "footer": {

@@ -6,6 +6,7 @@ import "./UserProfile.css";
 import { useAuth } from "../../../hooks/AuthProvider";
 import DefaultProfile from "../../../images/default-profile.png";
 import { useTranslation } from "react-i18next";
+import { Box } from "../../ui/Box";
 
 export const UserProfile = () => {
   const { t } = useTranslation();
@@ -23,7 +24,6 @@ export const UserProfile = () => {
         const data = await res.json();
         const loadedUser = User.fromApiResponse(data);
         setUser(loadedUser);
-        console.log(t("userProfile.userLoaded"), loadedUser);
       } catch (err) {
         console.error(t("userProfile.errorLoadingUserOrCat"), err);
       }
@@ -36,28 +36,67 @@ export const UserProfile = () => {
     return <p className="loading">{t("userProfile.loadingUser")}</p>;
 
   const isSameUser = currentUser.username === user.username;
-  let comparisonMessage = "";
 
-  if (user.total_score > currentUser.total_score) {
-    const diff = user.total_score - currentUser.total_score;
-    comparisonMessage = t("userProfile.userHasMorePoints", { diff });
-  } else if (user.total_score < currentUser.total_score) {
-    const diff = currentUser.total_score - user.total_score;
-    comparisonMessage = t("userProfile.youHaveMorePoints", { diff });
-  } else {
-    comparisonMessage = t("userProfile.pointsTie", {
-      points: user.total_score,
-    });
-  }
+  const formatTimePlayed = (minutes: number) => {
+    const days = Math.floor(minutes / 1440);
+    const hours = Math.floor((minutes % 1440) / 60);
+    const mins = minutes % 60;
+    const parts = [];
+    if (days > 0) parts.push(`${days}d`);
+    if (hours > 0) parts.push(`${hours}h`);
+    if (mins > 0) parts.push(`${mins}m`);
+    return parts.length > 0 ? parts.join(" ") : "0m";
+  };
+
+  const getComparisonClass = (diff: number) => {
+    if (diff < 0) return "blue"; // currentUser gana
+    if (diff > 0) return "red"; // currentUser pierde
+    return "yellow"; // empate
+  };
+
+  const getComparisonMessage = (
+    diff: number,
+    statName: string,
+    userName: string,
+    isTime = false
+  ) => {
+    if (diff === 0) return t("userProfile.pointsTie", { points: statName });
+
+    if (diff > 0)
+      return isTime
+        ? t("userProfile.userHasMoreTime", {
+            userName,
+            time: formatTimePlayed(diff),
+            statName,
+          })
+        : t("userProfile.userHasMorePoints", {
+            userName,
+            diff,
+            statName,
+          });
+
+    const positiveDiff = Math.abs(diff);
+    return isTime
+      ? t("userProfile.youHaveMoreTime", {
+          userName,
+          time: formatTimePlayed(positiveDiff),
+          statName,
+        })
+      : t("userProfile.youHaveMorePoints", {
+          userName,
+          diff: positiveDiff,
+          statName,
+        });
+  };
 
   return (
-    <div className="user-profile neon-card">
+    <div className="user-profile">
       <img
         src={user.profile_image || DefaultProfile}
         alt={t("userProfile.profilePictureAlt", { username: user.username })}
         className="profile-pic"
       />
-      <Title level={2}>{user.username}</Title>
+      <Title level={1}>{user.username}</Title>
       <p>
         🎮 {t("userProfile.gamesPlayed")}: {user.gamesPlayed.length}
       </p>
@@ -65,53 +104,80 @@ export const UserProfile = () => {
         🏆 {t("userProfile.totalScore")}: {user.total_score}
       </p>
 
-      {!isSameUser && (
-        <div className="comparison">
-          <p>{comparisonMessage}</p>
-        </div>
-      )}
-
       <div className="game-list">
-        <h3>{t("userProfile.gamesPlayedList")}:</h3>
-        <ul>
-          {user.gamesPlayed.map((game) => {
-            const currentUserGame = currentUser.gamesPlayed.find(
-              (g) => g.name === game.name
-            );
+        <h2>{t("userProfile.gamesPlayedList")}</h2>
+        {user.gamesPlayed.map((game) => {
+          const currentUserGame = currentUser.gamesPlayed.find(
+            (g) => g.name === game.name
+          );
 
-            const userScore = game.high_score;
-            const currentScore = currentUserGame?.high_score ?? 0;
+          const currentHighScore = currentUserGame?.high_score ?? 0;
+          const currentTotalScore = currentUserGame?.total_score ?? 0;
+          const currentTimePlayed = currentUserGame?.timePlayed ?? 0;
 
-            const diff = currentScore - userScore;
+          const highScoreDiff = game.high_score - currentHighScore;
+          const totalScoreDiff = game.total_score - currentTotalScore;
+          const timePlayedDiff = game.timePlayed - currentTimePlayed;
 
-            let scoreClass = "equal";
-            let diffLabel = "";
+          return (
+            <div key={game.name} className="game-item">
+              <strong>{game.name}</strong>
+              <div className="game-stats">
+                <Box
+                  label={t("userProfile.highScoreLabel")}
+                  value={game.high_score.toString()}
+                  color={
+                    isSameUser ? "blue" : getComparisonClass(highScoreDiff)
+                  }
+                  tooltip={
+                    !isSameUser
+                      ? getComparisonMessage(
+                          highScoreDiff,
+                          t("userProfile.highScoreLabel"),
+                          user.username
+                        )
+                      : undefined
+                  }
+                />
 
-            if (diff > 0) {
-              scoreClass = "win";
-              diffLabel = ` (+${diff} ${t("userProfile.points")})`;
-            } else if (diff < 0) {
-              scoreClass = "lose";
-              diffLabel = ` (${diff} ${t("userProfile.points")})`;
-            }
+                <Box
+                  label={t("userProfile.totalScoreLabel")}
+                  value={game.total_score.toString()}
+                  color={
+                    isSameUser ? "blue" : getComparisonClass(totalScoreDiff)
+                  }
+                  tooltip={
+                    !isSameUser
+                      ? getComparisonMessage(
+                          totalScoreDiff,
+                          t("userProfile.totalScoreLabel"),
+                          user.username
+                        )
+                      : undefined
+                  }
+                />
 
-            return (
-              <li key={game.name} className={`game-item ${scoreClass}`}>
-                <strong>{game.name}</strong>: {userScore}{" "}
-                {t("userProfile.points")}
-                {!isSameUser && currentUserGame && (
-                  <span className="comparison-tag">
-                    {diff > 0
-                      ? `✔️ ${t("userProfile.youBeatThem")}${diffLabel}`
-                      : diff < 0
-                        ? `❌ ${t("userProfile.theyBeatYou")}${diffLabel}`
-                        : "🤝 " + t("userProfile.tie")}
-                  </span>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+                <Box
+                  label={t("userProfile.timePlayedLabel")}
+                  value={formatTimePlayed(game.timePlayed)}
+                  color={
+                    isSameUser ? "blue" : getComparisonClass(timePlayedDiff)
+                  }
+                  tooltip={
+                    !isSameUser
+                      ? getComparisonMessage(
+                          timePlayedDiff,
+                          t("userProfile.timePlayedLabel"),
+                          user.username,
+                          true
+                        )
+                      : undefined
+                  }
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
