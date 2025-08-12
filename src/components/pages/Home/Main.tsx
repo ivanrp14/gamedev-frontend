@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import DefaultProfile from "../../../images/default-profile.png";
 import { useTranslation } from "react-i18next";
 import PodiumChart from "../../Charts/ScoreChart";
+import PodiumChartSkeleton from "../../Charts/PoidumChartSkeleton";
 
 // Función para mostrar tiempo relativo (ejemplo: hace 2 horas)
 function timeSince(date: Date, t: any) {
@@ -182,9 +183,12 @@ export function Main() {
           </select>
         )}
       </div>
-      {!loading && users.length > 0 && (
-        <PodiumChart users={users.slice(0, 5)} /> // Top 5 jugadores
-      )}
+      {loading ? (
+        <PodiumChartSkeleton />
+      ) : users.length > 0 ? (
+        <PodiumChart users={users.slice(0, 5)} />
+      ) : null}
+
       <Leaderboard users={users} loading={loading} rankingType={rankingType} />
     </div>
   );
