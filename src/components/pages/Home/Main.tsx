@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import DefaultProfile from "../../../images/default-profile.png";
 import { useTranslation } from "react-i18next";
 import PodiumChart from "../../Charts/ScoreChart";
-import { getProfilePic } from "../../../hooks/GetProfilePic";
 
 // Función para mostrar tiempo relativo (ejemplo: hace 2 horas)
 function timeSince(date: Date, t: any) {
