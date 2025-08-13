@@ -11,7 +11,7 @@ import { apiClient } from "./ApiClient";
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
-  login: (token: string) => void;
+  login: (token: string) => Promise<void>;
   logout: () => void;
   loading: boolean;
   refreshUser: () => Promise<void>;
@@ -24,13 +24,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // 🚀 Refactor usando apiClient
   const fetchUserProfile = async (username: string) => {
     const data = await apiClient.get(`/users/user-profile/${username}`);
     return User.fromApiResponse(data);
   };
 
-  const fetchUser = async (token: string) => {
+  const fetchUser = async () => {
     try {
       const data = await apiClient.get("/auth/me");
       const fetchedUser = await fetchUserProfile(data.username);
@@ -47,14 +46,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const refreshUser = async () => {
     const token = localStorage.getItem("access_token");
     if (token) {
-      await fetchUser(token);
+      await fetchUser();
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (token) {
-      fetchUser(token);
+      fetchUser();
     } else {
       setLoading(false);
     }
@@ -62,7 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (token: string) => {
     localStorage.setItem("access_token", token);
-    await fetchUser(token);
+    await fetchUser();
   };
 
   const logout = () => {
