@@ -5,14 +5,16 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { User } from "../interfaces/User";
+import { User } from "../../interfaces/User";
+import { apiClient } from "./ApiClient";
+
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
   login: (token: string) => void;
   logout: () => void;
   loading: boolean;
-  refreshUser: () => Promise<void>; // ⬅️ nuevo
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -21,50 +23,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const refreshUser = async () => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      await fetchUser(token);
-    }
-  };
 
+  // 🚀 Refactor usando apiClient
   const fetchUserProfile = async (username: string) => {
-    try {
-      const response = await fetch(
-        `https://api.gamedev.study/users/user-profile/${username}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Invalid username or user not found");
-      }
-
-      const data = await response.json();
-      console.log("User profile fetched:", data);
-      const fetchedUser = User.fromApiResponse(data);
-      setUser(fetchedUser);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      logout();
-    }
+    const data = await apiClient.get(`/users/user-profile/${username}`);
+    return User.fromApiResponse(data);
   };
-  // Función para obtener user desde /auth/me
+
   const fetchUser = async (token: string) => {
     try {
-      const response = await fetch("https://api.gamedev.study/auth/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Invalid token");
-      }
-
-      const data = await response.json();
-
-      // ✅ Esperar a que el perfil se cargue
-      await fetchUserProfile(data.username);
-
+      const data = await apiClient.get("/auth/me");
+      const fetchedUser = await fetchUserProfile(data.username);
+      setUser(fetchedUser);
       setIsAuthenticated(true);
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -74,7 +44,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Restaurar sesión al montar el provider
+  const refreshUser = async () => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      await fetchUser(token);
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (token) {
@@ -84,10 +60,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // En AuthProvider
   const login = async (token: string) => {
     localStorage.setItem("access_token", token);
-    await fetchUser(token); // 👈
+    await fetchUser(token);
   };
 
   const logout = () => {

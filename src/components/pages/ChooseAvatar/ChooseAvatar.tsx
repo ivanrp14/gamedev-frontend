@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../hooks/AuthProvider";
+import { useAuth } from "../../hooks/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./ChooseAvatar.css";
+import { apiClient } from "../../hooks/ApiClient";
 
 interface CatImage {
   id: string;
@@ -37,24 +38,8 @@ const ChooseAvatar: React.FC = () => {
 
   const handleSelect = async (url: string) => {
     try {
-      const token = localStorage.getItem("access_token");
-      const response = await fetch("https://api.gamedev.study/users/avatar", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ profile_image: url }),
-      });
-
-      if (!response.ok) {
-        throw new Error();
-      }
-
-      // ✅ Primero refrescas y esperas
+      await apiClient.patch("/users/avatar", { profile_image: url });
       await refreshUser();
-
-      // ✅ Luego navegas
       navigate("/main");
     } catch (error) {
       console.error(error);

@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import { User } from "../../../interfaces/User";
 import { Title } from "../../ui/Title";
 import "./UserProfile.css";
-import { useAuth } from "../../../hooks/AuthProvider";
+import { useAuth } from "../../hooks/AuthProvider";
 import DefaultProfile from "../../../images/default-profile.png";
 import { useTranslation } from "react-i18next";
 import { Box } from "../../ui/Box";
+import { apiClient } from "../../hooks/ApiClient";
 
 export const UserProfile = () => {
   const { t } = useTranslation();
@@ -18,10 +19,7 @@ export const UserProfile = () => {
   useEffect(() => {
     const fetchUserAndCat = async () => {
       try {
-        const res = await fetch(
-          `https://api.gamedev.study/users/user-profile/${username}`
-        );
-        const data = await res.json();
+        const data = await apiClient.get(`/users/user-profile/${username}`);
         const loadedUser = User.fromApiResponse(data);
         setUser(loadedUser);
       } catch (err) {

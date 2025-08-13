@@ -5,6 +5,7 @@ import DefaultProfile from "../../../images/default-profile.png";
 import { useTranslation } from "react-i18next";
 import PodiumChart from "../../Charts/ScoreChart";
 import PodiumChartSkeleton from "../../Charts/PoidumChartSkeleton";
+import { apiClient } from "../../hooks/ApiClient";
 
 // Función para mostrar tiempo relativo (ejemplo: hace 2 horas)
 function timeSince(date: Date, t: any) {
@@ -62,9 +63,7 @@ export function Main() {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await fetch("https://api.gamedev.study/game");
-        if (!response.ok) throw new Error("Error al obtener juegos");
-        const data = await response.json();
+        const data = await apiClient.get("/game");
         setGames(data);
       } catch (error) {
         console.error("Error al cargar juegos:", error);
@@ -92,16 +91,7 @@ export function Main() {
           endpoint = `/game/sessions/recent`;
         }
 
-        const response = await fetch(`https://api.gamedev.study${endpoint}`, {
-          headers: {
-            Accept: "application/json",
-          },
-        });
-
-        if (!response.ok) throw new Error("Error al obtener ranking");
-
-        const data = await response.json();
-        console.log("Ranking data:", data);
+        const data = await apiClient.get(endpoint);
         if (rankingType === "recent_sessions") {
           // Mapeamos incluyendo fecha y flag isHighscore
           const userList: UserLeaderboard[] = data

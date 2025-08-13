@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next"; // Importamos hook i18n
 import { Input } from "../../ui/Input";
 import { Button } from "../../ui/Button";
 import "../Login/Login.css";
-import useFormHandler from "../../../hooks/useFormHandler";
-import { useAuth } from "../../../hooks/AuthProvider";
+import useFormHandler from "../../hooks/useFormHandler";
+import { useAuth } from "../../hooks/AuthProvider";
 import { Title } from "../../ui/Title";
 
 export const Login: React.FC = () => {

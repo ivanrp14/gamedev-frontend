@@ -36,7 +36,6 @@ export class User {
   }
 
   static fromApiResponse(apiData: any): User {
-    console.log("Convirtiendo respuesta de API a User:", apiData);
     const gamesPlayed: VideoGame[] = (apiData.gamesPlayed || []).map(
       (game: any) => {
         return new VideoGame(

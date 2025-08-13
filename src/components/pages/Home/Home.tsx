@@ -3,7 +3,7 @@ import { Title } from "../../ui/Title";
 import { FaGoogle, FaGithub, FaUserPlus, FaSignInAlt } from "react-icons/fa";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../hooks/AuthProvider";
+import { useAuth } from "../../hooks/AuthProvider";
 import { Button } from "../../ui/Button";
 import { useTranslation } from "react-i18next";
 

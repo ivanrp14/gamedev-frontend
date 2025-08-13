@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./Tutorial.css";
-import { useAuth } from "../../../hooks/AuthProvider";
+import { useAuth } from "../../hooks/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../ui/Button";
+import { apiClient } from "../../hooks/ApiClient";
 
 const Tutorial: React.FC = () => {
   const { t } = useTranslation();
@@ -17,33 +18,16 @@ const Tutorial: React.FC = () => {
       return;
     }
 
-    const username = user.username;
-
-    console.log(t("marble.username"), username);
-    console.log(t("marble.color"), color);
-
     try {
-      const response = await fetch("https://api.gamedev.study/marbles/join", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          color: color,
-          username: username,
-        }),
+      const data = await apiClient.post("/marbles/join", {
+        username: user.username,
+        color,
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(t("marble.serverResponse"), data);
-        navigate("/leave");
-      } else {
-        console.error(t("marble.requestError"), response.statusText);
-        navigate("/leave");
-      }
-    } catch (error) {
-      console.error(t("marble.apiConnectionError"), error);
+      console.log(t("marble.serverResponse"), data);
+      navigate("/leave");
+    } catch (error: any) {
+      console.error(t("marble.requestError"), error?.message || error);
+      navigate("/leave");
     }
   };
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAuth } from "../hooks/AuthProvider";
+import { useAuth } from "./AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 export const AuthRedirector = () => {

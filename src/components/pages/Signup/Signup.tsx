@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Input } from "../../ui/Input";
 import { Button } from "../../ui/Button";
 import "../Login/Login.css";
-import { useAuth } from "../../../hooks/AuthProvider";
+import { useAuth } from "../../hooks/AuthProvider";
 
 export const SignUp: React.FC = () => {
   const { t } = useTranslation();

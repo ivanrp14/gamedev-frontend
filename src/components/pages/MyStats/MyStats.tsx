@@ -2,7 +2,7 @@ import "./MyStats.css";
 import { User } from "../../../interfaces/User";
 import { VideoGame } from "../../../interfaces/Videogame";
 import { useState } from "react";
-import { useAuth } from "../../../hooks/AuthProvider";
+import { useAuth } from "../../hooks/AuthProvider";
 import { Section } from "../../ui/Section";
 import DefaultProfile from "../../../images/default-profile.png";
 import { Button } from "../../ui/Button";
