@@ -180,7 +180,6 @@ input {
 input:focus {
   outline: none;
   border-color: var(--neon-pink);
-  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-blue);
   transform: scale(1.01);
 }
 
@@ -259,7 +258,6 @@ input:disabled {
   border: 2px solid var(--neon-blue);
   border-radius: var(--border-radius);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .box:hover
@@ -310,7 +308,6 @@ input:disabled {
   border-radius: 4px;
   white-space: nowrap;
   font-size: 0.85rem;
-  box-shadow: 0 0 6px rgba(0,0,0,0.3);
   opacity: 0.95;
   z-index: 10;
 }

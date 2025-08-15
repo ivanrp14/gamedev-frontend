@@ -151,7 +151,6 @@ button.oauth-button.github:hover {
   }
 .leaderboard-item:hover {
     background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 10px var(--neon-blue);
     transform: scale(1.01);
     transition: all 0.5s ease;
 }
@@ -426,6 +425,7 @@ button.oauth-button.github:hover {
   position:relative;
   font-family:var(--font-body);
   color:var(--very-light-blue);
+  cursor:pointer;
 }
 
 /* Pilar donde se apoya el avatar */
@@ -438,7 +438,6 @@ button.oauth-button.github:hover {
   align-items:flex-end;
   justify-content:center;
   position:relative;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 0 12px rgba(0,229,255,0.06);
   overflow:visible;
   transition: transform 0.25s ease;
 }
@@ -467,13 +466,11 @@ button.oauth-button.github:hover {
   object-fit:cover;
   border:3px solid var(--neon-pink);
   background:var(--dark-blue);
-  box-shadow: 0 0 10px rgba(0,0,0,0.6), 0 0 8px var(--neon-blue);
 }
 
 /* Champion special */
 .champion .podium-pillar{
   border-color: var(--neon-yellow);
-  box-shadow: 0 10px 30px rgba(248,222,126,0.08), 0 0 28px var(--neon-pink);
 }
 
 .champion .podium-avatar{
@@ -481,7 +478,6 @@ button.oauth-button.github:hover {
   height:98px;
   border-width:4px;
   border-color:var(--neon-yellow);
-  box-shadow: 0 0 14px var(--neon-yellow), 0 0 28px var(--neon-pink);
   top:-48px;
 }
 
@@ -497,7 +493,6 @@ button.oauth-button.github:hover {
   padding:.2rem .5rem;
   border-radius:12px;
   text-shadow:none;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
 }
 
 /* Score bubble dentro del pilar (en la parte baja del pilar) */
@@ -532,7 +527,6 @@ button.oauth-button.github:hover {
 /* Hover effect */
 .podium-slot:hover .podium-pillar{
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.45), 0 0 20px rgba(0,229,255,0.05);
 }
 
 /* Small screens */

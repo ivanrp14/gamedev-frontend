@@ -1,6 +1,6 @@
 // PodiumChart.tsx
 import { motion } from "framer-motion";
-
+import { useNavigate } from "react-router-dom";
 type PodiumUser = {
   username: string;
   score: number;
@@ -27,7 +27,10 @@ export default function PodiumChart({ users }: Props) {
 
   // Construir los 5 "slots" para mostrar (pueden ser null si no hay jugador)
   const slots = SLOT_ORDER.map((idx) => (idx < top.length ? top[idx] : null));
-
+  const navigate = useNavigate();
+  const handleClick = (username: string) => {
+    navigate(`/user/${username}`);
+  };
   return (
     <motion.div
       className="podium-container"
@@ -48,6 +51,7 @@ export default function PodiumChart({ users }: Props) {
             className={`podium-slot ${isChampion ? "champion" : ""} ${user ? "" : "empty"}`}
             initial={{ y: 80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
+            onClick={() => user && handleClick(user.username)}
             transition={{
               delay: 0.12 * slotIndex,
               type: "spring",
