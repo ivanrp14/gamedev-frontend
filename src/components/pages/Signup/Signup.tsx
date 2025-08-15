@@ -66,8 +66,24 @@ export const SignUp: React.FC = () => {
         throw new Error(errorData.detail || t("signup.registerError"));
       }
 
-      const data = await response.json();
-      login(data.access_token);
+      const registerData = await response.json();
+
+      // 🔹 Hacer login manualmente después del registro
+      const formData = new URLSearchParams();
+      formData.append("username", form.username);
+      formData.append("password", form.password);
+
+      const loginRes = await fetch("https://api.gamedev.study/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData,
+      });
+
+      if (!loginRes.ok) throw new Error("Auto login failed");
+
+      const loginData = await loginRes.json();
+      await login(loginData.access_token);
+      localStorage.setItem("access_token", loginData.access_token);
     } catch (error: any) {
       setErrorMessage(error.message || t("signup.registerFailed"));
     } finally {

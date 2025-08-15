@@ -167,16 +167,18 @@ function ProfileSection({ user }: { user: User }) {
             onChange={handleChange}
             placeholder={t("mystats.newPassword")}
           />
-          <Button
-            onClick={handleDeletePicture}
-            className="delete-picture-button"
-          >
-            <p>{t("mystats.deleteProfilePicture")}</p>
-          </Button>
-          <div className="edit-actions">
-            <Button onClick={handleSave}>{t("mystats.save")}</Button>
+          <div className="button-group">
+            <Button onClick={handleSave}>
+              <p>{t("mystats.save")}</p>
+            </Button>
             <Button onClick={() => setEditing(false)}>
               <p>{t("mystats.cancel")}</p>
+            </Button>
+            <Button
+              onClick={handleDeletePicture}
+              className="delete-picture-button"
+            >
+              <p>{t("mystats.deleteProfilePicture")}</p>
             </Button>
           </div>
         </div>

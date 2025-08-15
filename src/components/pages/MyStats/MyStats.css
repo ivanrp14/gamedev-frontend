@@ -86,7 +86,11 @@
   gap: 1.5rem;
   margin-top: 2rem;
 }
-
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
 /* Animación para entrada suave */
 @keyframes fadeIn {
   from {
