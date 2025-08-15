@@ -66,8 +66,6 @@ export const SignUp: React.FC = () => {
         throw new Error(errorData.detail || t("signup.registerError"));
       }
 
-      const registerData = await response.json();
-
       // 🔹 Hacer login manualmente después del registro
       const formData = new URLSearchParams();
       formData.append("username", form.username);
