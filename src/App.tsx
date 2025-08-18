@@ -18,6 +18,7 @@ import { UserProfile } from "./components/pages/UserProfile/UserProfile";
 import { AuthRedirector } from "./components/hooks/AuthRedirector";
 import ChooseAvatar from "./components/pages/ChooseAvatar/ChooseAvatar";
 import About from "./components/pages/About/About";
+import ArcadeLogin from "./components/ArcadeLogin/ArcadeLogin";
 
 function MainContent() {
   const location = useLocation();
@@ -102,6 +103,14 @@ function MainContent() {
           element={
             <ProtectedRoute>
               <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/arcade-login"
+          element={
+            <ProtectedRoute>
+              <ArcadeLogin />
             </ProtectedRoute>
           }
         />
