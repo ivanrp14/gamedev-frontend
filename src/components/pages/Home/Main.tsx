@@ -29,7 +29,33 @@ function timeSince(date: Date, t: any) {
   return t("main.just_now");
 }
 
-// Clase para tipar los datos del usuario, incluyendo fecha y highscore
+// Tipos de datos desde la API
+interface Game {
+  id: number;
+  name: string;
+}
+
+interface RecentSession {
+  username: string;
+  score: number;
+  profile_image?: string;
+  played_at: string;
+  highscore?: boolean;
+}
+
+interface HighScoreItem {
+  username: string;
+  high_score: number;
+  profile_image?: string;
+}
+
+interface TotalScoreItem {
+  username: string;
+  total_score: number;
+  profile_image?: string;
+}
+
+// Clase para tipar los datos del usuario
 class UserLeaderboard {
   username: string;
   score: number;
@@ -58,12 +84,14 @@ export function Main() {
   const [rankingType, setRankingType] = useState("recent_sessions");
   const [gameId, setGameId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
-  const [games, setGames] = useState<{ id: number; name: string }[]>([]);
+  const [games, setGames] = useState<Game[]>([]);
   const { t } = useTranslation();
+
+  // Fetch de juegos
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const data = await apiClient.get("/game");
+        const data: Game[] = await apiClient.get("/game");
         setGames(data);
       } catch (error) {
         console.error("Error al cargar juegos:", error);
@@ -73,6 +101,7 @@ export function Main() {
     fetchGames();
   }, []);
 
+  // Fetch de ranking
   useEffect(() => {
     const fetchRanking = async () => {
       try {
@@ -92,33 +121,43 @@ export function Main() {
         }
 
         const data = await apiClient.get(endpoint);
+
         if (rankingType === "recent_sessions") {
-          // Mapeamos incluyendo fecha y flag isHighscore
-          const userList: UserLeaderboard[] = data
-            .map((item: any) => {
-              return new UserLeaderboard(
-                item.username,
-                item.score,
-                item.profile_image || DefaultProfile,
-                new Date(item.played_at), // Asumiendo que el campo fecha es played_at
-                item.highscore
-              );
-            })
-            // Ordenar por fecha descendente (los más recientes primero)
+          const userList: UserLeaderboard[] = (data as RecentSession[])
+            .map(
+              (item) =>
+                new UserLeaderboard(
+                  item.username,
+                  item.score,
+                  item.profile_image || DefaultProfile,
+                  new Date(item.played_at),
+                  item.highscore
+                )
+            )
             .sort(
-              (a: UserLeaderboard, b: UserLeaderboard) =>
+              (a, b) =>
                 (b.playedAt?.getTime() ?? 0) - (a.playedAt?.getTime() ?? 0)
             );
-
           setUsers(userList);
-        } else {
-          const userList: UserLeaderboard[] = data.map((item: any) => {
-            return new UserLeaderboard(
-              item.username,
-              item.total_score ?? item.high_score,
-              item.profile_image || DefaultProfile
-            );
-          });
+        } else if (rankingType === "high_score") {
+          const userList: UserLeaderboard[] = (data as HighScoreItem[]).map(
+            (item) =>
+              new UserLeaderboard(
+                item.username,
+                item.high_score,
+                item.profile_image || DefaultProfile
+              )
+          );
+          setUsers(userList);
+        } else if (rankingType === "total_score") {
+          const userList: UserLeaderboard[] = (data as TotalScoreItem[]).map(
+            (item) =>
+              new UserLeaderboard(
+                item.username,
+                item.total_score,
+                item.profile_image || DefaultProfile
+              )
+          );
           setUsers(userList);
         }
 
@@ -173,6 +212,7 @@ export function Main() {
           </select>
         )}
       </div>
+
       {loading ? (
         <PodiumChartSkeleton />
       ) : users.length > 0 ? (
@@ -183,6 +223,8 @@ export function Main() {
     </div>
   );
 }
+
+// ------------------------- LEADERBOARD COMPONENTS -------------------------
 
 interface LeaderboardProps {
   users: UserLeaderboard[];
@@ -202,7 +244,7 @@ function Leaderboard({ users, loading, rankingType }: LeaderboardProps) {
   return (
     <div className="leaderboard-container">
       <div className="leaderboard-header">
-        <h1>{t("main.leaderboard")}</h1>{" "}
+        <h1>{t("main.leaderboard")}</h1>
       </div>
       <div className="leaderboard">
         {loading ? (
@@ -254,13 +296,14 @@ function LeaderboardItem({
     navigate(`/user/${username}`);
   };
   const { t } = useTranslation();
+
   return (
     <button className="leaderboard-item" onClick={handleClick}>
       <h2 className={`rank`}>#{rank}</h2>
       <div className="profile-pic-container">
         {!imgLoaded && <div className="skeleton-circle" />}
         <img
-          src={image || "/default-avatar.png"}
+          src={image || DefaultProfile}
           alt={t("main.avatar_alt")}
           className={`profile-pic ${imgLoaded ? "fade-in" : "hidden"}`}
           onLoad={() => setImgLoaded(true)}

@@ -1,16 +1,17 @@
 import React from "react";
-import { useTranslation } from "react-i18next"; // Importamos hook i18n
+import { useTranslation } from "react-i18next";
 import { Input } from "../../ui/Input";
 import { Button } from "../../ui/Button";
 import "../Login/Login.css";
 import useFormHandler from "../../hooks/useFormHandler";
 import { useAuth } from "../../hooks/AuthProvider";
 import { Title } from "../../ui/Title";
+import { apiClient } from "../../hooks/ApiClient";
 
 export const Login: React.FC = () => {
   const { t } = useTranslation();
-
   const { login, loading } = useAuth();
+
   const {
     values,
     errorMessage,
@@ -37,27 +38,8 @@ export const Login: React.FC = () => {
     }
 
     try {
-      const formData = new URLSearchParams();
-      formData.append("username", values.username);
-      formData.append("password", values.password);
-
-      const res = await fetch("https://api.gamedev.study/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.detail || t("login.loginFailed"));
-      }
-
-      const data = await res.json();
-      await login(data.access_token);
-      localStorage.setItem("access_token", data.access_token);
-      // ✅ redirige inmediatamente
+      await apiClient.login(values.username, values.password);
+      await login(); // refresca el usuario desde /me
     } catch (err: any) {
       setErrorMessage(err.message || t("login.somethingWentWrong"));
     } finally {

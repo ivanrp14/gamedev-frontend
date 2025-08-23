@@ -18,61 +18,52 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchUserProfile = async (username: string) => {
-    const data = await apiClient.get(`/users/user-profile/${username}`);
-    return User.fromApiResponse(data);
-  };
-
   const fetchUser = async () => {
     try {
       const data = await apiClient.get("/auth/me");
-      const fetchedUser = await fetchUserProfile(data.username);
-      setUser(fetchedUser);
+      const fetchedUser = await apiClient.get(
+        `/users/user-profile/${data.username}`
+      );
+      setUser(User.fromApiResponse(fetchedUser));
       setIsAuthenticated(true);
     } catch (error) {
       console.error("Error fetching user:", error);
-      logout();
+      setUser(null);
+      setIsAuthenticated(false);
     } finally {
       setLoading(false);
     }
   };
 
-  const refreshUser = async () => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      await fetchUser();
-    }
-  };
-
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      fetchUser();
-    } else {
-      setLoading(false);
-    }
+    fetchUser(); // ✅ ahora siempre consulta al backend
   }, []);
 
-  const login = async (token: string) => {
-    localStorage.setItem("access_token", token);
+  const login = async () => {
     await fetchUser();
   };
 
-  const logout = () => {
-    localStorage.removeItem("access_token");
+  const logout = async () => {
+    await apiClient.post("/auth/logout"); // borra cookie en backend
     setUser(null);
     setIsAuthenticated(false);
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, login, logout, loading, refreshUser }}
+      value={{
+        isAuthenticated,
+        user,
+        login,
+        logout,
+        loading,
+        refreshUser: fetchUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/AuthProvider";
 import { Button } from "../../ui/Button";
 import { useTranslation } from "react-i18next";
+import { apiClient } from "../../hooks/ApiClient";
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export const Home: React.FC = () => {
 
   if (isAuthenticated) {
     navigate("/main");
-    return null; // Evita renderizar el resto del componente
+    return null;
   }
 
   const handleLogin = () => {
@@ -34,7 +35,7 @@ export const Home: React.FC = () => {
       navigate("/main");
       return;
     }
-    window.location.href = "https://api.gamedev.study/auth/google/login";
+    window.location.href = apiClient.googleOAuthUrl();
   };
 
   const handleGithubOAuth = () => {
@@ -42,7 +43,7 @@ export const Home: React.FC = () => {
       navigate("/main");
       return;
     }
-    window.location.href = "https://api.gamedev.study/auth/github/login";
+    window.location.href = apiClient.githubOAuthUrl();
   };
 
   return (
