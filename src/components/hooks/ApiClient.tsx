@@ -1,4 +1,3 @@
-// src/api/apiClient.ts
 const BASE_URL = "https://api.gamedev.study";
 
 export const apiClient = {
@@ -15,6 +14,17 @@ export const apiClient = {
   post: async (endpoint: string, body?: any) => {
     const res = await fetch(`${BASE_URL}${endpoint}`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+
+  patch: async (endpoint: string, body?: any) => {
+    const res = await fetch(`${BASE_URL}${endpoint}`, {
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: body ? JSON.stringify(body) : undefined,
@@ -49,7 +59,6 @@ export const apiClient = {
     return res.json();
   },
 
-  // 👇 OAuth helpers
   googleOAuthUrl: () => `${BASE_URL}/auth/google/login`,
   githubOAuthUrl: () => `${BASE_URL}/auth/github/login`,
 };

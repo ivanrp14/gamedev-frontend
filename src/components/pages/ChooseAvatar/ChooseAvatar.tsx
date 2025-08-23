@@ -21,12 +21,18 @@ const ChooseAvatar: React.FC = () => {
   useEffect(() => {
     const fetchCats = async () => {
       try {
-        const res = await fetch(
+        setLoading(true);
+        const data: CatImage[] = await apiClient.get(
           "https://api.thecatapi.com/v1/images/search?limit=9"
         );
-        const data = await res.json();
-        setImages(data);
+        // Aseguramos que cada objeto tenga id y url
+        const formatted: CatImage[] = data.map((img: any, index: number) => ({
+          id: img.id || index.toString(),
+          url: img.url,
+        }));
+        setImages(formatted);
       } catch (err) {
+        console.error(err);
         setError(t("chooseAvatar.error_fetch"));
       } finally {
         setLoading(false);
@@ -41,8 +47,8 @@ const ChooseAvatar: React.FC = () => {
       await apiClient.patch("/users/avatar", { profile_image: url });
       await refreshUser();
       navigate("/main");
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       setError(t("chooseAvatar.error_save"));
     }
   };

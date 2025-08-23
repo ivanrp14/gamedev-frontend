@@ -11,13 +11,14 @@ import { apiClient } from "./ApiClient";
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
-  login: (token: string) => Promise<void>;
-  logout: () => void;
+  login: () => Promise<void>; // ya no requiere argumentos
+  logout: () => Promise<void>;
   loading: boolean;
   refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -25,7 +26,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const fetchUser = async () => {
     try {
-      const data = await apiClient.get("/auth/me");
+      const data = await apiClient.get("/auth/me"); // obtiene usuario logueado
       const fetchedUser = await apiClient.get(
         `/users/user-profile/${data.username}`
       );
@@ -41,10 +42,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    fetchUser(); // ✅ ahora siempre consulta al backend
+    fetchUser(); // consulta al backend al cargar
   }, []);
 
   const login = async () => {
+    // login ahora solo refresca el usuario después de apiClient.login
     await fetchUser();
   };
 

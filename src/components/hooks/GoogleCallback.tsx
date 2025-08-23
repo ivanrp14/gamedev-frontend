@@ -16,8 +16,9 @@ function GoogleCallback() {
     }
 
     localStorage.setItem("access_token", token);
-    login(token);
-    navigate("/main", { replace: true });
+    login().then(() => {
+      navigate("/main", { replace: true });
+    });
   }, [login, navigate]);
 
   return <p>Authenticating with Google…</p>;

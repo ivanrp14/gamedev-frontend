@@ -4,6 +4,7 @@ import { Input } from "../../ui/Input";
 import { Button } from "../../ui/Button";
 import "../Login/Login.css";
 import { useAuth } from "../../hooks/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export const SignUp: React.FC = () => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ export const SignUp: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -79,9 +80,9 @@ export const SignUp: React.FC = () => {
 
       if (!loginRes.ok) throw new Error("Auto login failed");
 
-      const loginData = await loginRes.json();
-      await login(loginData.access_token);
-      localStorage.setItem("access_token", loginData.access_token);
+      await login().then(() => {
+        navigate("/main", { replace: true });
+      });
     } catch (error: any) {
       setErrorMessage(error.message || t("signup.registerFailed"));
     } finally {

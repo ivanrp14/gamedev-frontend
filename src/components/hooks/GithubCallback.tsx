@@ -16,8 +16,9 @@ function GithubCallback() {
     }
 
     localStorage.setItem("access_token", token);
-    login(token);
-    navigate("/main", { replace: true });
+    login().then(() => {
+      navigate("/main", { replace: true });
+    });
   }, [login, navigate]);
 
   return <p>Authenticating with Github…</p>;
