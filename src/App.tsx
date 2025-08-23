@@ -10,8 +10,6 @@ import Tutorial from "./components/pages/Tutorial/Tutorial";
 import RedirectToProperPage from "./components/hooks/Redirect";
 import { ProtectedRoute } from "./components/hooks/ProtectedRoute";
 import Leave from "./components/pages/Tutorial/Leave";
-import GoogleCallback from "./components/hooks/OAuthCallback";
-import GithubCallback from "./components/hooks/GithubCallback";
 import { AuthProvider } from "./components/hooks/AuthProvider";
 import MyStats from "./components/pages/MyStats/MyStats";
 import { UserProfile } from "./components/pages/UserProfile/UserProfile";
