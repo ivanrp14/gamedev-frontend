@@ -10,7 +10,7 @@ import Tutorial from "./components/pages/Tutorial/Tutorial";
 import RedirectToProperPage from "./components/hooks/Redirect";
 import { ProtectedRoute } from "./components/hooks/ProtectedRoute";
 import Leave from "./components/pages/Tutorial/Leave";
-import GoogleCallback from "./components/hooks/GoogleCallback";
+import GoogleCallback from "./components/hooks/OAuthCallback";
 import GithubCallback from "./components/hooks/GithubCallback";
 import { AuthProvider } from "./components/hooks/AuthProvider";
 import MyStats from "./components/pages/MyStats/MyStats";
@@ -19,6 +19,7 @@ import { AuthRedirector } from "./components/hooks/AuthRedirector";
 import ChooseAvatar from "./components/pages/ChooseAvatar/ChooseAvatar";
 import About from "./components/pages/About/About";
 import ArcadeLogin from "./components/ArcadeLogin/ArcadeLogin";
+import OAuthCallback from "./components/hooks/OAuthCallback";
 
 function MainContent() {
   const location = useLocation();
@@ -120,8 +121,8 @@ function MainContent() {
           path="*"
           element={<h1 style={{ textAlign: "center" }}>404 - Not Found</h1>}
         />
-        <Route path="/auth/google/callback" element={<GoogleCallback />} />
-        <Route path="/auth/github/callback" element={<GithubCallback />} />
+        <Route path="/auth/google/callback" element={<OAuthCallback />} />
+        <Route path="/auth/github/callback" element={<OAuthCallback />} />
       </Routes>
     </>
   );
