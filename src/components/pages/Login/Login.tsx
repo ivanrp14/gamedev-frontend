@@ -10,7 +10,7 @@ import { apiClient } from "../../hooks/ApiClient";
 
 export const Login: React.FC = () => {
   const { t } = useTranslation();
-  const { login, loading } = useAuth();
+  const { login } = useAuth(); // ya no usamos loading del AuthProvider
 
   const {
     values,
@@ -23,8 +23,6 @@ export const Login: React.FC = () => {
     username: "",
     password: "",
   });
-
-  if (loading) return <p>{t("login.loadingSession")}</p>;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

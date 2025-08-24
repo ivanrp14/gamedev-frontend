@@ -11,9 +11,9 @@ import { apiClient } from "./ApiClient";
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
-  login: () => Promise<void>; // ya no requiere argumentos
+  login: () => Promise<void>;
   logout: () => Promise<void>;
-  loading: boolean;
+  loading: boolean; // solo para estado de sesión inicial
   refreshUser: () => Promise<void>;
 }
 
@@ -22,18 +22,17 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // solo durante init
 
   const fetchUser = async () => {
     try {
-      const data = await apiClient.get("/auth/me"); // obtiene usuario logueado
+      const data = await apiClient.get("/auth/me");
       const fetchedUser = await apiClient.get(
         `/users/user-profile/${data.username}`
       );
       setUser(User.fromApiResponse(fetchedUser));
       setIsAuthenticated(true);
     } catch (error) {
-      console.error("Error fetching user:", error);
       setUser(null);
       setIsAuthenticated(false);
     } finally {
@@ -41,17 +40,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // inicializa sesión si hay cookie/token
   useEffect(() => {
-    fetchUser(); // consulta al backend al cargar
+    const init = async () => {
+      try {
+        await fetchUser();
+      } catch {
+        setLoading(false);
+      }
+    };
+    init();
   }, []);
 
   const login = async () => {
-    // login ahora solo refresca el usuario después de apiClient.login
+    // espera a que cookie/token ya esté lista tras apiClient.login()
+    setLoading(true);
     await fetchUser();
   };
 
   const logout = async () => {
-    await apiClient.post("/auth/logout"); // borra cookie en backend
+    await apiClient.post("/auth/logout");
     setUser(null);
     setIsAuthenticated(false);
   };
