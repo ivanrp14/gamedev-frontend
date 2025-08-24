@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import axios from "axios";
+import { apiClient } from "../hooks/ApiClient";
 
 export default function ArcadeLogin() {
   const [params] = useSearchParams();
@@ -9,20 +9,12 @@ export default function ArcadeLogin() {
   useEffect(() => {
     async function linkArcade() {
       try {
-        // Aquí ya deberías tener el token del usuario logeado
-        const token = localStorage.getItem("access_token");
-
-        await axios.post(
-          "https://api.gamedev.study/arcade/link-session",
-          { session_id: sessionId }, // se manda como JSON body
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        await apiClient.post("/arcade/link-session", { session_id: sessionId });
 
         alert("✅ Arcade vinculada, ya puedes jugar en la máquina!");
       } catch (err) {
-        console.error(err);
-        alert("❌ Error al vincular la arcade");
         console.error("Error al vincular la arcade:", err);
+        alert("❌ Error al vincular la arcade");
       }
     }
 

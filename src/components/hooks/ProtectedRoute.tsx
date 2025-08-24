@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 
 interface ProtectedRouteProps {
@@ -8,14 +8,19 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
 
-  // Mientras carga la sesión, no renderiza nada
+  // Mientras carga la sesión, muestra un loader (o null si prefieres)
   if (loading) {
-    return null; // o puedes poner un spinner
+    return <p>Cargando sesión...</p>;
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/home" replace />;
+    // Guardamos la ruta actual (incluyendo query params) para redirigir después del login
+    const redirectParam = encodeURIComponent(
+      location.pathname + location.search
+    );
+    return <Navigate to={`/login?redirect=${redirectParam}`} replace />;
   }
 
   return <>{children}</>;

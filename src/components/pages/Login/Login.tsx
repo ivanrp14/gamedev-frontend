@@ -7,10 +7,14 @@ import useFormHandler from "../../hooks/useFormHandler";
 import { useAuth } from "../../hooks/AuthProvider";
 import { Title } from "../../ui/Title";
 import { apiClient } from "../../hooks/ApiClient";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export const Login: React.FC = () => {
   const { t } = useTranslation();
-  const { login } = useAuth(); // ya no usamos loading del AuthProvider
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/main";
 
   const {
     values,
@@ -38,6 +42,7 @@ export const Login: React.FC = () => {
     try {
       await apiClient.login(values.username, values.password);
       await login(); // refresca el usuario desde /me
+      navigate(redirectUrl, { replace: true }); // 👈 redirige donde toque
     } catch (err: any) {
       setErrorMessage(err.message || t("login.somethingWentWrong"));
     } finally {
