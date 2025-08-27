@@ -22,9 +22,9 @@ const ChooseAvatar: React.FC = () => {
     const fetchCats = async () => {
       try {
         setLoading(true);
-        const data: CatImage[] = await apiClient.get(
-          "https://api.thecatapi.com/v1/images/search?limit=9"
-        );
+        const res = await fetch("https://api.thecatapi.com/v1/images/search?limit=9");
+        const data: any[] = await res.json();
+
         // Aseguramos que cada objeto tenga id y url
         const formatted: CatImage[] = data.map((img: any, index: number) => ({
           id: img.id || index.toString(),
