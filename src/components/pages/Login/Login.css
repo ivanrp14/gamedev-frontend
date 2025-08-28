@@ -32,7 +32,17 @@
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
+.button.primary.submit-button{
+  width: 100%;
+  max-width: 2000px;
+  margin: 0 auto;
+  margin-top: 5%;
+  height: 50px;
 
+}
+.button.secondary{
+  width: 100%;
+}
 .signup-form , .login-form{
     margin: 0 auto;
     display: flex;

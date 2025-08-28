@@ -6,6 +6,7 @@ type ButtonProps = {
   type?: "button" | "submit" | "reset";
   className?: string;
   disabled?: boolean;
+  variant?: "primary" | "secondary"; // 👈 nuevo
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
   type = "button",
   className = "",
   disabled = false,
+  variant = "primary", // 👈 valor por defecto
 }) => {
   const [animatedText, setAnimatedText] = useState<string | null>(null);
   const [originalText, setOriginalText] = useState<string | null>(null);
@@ -57,7 +59,6 @@ export const Button: React.FC<ButtonProps> = ({
     }
   };
 
-  // Busca el texto dentro del <p> y lo anima
   useEffect(() => {
     React.Children.forEach(children, (child) => {
       if (
@@ -76,7 +77,7 @@ export const Button: React.FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
-      className={`button ${className}`}
+      className={`button ${variant} ${className}`} // 👈 añade la clase según variant
       disabled={disabled}
     >
       {React.Children.map(children, (child) => {
@@ -86,10 +87,9 @@ export const Button: React.FC<ButtonProps> = ({
           typeof child.props.children === "string" &&
           animatedText !== null
         ) {
-          // Reemplaza solo el <p> por uno animado
           return <p className="animated-text">{animatedText}</p>;
         }
-        return child; // Deja íconos y otros elementos como están
+        return child;
       })}
     </button>
   );

@@ -78,7 +78,8 @@
     "usernameLabel": "Nom d'usuari",
     "passwordLabel": "Contrasenya",
     "loading": "Carregant...",
-    "loginButton": "Entra"
+    "loginButton": "Entra",
+    "goToSignUp": "Vés a Registrar-te"
   },
   "signup": {
     "createAccount": "Crear compte",
@@ -93,7 +94,8 @@
     "registerError": "Error en registrar-se.",
     "registerFailed": "El registre ha fallat. Torna-ho a provar.",
     "registering": "Registrant...",
-    "register": "Registra't"
+    "register": "Registra't",
+    "goToLogin": "Ja tens un compte? Inicia sessió"
   },
   "leave": {
     "thanksForPlaying": "Gràcies per jugar",

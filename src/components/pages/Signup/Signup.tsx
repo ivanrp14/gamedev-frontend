@@ -136,12 +136,20 @@ export const SignUp: React.FC = () => {
             required
           />
 
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} className="submit-button">
             {isLoading ? t("signup.registering") : t("signup.register")}
           </Button>
-        </div>
 
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <Button
+            className="goto-login-button"
+            type="button"
+            onClick={() => navigate("/signup")}
+            variant="secondary"
+          >
+            {t("signup.goToLogin")}
+          </Button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+        </div>
       </form>
     </div>
   );

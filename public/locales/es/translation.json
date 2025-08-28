@@ -79,7 +79,8 @@
       "usernameLabel": "Nombre de usuario",
       "passwordLabel": "Contraseña",
       "loading": "Cargando...",
-      "loginButton": "Entrar"
+      "loginButton": "Entrar",
+      "goToSignUp": "Ir a Registrarse"
     },
     "signup": {
       "createAccount": "Crear Cuenta",
@@ -94,7 +95,8 @@
       "registerError": "Error al registrarse.",
       "registerFailed": "El registro falló. Inténtalo de nuevo.",
       "registering": "Registrando...",
-      "register": "Registrarse"
+      "register": "Registrarse",
+      "goToLogin": "¿Ya tienes una cuenta? Iniciar sesión"
     },
     "leave": {
       "thanksForPlaying": "Gracias por jugar",

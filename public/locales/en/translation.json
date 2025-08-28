@@ -78,7 +78,8 @@
     "usernameLabel": "Username",
     "passwordLabel": "Password",
     "loading": "Loading...",
-    "loginButton": "Enter"
+    "loginButton": "Enter",
+    "goToSignUp": "Go to Sign Up"
   },
   "signup": {
     "createAccount": "Create Account",
@@ -93,7 +94,8 @@
     "registerError": "Registration error.",
     "registerFailed": "Registration failed. Please try again.",
     "registering": "Registering...",
-    "register": "Sign up"
+    "register": "Sign up",
+    "goToLogin": "Already have an account? Log in"
   },
   "leave": {
     "thanksForPlaying": "Thanks for playing",

@@ -80,33 +80,45 @@ h3
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
-
-/* === BUTTON === */
+/* Base button */
 button {
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--neon-pink);
-  background-color: transparent;
-  border: 2px solid var(--neon-blue);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
-  animation: neon-glow 2.5s ease-in-out infinite alternate;
-  transition:
-    background 0.4s ease,
-    color 0.4s ease,
-    border-radius 0.4s ease,
-    transform 0.3s ease;
+  border-radius: 0.25rem;
+  padding: 0.75rem 1.5rem;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
+/* === VARIANT PRIMARY === */
+button.primary {
+  color: var(--neon-pink);
+  background-color: transparent;
+  border: 2px solid var(--neon-blue);
+  animation: neon-glow 2.5s ease-in-out infinite alternate;
+}
+button.primary:hover {
   background: var(--neon-blue);
   color: var(--dark-blue);
-  scale: 1.05;
-  
+  transform: scale(1.05);
 }
+
+/* === VARIANT SECONDARY === */
+button.secondary {
+  border: none;
+  background: transparent;
+  color: var(--neon-blue);
+  text-decoration: underline;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+}
+button.secondary:hover {
+  color: var(--neon-pink);
+  transform: scale(1.05);
+}
+
 
 /* === ANIMATIONS === */
 @keyframes move-lines {
