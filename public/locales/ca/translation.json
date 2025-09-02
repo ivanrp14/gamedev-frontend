@@ -95,7 +95,8 @@
     "registerFailed": "El registre ha fallat. Torna-ho a provar.",
     "registering": "Registrant...",
     "register": "Registra't",
-    "goToLogin": "Ja tens un compte? Inicia sessió"
+    "goToLogin": "Ja tens un compte? Inicia sessió",
+    "invalidCredentials": "Credencials no vàlides."
   },
   "leave": {
     "thanksForPlaying": "Gràcies per jugar",

@@ -80,7 +80,8 @@
       "passwordLabel": "Contraseña",
       "loading": "Cargando...",
       "loginButton": "Entrar",
-      "goToSignUp": "Ir a Registrarse"
+      "goToSignUp": "Ir a Registrarse",
+      "invalidCredentials": "Credenciales inválidas."
     },
     "signup": {
       "createAccount": "Crear Cuenta",

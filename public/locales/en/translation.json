@@ -95,7 +95,8 @@
     "registerFailed": "Registration failed. Please try again.",
     "registering": "Registering...",
     "register": "Sign up",
-    "goToLogin": "Already have an account? Log in"
+    "goToLogin": "Already have an account? Log in",
+    "invalidCredentials": "Invalid credentials."
   },
   "leave": {
     "thanksForPlaying": "Thanks for playing",

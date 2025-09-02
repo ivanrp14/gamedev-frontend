@@ -44,7 +44,12 @@ export const Login: React.FC = () => {
       await login(); // refresca el usuario desde /me
       navigate(redirectUrl, { replace: true }); // 👈 redirige donde toque
     } catch (err: any) {
-      setErrorMessage(err.message || t("login.somethingWentWrong"));
+      const errorCode = err.response?.data?.code;
+      if (errorCode === "INVALID_CREDENTIALS") {
+        setErrorMessage(t("login.invalidCredentials"));
+      } else {
+        setErrorMessage(t("login.somethingWentWrong"));
+      }
     } finally {
       setIsLoading(false);
     }
