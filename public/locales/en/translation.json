@@ -79,7 +79,8 @@
     "passwordLabel": "Password",
     "loading": "Loading...",
     "loginButton": "Enter",
-    "goToSignUp": "Go to Sign Up"
+    "goToSignUp": "Go to Sign Up",
+    "invalidCredentials": "Invalid credentials."
   },
   "signup": {
     "createAccount": "Create Account",

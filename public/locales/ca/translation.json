@@ -79,7 +79,8 @@
     "passwordLabel": "Contrasenya",
     "loading": "Carregant...",
     "loginButton": "Entra",
-    "goToSignUp": "Vés a Registrar-te"
+    "goToSignUp": "Vés a Registrar-te",
+    "invalidCredentials": "Credencials no vàlides."
   },
   "signup": {
     "createAccount": "Crear compte",
