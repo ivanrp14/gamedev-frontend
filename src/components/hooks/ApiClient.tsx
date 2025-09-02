@@ -1,5 +1,19 @@
 const BASE_URL = "https://api.gamedev.study";
 
+// 🔹 helper para parsear errores de la API
+async function handleError(res: Response) {
+  let errorData: any = {};
+  try {
+    errorData = await res.json();
+  } catch {
+    errorData = { code: "UNKNOWN", message: await res.text() };
+  }
+
+  const error: any = new Error(errorData.message || "Request failed");
+  error.response = { data: errorData }; // 👈 imita estructura de Axios
+  throw error;
+}
+
 export const apiClient = {
   get: async (endpoint: string) => {
     const res = await fetch(`${BASE_URL}${endpoint}`, {
@@ -7,7 +21,7 @@ export const apiClient = {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
-    if (!res.ok) throw new Error(await res.text());
+    if (!res.ok) await handleError(res);
     return res.json();
   },
 
@@ -18,7 +32,7 @@ export const apiClient = {
       credentials: "include",
       body: body ? JSON.stringify(body) : undefined,
     });
-    if (!res.ok) throw new Error(await res.text());
+    if (!res.ok) await handleError(res);
     return res.json();
   },
 
@@ -29,7 +43,7 @@ export const apiClient = {
       credentials: "include",
       body: body ? JSON.stringify(body) : undefined,
     });
-    if (!res.ok) throw new Error(await res.text());
+    if (!res.ok) await handleError(res);
     return res.json();
   },
 
@@ -45,7 +59,7 @@ export const apiClient = {
       body: formData,
     });
 
-    if (!res.ok) throw new Error(await res.text());
+    if (!res.ok) await handleError(res);
     return res.json();
   },
 
@@ -55,7 +69,7 @@ export const apiClient = {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
-    if (!res.ok) throw new Error(await res.text());
+    if (!res.ok) await handleError(res);
     return res.json();
   },
 

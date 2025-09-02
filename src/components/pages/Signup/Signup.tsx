@@ -64,10 +64,11 @@ export const SignUp: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || t("signup.registerError"));
+        // 🔹 Mostrar mensaje específico de backend
+        throw new Error(errorData.message || t("signup.registerError"));
       }
 
-      // 🔹 Hacer login manualmente después del registro
+      // ---- LOGIN AUTOMÁTICO DESPUÉS DEL REGISTRO ----
       const formData = new URLSearchParams();
       formData.append("username", form.username);
       formData.append("password", form.password);
@@ -78,7 +79,13 @@ export const SignUp: React.FC = () => {
         body: formData,
       });
 
-      if (!loginRes.ok) throw new Error("Auto login failed");
+      if (!loginRes.ok) {
+        const errorData = await loginRes.json();
+        if (errorData.code === "INVALID_CREDENTIALS") {
+          throw new Error("Usuario o contraseña inválida");
+        }
+        throw new Error(errorData.message || "Error al iniciar sesión");
+      }
 
       await login().then(() => {
         navigate("/main", { replace: true });
