@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 export const SignUp: React.FC = () => {
   const { t } = useTranslation();
   const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -16,7 +18,7 @@ export const SignUp: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
-  const navigate = useNavigate();
+
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +35,7 @@ export const SignUp: React.FC = () => {
     e.preventDefault();
     setErrorMessage(null);
 
-    // --- VALIDACIONES DEL FRONTEND ---
+    // Validaciones frontend
     if (!validateEmail(form.email)) {
       setErrorMessage(t("signup.invalidEmail"));
       return;
@@ -53,22 +55,25 @@ export const SignUp: React.FC = () => {
 
     try {
       // --- REGISTRO ---
-      const response = await fetch("https://api.gamedev.study/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: form.username,
-          fullname: form.fullName,
-          email: form.email,
-          password: form.password,
-        }),
-      });
+      const registerRes = await fetch(
+        "https://api.gamedev.study/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: form.username,
+            fullname: form.fullName,
+            email: form.email,
+            password: form.password,
+          }),
+          credentials: "include", // cookies
+        }
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
+      if (!registerRes.ok) {
+        const errorData = await registerRes.json();
         let backendMessage = errorData.message || t("signup.registerError");
 
-        // Traducción de errores comunes
         if (errorData.code === "EMAIL_TAKEN") {
           backendMessage = t("signup.emailAlreadyRegistered");
         } else if (errorData.code === "USERNAME_TAKEN") {
@@ -79,14 +84,15 @@ export const SignUp: React.FC = () => {
       }
 
       // --- LOGIN AUTOMÁTICO ---
-      const formData = new URLSearchParams();
-      formData.append("username", form.username);
-      formData.append("password", form.password);
+      const loginData = new URLSearchParams();
+      loginData.append("username", form.username);
+      loginData.append("password", form.password);
 
       const loginRes = await fetch("https://api.gamedev.study/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formData,
+        body: loginData,
+        credentials: "include", // cookies
       });
 
       if (!loginRes.ok) {
@@ -100,7 +106,10 @@ export const SignUp: React.FC = () => {
         throw new Error(loginMessage);
       }
 
-      await login();
+      // --- ACTUALIZAR AUTH CONTEXT ---
+      await login(); // fetchUser() interno del AuthProvider
+
+      // --- NAVEGACIÓN ---
       navigate("/main", { replace: true });
     } catch (error: any) {
       setErrorMessage(error.message || t("signup.registerFailed"));
@@ -162,11 +171,12 @@ export const SignUp: React.FC = () => {
           <Button
             className="goto-login-button"
             type="button"
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/login")}
             variant="secondary"
           >
             {t("signup.goToLogin")}
           </Button>
+
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
       </form>
