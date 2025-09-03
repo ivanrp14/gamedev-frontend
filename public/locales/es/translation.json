@@ -97,7 +97,10 @@
       "registerFailed": "El registro falló. Inténtalo de nuevo.",
       "registering": "Registrando...",
       "register": "Registrarse",
-      "goToLogin": "¿Ya tienes una cuenta? Iniciar sesión"
+      "goToLogin": "¿Ya tienes una cuenta? Iniciar sesión",
+      "registerSuccess": "Registro exitoso. ¡Bienvenido!",
+      "usernameAlreadyTaken": "El nombre de usuario ya está en uso.",
+      "emailAlreadyTaken": "El correo electrónico ya está en uso."
     },
     "leave": {
       "thanksForPlaying": "Gracias por jugar",

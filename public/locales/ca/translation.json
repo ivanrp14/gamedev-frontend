@@ -97,7 +97,10 @@
     "registering": "Registrant...",
     "register": "Registra't",
     "goToLogin": "Ja tens un compte? Inicia sessió",
-    "invalidCredentials": "Credencials no vàlides."
+    "invalidCredentials": "Credencials no vàlides.",
+    "registerSuccess": "Registre exitós. Benvingut!",
+    "usernameAlreadyTaken": "El nom d'usuari ja està en ús.",
+    "emailAlreadyTaken": "El correu electrònic ja està en ús."
   },
   "leave": {
     "thanksForPlaying": "Gràcies per jugar",

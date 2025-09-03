@@ -97,7 +97,10 @@
     "registering": "Registering...",
     "register": "Sign up",
     "goToLogin": "Already have an account? Log in",
-    "invalidCredentials": "Invalid credentials."
+    "invalidCredentials": "Invalid credentials.",
+    "registerSuccess": "Registration successful. Welcome!",
+    "usernameAlreadyTaken": "Username is already taken.",
+    "emailAlreadyTaken": "Email is already taken."
   },
   "leave": {
     "thanksForPlaying": "Thanks for playing",

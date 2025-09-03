@@ -33,6 +33,7 @@ export const SignUp: React.FC = () => {
     e.preventDefault();
     setErrorMessage(null);
 
+    // --- VALIDACIONES DEL FRONTEND ---
     if (!validateEmail(form.email)) {
       setErrorMessage(t("signup.invalidEmail"));
       return;
@@ -51,6 +52,7 @@ export const SignUp: React.FC = () => {
     setIsLoading(true);
 
     try {
+      // --- REGISTRO ---
       const response = await fetch("https://api.gamedev.study/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -64,11 +66,19 @@ export const SignUp: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        // 🔹 Mostrar mensaje específico de backend
-        throw new Error(errorData.message || t("signup.registerError"));
+        let backendMessage = errorData.message || t("signup.registerError");
+
+        // Traducción de errores comunes
+        if (errorData.code === "EMAIL_TAKEN") {
+          backendMessage = t("signup.emailAlreadyRegistered");
+        } else if (errorData.code === "USERNAME_TAKEN") {
+          backendMessage = t("signup.usernameAlreadyRegistered");
+        }
+
+        throw new Error(backendMessage);
       }
 
-      // ---- LOGIN AUTOMÁTICO DESPUÉS DEL REGISTRO ----
+      // --- LOGIN AUTOMÁTICO ---
       const formData = new URLSearchParams();
       formData.append("username", form.username);
       formData.append("password", form.password);
@@ -81,15 +91,17 @@ export const SignUp: React.FC = () => {
 
       if (!loginRes.ok) {
         const errorData = await loginRes.json();
+        let loginMessage = errorData.message || t("signup.registerFailed");
+
         if (errorData.code === "INVALID_CREDENTIALS") {
-          throw new Error("Usuario o contraseña inválida");
+          loginMessage = t("signup.invalidCredentials");
         }
-        throw new Error(errorData.message || "Error al iniciar sesión");
+
+        throw new Error(loginMessage);
       }
 
-      await login().then(() => {
-        navigate("/main", { replace: true });
-      });
+      await login();
+      navigate("/main", { replace: true });
     } catch (error: any) {
       setErrorMessage(error.message || t("signup.registerFailed"));
     } finally {
