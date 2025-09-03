@@ -217,7 +217,12 @@ export function Main() {
         <PodiumChartSkeleton />
       ) : users.length > 0 ? (
         <PodiumChart users={users.slice(0, 5)} />
-      ) : null}
+      ) : (
+        <>
+          <p className="no-results">{t("main.no_players")}</p>
+          <PodiumChartSkeleton /> {/* Skeleton vacío */}
+        </>
+      )}
 
       <Leaderboard users={users} loading={loading} rankingType={rankingType} />
     </div>
@@ -241,30 +246,32 @@ function Leaderboard({ users, loading, rankingType }: LeaderboardProps) {
           (a, b) => (Number(b.score) || 0) - (Number(a.score) || 0)
         );
 
+  // Si está cargando o no hay usuarios, mostramos 5 skeletons
+  const showSkeletons = loading || users.length === 0;
+
   return (
     <div className="leaderboard-container">
       <div className="leaderboard-header">
         <h1>{t("main.leaderboard")}</h1>
       </div>
       <div className="leaderboard">
-        {loading ? (
-          Array.from({ length: 5 }).map((_, i) => <SkeletonItem key={i} />)
-        ) : users.length === 0 ? (
+        {users.length === 0 && (
           <p className="no-results">{t("main.no_players")}</p>
-        ) : (
-          sortedUsers.map((user, index) => (
-            <LeaderboardItem
-              key={`${user.username}-${index}`}
-              rank={index + 1}
-              username={user.username}
-              score={user.score || 0}
-              image={user.profilePicture}
-              playedAt={user.playedAt}
-              isHighscore={user.isHighscore}
-              rankingType={rankingType}
-            />
-          ))
         )}
+        {showSkeletons
+          ? Array.from({ length: 5 }).map((_, i) => <SkeletonItem key={i} />)
+          : sortedUsers.map((user, index) => (
+              <LeaderboardItem
+                key={`${user.username}-${index}`}
+                rank={index + 1}
+                username={user.username}
+                score={user.score || 0}
+                image={user.profilePicture}
+                playedAt={user.playedAt}
+                isHighscore={user.isHighscore}
+                rankingType={rankingType}
+              />
+            ))}
       </div>
     </div>
   );
