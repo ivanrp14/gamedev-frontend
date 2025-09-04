@@ -1,12 +1,15 @@
 .user-profile {
   max-width: 1000px;
-  margin: 5rem auto;
+  margin: auto 0;
   padding: 2rem;
   border-image-slice: 1;
   text-align: center;
   
 }
-
+.user-profile h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
 .profile-pic {
   width: 150px;
   height: 150px;
