@@ -207,7 +207,7 @@ function GamesSection({ games }: { games: VideoGame[] }) {
 
   return (
     <Section className="section">
-      <h2 className="section-title">{t("mystats.gamesPlayed")}</h2>
+      <h1 className="section-title">{t("mystats.gamesPlayed")}</h1>
       <div className="games-grid">
         {games.map((game, i) => (
           <Box
