@@ -21,6 +21,7 @@
     "@mui/icons-material": "^5.14.7",
     "@mui/material": "^5.14.7",
     "@reduxjs/toolkit": "^1.9.5",
+    "@tanstack/react-query": "^5.86.0",
     "axios": "^1.5.0",
     "framer-motion": "^12.23.12",
     "gsap": "^3.13.0",

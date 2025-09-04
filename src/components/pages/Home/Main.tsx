@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import DefaultProfile from "../../../images/default-profile.png";
@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import PodiumChart from "../../Charts/ScoreChart";
 import PodiumChartSkeleton from "../../Charts/PoidumChartSkeleton";
 import { apiClient } from "../../hooks/ApiClient";
+import { useQuery } from "@tanstack/react-query";
 
 // Función para mostrar tiempo relativo (ejemplo: hace 2 horas)
 function timeSince(date: Date, t: any) {
@@ -45,7 +46,7 @@ interface RecentSession {
 
 interface HighScoreItem {
   username: string;
-  high_score: number;
+  highscore: number;
   profile_image?: string;
 }
 
@@ -55,7 +56,6 @@ interface TotalScoreItem {
   profile_image?: string;
 }
 
-// Clase para tipar los datos del usuario
 class UserLeaderboard {
   username: string;
   score: number;
@@ -77,100 +77,84 @@ class UserLeaderboard {
     this.isHighscore = isHighscore;
   }
 }
-
+const loading = false;
 export function Main() {
-  const [users, setUsers] = useState<UserLeaderboard[]>([]);
   const [period, setPeriod] = useState("total");
   const [rankingType, setRankingType] = useState("recent_sessions");
   const [gameId, setGameId] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [games, setGames] = useState<Game[]>([]);
   const { t } = useTranslation();
 
-  // Fetch de juegos
-  useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const data: Game[] = await apiClient.get("/game");
-        setGames(data);
-      } catch (error) {
-        console.error("Error al cargar juegos:", error);
+  // 🔹 Fetch juegos con cache automático
+  const { data: games = [] } = useQuery<Game[]>({
+    queryKey: ["games"],
+    queryFn: async () => await apiClient.get("/game"),
+    staleTime: 1000 * 60 * 5, // cache 5 minutos
+  });
+
+  // 🔹 Fetch ranking según filtros
+  const { data: users = [] } = useQuery<UserLeaderboard[]>({
+    queryKey: ["ranking", rankingType, period, gameId],
+    queryFn: async () => {
+      let endpoint = "";
+
+      if (rankingType === "high_score") {
+        endpoint = gameId
+          ? `/game/ranking/highscore/${gameId}`
+          : "/game/ranking";
+      } else if (rankingType === "total_score") {
+        endpoint = gameId
+          ? `/game/ranking/total_score/${period}/${gameId}`
+          : `/game/ranking/total_score/${period}/all`;
+      } else {
+        endpoint = `/game/sessions/recent`;
       }
-    };
 
-    fetchGames();
-  }, []);
+      const data = await apiClient.get(endpoint);
+      console.log("Fetched ranking data:", data);
+      if (rankingType === "recent_sessions") {
+        return (data as RecentSession[])
+          .map(
+            (item) =>
+              new UserLeaderboard(
+                item.username,
+                item.score,
+                item.profile_image || DefaultProfile,
+                new Date(item.played_at),
+                item.highscore
+              )
+          )
+          .sort(
+            (a, b) =>
+              (b.playedAt?.getTime() ?? 0) - (a.playedAt?.getTime() ?? 0)
+          );
+      }
 
-  // Fetch de ranking
-  useEffect(() => {
-    const fetchRanking = async () => {
-      try {
-        setLoading(true);
-        let endpoint = "";
-
-        if (rankingType === "high_score") {
-          endpoint = gameId
-            ? `/game/ranking/highscore/${gameId}`
-            : "/game/ranking";
-        } else if (rankingType === "total_score") {
-          endpoint = gameId
-            ? `/game/ranking/total_score/${period}/${gameId}`
-            : `/game/ranking/total_score/${period}/all`;
-        } else if (rankingType === "recent_sessions") {
-          endpoint = `/game/sessions/recent`;
-        }
-
-        const data = await apiClient.get(endpoint);
-
-        if (rankingType === "recent_sessions") {
-          const userList: UserLeaderboard[] = (data as RecentSession[])
-            .map(
-              (item) =>
-                new UserLeaderboard(
-                  item.username,
-                  item.score,
-                  item.profile_image || DefaultProfile,
-                  new Date(item.played_at),
-                  item.highscore
-                )
+      if (rankingType === "high_score") {
+        return (data as HighScoreItem[]).map(
+          (item) =>
+            new UserLeaderboard(
+              item.username,
+              item.highscore,
+              item.profile_image || DefaultProfile
             )
-            .sort(
-              (a, b) =>
-                (b.playedAt?.getTime() ?? 0) - (a.playedAt?.getTime() ?? 0)
-            );
-          setUsers(userList);
-        } else if (rankingType === "high_score") {
-          const userList: UserLeaderboard[] = (data as HighScoreItem[]).map(
-            (item) =>
-              new UserLeaderboard(
-                item.username,
-                item.high_score,
-                item.profile_image || DefaultProfile
-              )
-          );
-          setUsers(userList);
-        } else if (rankingType === "total_score") {
-          const userList: UserLeaderboard[] = (data as TotalScoreItem[]).map(
-            (item) =>
-              new UserLeaderboard(
-                item.username,
-                item.total_score,
-                item.profile_image || DefaultProfile
-              )
-          );
-          setUsers(userList);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error("Error al cargar ranking:", error);
-        setLoading(false);
+        );
       }
-    };
 
-    fetchRanking();
-  }, [period, rankingType, gameId]);
+      if (rankingType === "total_score") {
+        return (data as TotalScoreItem[]).map(
+          (item) =>
+            new UserLeaderboard(
+              item.username,
+              item.total_score,
+              item.profile_image || DefaultProfile
+            )
+        );
+      }
 
+      return [];
+    },
+    staleTime: 1000 * 60 * 5, // cache 5 minutos
+  });
   return (
     <div className="main-container">
       <div className="filters">
