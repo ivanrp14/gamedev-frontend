@@ -22,7 +22,9 @@ const ChooseAvatar: React.FC = () => {
     const fetchCats = async () => {
       try {
         setLoading(true);
-        const res = await fetch("https://api.thecatapi.com/v1/images/search?limit=9");
+        const res = await fetch(
+          "https://api.thecatapi.com/v1/images/search?limit=9"
+        );
         const data: any[] = await res.json();
 
         // Aseguramos que cada objeto tenga id y url
@@ -44,7 +46,7 @@ const ChooseAvatar: React.FC = () => {
 
   const handleSelect = async (url: string) => {
     try {
-      await apiClient.patch("/users/avatar", { profile_image: url });
+      await apiClient.put("/users/avatar", { profile_image: url });
       await refreshUser();
       navigate("/main");
     } catch (err) {
