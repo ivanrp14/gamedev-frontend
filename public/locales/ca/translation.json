@@ -66,7 +66,10 @@
     "newPassword": "Contrasenya nova",
     "maxScore": "Puntuació màxima",
     "timePlayed": "Temps jugat",
-    "deleteProfilePicture": "Elimina la foto de perfil"
+    "deleteProfilePicture": "Elimina la foto de perfil",
+    "errorUsernameTaken": "Aquest nom d'usuari ja està en ús.",
+    "errorEmailTaken": "Aquest correu electrònic ja està en ús.",
+    "errorUpdating": "Error en actualitzar el perfil."
   },
   "login": {
     "loginError": "Error en iniciar sessió",

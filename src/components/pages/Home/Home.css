@@ -139,15 +139,18 @@ button.oauth-button.github:hover {
 }
 
 
-.leaderboard-item {
-  
+ .leaderboard-item {
+
   width: 100%;
     display: flex;
-    align-items:  center;
+    align-items: center;
+    justify-content: flex-start;
     gap: 2rem;
     padding: 1rem 1.5rem;
     border-radius: 0.75rem;
+    border-color: var(--neon-blue);
     cursor: pointer;
+    background-color: transparent;
   }
 .leaderboard-item:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -189,6 +192,8 @@ button.oauth-button.github:hover {
     flex-grow: 1;}
 
 .username-text {
+  width: 40%;
+  margin: auto 0;
     font-weight: 700;
     font-size: 1.25rem;
     color: var(--neon-pink);
@@ -205,6 +210,12 @@ button.oauth-button.github:hover {
   font-size: 2.2rem;
   text-align: center;
   margin-bottom: 1.5rem;
+}
+.time-info {
+    font-size: 0.9rem;
+    color: var(--neon-blue);
+    margin-top: 0.25rem;
+    user-select: none;
 }
 @media (max-width: 768px) {
   .main-container {
@@ -268,7 +279,10 @@ button.oauth-button.github:hover {
   }
   .time-info {
     font-size: 0.7rem;
+    color: var(--neon-blue);
+    margin-top: 0.5rem;
   }
+  
 }
 /* Skeleton item estilo general */
 .skeleton {
@@ -345,7 +359,7 @@ button.oauth-button.github:hover {
 
 /* Estilo para los select dropdowns */
 .filters select {
-  background-color: var(--very-light-blue);
+  background-color: #cccccce7;
   color: var(--dark-blue);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -510,17 +524,17 @@ button.oauth-button.github:hover {
   margin-top: 0.9rem;
   font-family:var(--font-headings);
   text-transform:uppercase;
-  font-size:0.95rem;
+  font-size:0.6rem;
   color:var(--very-light-blue);
   text-align:center;
-  letter-spacing:0.06em;
+  letter-spacing:0.02em;
   text-shadow: 0 0 6px rgba(255,64,129,0.12);
 }
 
 .rank-label{
   margin-top:0.25rem;
   color:var(--neon-blue);
-  font-size:0.85rem;
+  font-size:1.4rem;
   font-weight:700;
 }
 

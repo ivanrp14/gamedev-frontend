@@ -61,7 +61,7 @@ export const SignUp: React.FC = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            username: form.username,
+            username: form.username.toLowerCase().trim(),
             fullname: form.fullName,
             email: form.email,
             password: form.password,

@@ -8,6 +8,7 @@ import DefaultProfile from "../../../images/default-profile.png";
 import { Button } from "../../ui/Button";
 import { useTranslation } from "react-i18next";
 import { Box } from "../../ui/Box";
+import { apiClient } from "../../hooks/ApiClient";
 
 function MyStats() {
   const { user } = useAuth();
@@ -48,14 +49,9 @@ function ProfileSection({ user }: { user: User }) {
     try {
       setError(null);
 
-      const token = localStorage.getItem("access_token");
-      if (!token) {
-        throw new Error("No estás autenticado. Vuelve a iniciar sesión.");
-      }
-
       const updateData: Record<string, string> = {};
       if (formData.username && formData.username !== user.username) {
-        updateData.username = formData.username;
+        updateData.username = formData.username.toLowerCase().trim();
       }
       if (formData.fullname && formData.fullname !== user.fullname) {
         updateData.fullname = formData.fullname;
@@ -72,49 +68,28 @@ function ProfileSection({ user }: { user: User }) {
         return;
       }
 
-      const response = await fetch(
-        "https://api.gamedev.study/users/update-profile",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // ✅ aseguramos que no es null
-          },
-          body: JSON.stringify(updateData),
-        }
-      );
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.detail || "Error updating profile");
-      }
-
+      await apiClient.put("/users/update-profile", updateData);
       await refreshUser();
       setEditing(false);
     } catch (err: any) {
       console.error("Failed to update user", err);
-      setError(err.message || t("mystats.errorUpdating"));
+
+      const apiError = err.response?.data;
+      if (apiError?.code === "USERNAME_TAKEN") {
+        setError(t("mystats.errorUsernameTaken"));
+      } else if (apiError?.code === "EMAIL_TAKEN") {
+        setError(t("mystats.errorEmailTaken"));
+      } else if (apiError?.code === "WEAK_PASSWORD") {
+        setError(apiError.message); // usa el mensaje que viene del backend
+      } else {
+        setError(t("mystats.errorUpdating"));
+      }
     }
   };
+
   const handleDeletePicture = async () => {
     try {
-      const token = localStorage.getItem("access_token");
-      if (!token) {
-        throw new Error("No estás autenticado. Vuelve a iniciar sesión.");
-      }
-
-      const response = await fetch("https://api.gamedev.study/users/avatar", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.detail || "Error deleting profile picture");
-      }
+      await apiClient.delete("/users/avatar");
 
       await refreshUser();
     } catch (err: any) {
@@ -232,7 +207,7 @@ function GamesSection({ games }: { games: VideoGame[] }) {
 
   return (
     <Section className="section">
-      <h1 className="section-title">{t("mystats.gamesPlayed")}</h1>
+      <h2 className="section-title">{t("mystats.gamesPlayed")}</h2>
       <div className="games-grid">
         {games.map((game, i) => (
           <Box

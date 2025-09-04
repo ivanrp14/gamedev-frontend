@@ -67,7 +67,11 @@
       "newPassword": "Nueva contraseña",
       "maxScore": "Puntuación Máxima",
       "timePlayed": "Tiempo Jugado",
-      "deleteProfilePicture": "Eliminar Foto de Perfil"
+      "deleteProfilePicture": "Eliminar Foto de Perfil",
+      "errorUsernameTaken": "Este nombre de usuario ya está en uso.",
+      "errorEmailTaken": "Este correo electrónico ya está en uso.",
+      "errorUpdating": "Error al actualizar el perfil.",
+      "profileUpdated": "Perfil actualizado con éxito."
     },
     "login": {
       "loginError": "Error al iniciar sesión",

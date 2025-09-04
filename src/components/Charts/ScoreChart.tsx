@@ -93,7 +93,7 @@ export default function PodiumChart({ users }: Props) {
             </div>
 
             <div className="name-label">
-              {user ? user.username.toUpperCase() : "VACÍO"}
+              {user ? user.username.toUpperCase() : "???"}
             </div>
 
             <div className="rank-label">{user ? `#${rankIndex + 1}` : ""}</div>

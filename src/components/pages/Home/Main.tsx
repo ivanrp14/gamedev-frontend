@@ -26,7 +26,7 @@ function timeSince(date: Date, t: any) {
   interval = Math.floor(seconds / 60);
   if (interval >= 1) return t("main.minutes_ago", { count: interval });
 
-  return t("main.just_now");
+  return <p>{t("main.just_now")}</p>;
 }
 
 // Tipos de datos desde la API
@@ -321,7 +321,7 @@ function LeaderboardItem({
         <div className="stats-text">{score}</div>
         {rankingType === "recent_sessions" && playedAt && (
           <div className="time-info">
-            {timeSince(playedAt, t)} {isHighscore ? "🔥" : ""}
+            {isHighscore ? "🔥" : ""} {timeSince(playedAt, t)}
           </div>
         )}
       </div>

@@ -36,9 +36,9 @@ export const apiClient = {
     return res.json();
   },
 
-  patch: async (endpoint: string, body?: any) => {
+  put: async (endpoint: string, body?: any) => {
     const res = await fetch(`${BASE_URL}${endpoint}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: body ? JSON.stringify(body) : undefined,
