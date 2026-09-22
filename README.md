@@ -1,15 +1,42 @@
-# React Vite
+# gamedev-frontend
 
-This project it a skeleton of **React** and **Vite** (and **Typescript**)! It was created to ensure a clean slate, with production grade features such as properly configured **eslint**, using **Vite** and **SWC** for a faster development experience and hot reloads. **Vite** also uses **Rollup** as a bundler, which is much more efficient than standard **Webpack**.
+Frontend de la asociación **GameDev**: acceso, perfil, avatar, estadísticas de partidas y un tutorial. La interfaz está en catalán, castellano e inglés.
 
-## Commands
+El README anterior describía solo el esqueleto de Vite. La aplicación ya tiene páginas, sesión y gráficas.
 
-- npm start - run your project in development mode
-- npm run lint - check your project for any warnings via **eslint**
-- npm run format - format your project using **prettier**
-- npm run build - build your project
-- npm run preview - test your built project
+## Páginas
 
-## Types folder
+| Ruta de código | Qué es |
+| --- | --- |
+| `pages/Home` | Inicio |
+| `pages/Login` y `pages/Signup` | Acceso y alta |
+| `pages/UserProfile` | Perfil |
+| `pages/ChooseAvatar` | Elección de avatar |
+| `pages/MyStats` | Estadísticas (`ScoreChart`, podio) |
+| `pages/Tutorial` | Tutorial |
+| `pages/About` | Acerca de |
 
-The **tsconfig.json** is already set up to handle types from a `@types` folder inside the `src` directory.
+La sesión pasa por `AuthProvider`, `ProtectedRoute` y callbacks OAuth / GitHub (`OAuthCallback`, `GithubCallback`). Los textos están en `public/locales/{ca,en,es}`.
+
+## Stack
+
+- React y TypeScript
+- Vite y SWC
+- MUI
+- Redux Toolkit
+- TanStack Query y Axios
+- i18next
+- Framer Motion y GSAP
+
+## Comandos
+
+```bash
+npm install
+npm start          # vite --open
+npm run lint
+npm run format
+npm run build
+npm run preview
+```
+
+`tsconfig` resuelve tipos desde `src`. Los modelos de usuario y videojuego están en `src/interfaces`.
