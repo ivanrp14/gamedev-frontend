@@ -1,34 +1,34 @@
 # gamedev-frontend
 
-Frontend de la asociación **GameDev**: acceso, perfil, avatar, estadísticas de partidas y un tutorial. La interfaz está en catalán, castellano e inglés.
+Frontend for the **GameDev** association: sign-in, profile, avatar, match stats, and a tutorial. The UI is in Catalan, Spanish, and English.
 
-El README anterior describía solo el esqueleto de Vite. La aplicación ya tiene páginas, sesión y gráficas.
+The previous README only described the Vite skeleton. The app already has pages, a session, and charts.
 
-## Páginas
+## Pages
 
-| Ruta de código | Qué es |
+| Code path | What it is |
 | --- | --- |
-| `pages/Home` | Inicio |
-| `pages/Login` y `pages/Signup` | Acceso y alta |
-| `pages/UserProfile` | Perfil |
-| `pages/ChooseAvatar` | Elección de avatar |
-| `pages/MyStats` | Estadísticas (`ScoreChart`, podio) |
+| `pages/Home` | Home |
+| `pages/Login` and `pages/Signup` | Sign-in and sign-up |
+| `pages/UserProfile` | Profile |
+| `pages/ChooseAvatar` | Avatar picker |
+| `pages/MyStats` | Stats (`ScoreChart`, podium) |
 | `pages/Tutorial` | Tutorial |
-| `pages/About` | Acerca de |
+| `pages/About` | About |
 
-La sesión pasa por `AuthProvider`, `ProtectedRoute` y callbacks OAuth / GitHub (`OAuthCallback`, `GithubCallback`). Los textos están en `public/locales/{ca,en,es}`.
+The session goes through `AuthProvider`, `ProtectedRoute`, and OAuth / GitHub callbacks (`OAuthCallback`, `GithubCallback`). Copy is in `public/locales/{ca,en,es}`.
 
 ## Stack
 
-- React y TypeScript
-- Vite y SWC
+- React and TypeScript
+- Vite and SWC
 - MUI
 - Redux Toolkit
-- TanStack Query y Axios
+- TanStack Query and Axios
 - i18next
-- Framer Motion y GSAP
+- Framer Motion and GSAP
 
-## Comandos
+## Commands
 
 ```bash
 npm install
@@ -39,4 +39,4 @@ npm run build
 npm run preview
 ```
 
-`tsconfig` resuelve tipos desde `src`. Los modelos de usuario y videojuego están en `src/interfaces`.
+`tsconfig` resolves types from `src`. User and video-game models are in `src/interfaces`.
